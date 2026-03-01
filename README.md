@@ -14,6 +14,7 @@ A lean Chrome extension to run configurable HTTP shortcuts from the browser, wit
 - 🧪 Test-first utility modules
 - 🛡️ Fail-fast validation and robust error mapping
 - 🧭 Structured logs for debugging
+- 📦 JSON import/export with schema migration support
 
 ## 🚀 Quickstart
 
