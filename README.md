@@ -123,6 +123,7 @@ make wiki-remind
 make wiki-sync-run
 make wiki-watch
 make wiki-verify
+make wiki-complete
 make validate-local
 make release-ready
 ```
