@@ -51,3 +51,13 @@ jobs:
           gh workflow run wiki-sync.yml --repo "${{ github.repository }}"
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Publish monitor summary
+        if: always()
+        run: |
+          echo "## Wiki Monitor Summary" >> "$GITHUB_STEP_SUMMARY"
+          echo "" >> "$GITHUB_STEP_SUMMARY"
+          echo "- wiki backend available: ${{ steps.check.outputs.available }}" >> "$GITHUB_STEP_SUMMARY"
+          echo "- reminder issue title: Wiki bootstrap needed: create first wiki page" >> "$GITHUB_STEP_SUMMARY"
+          echo "- wiki sync workflow: https://github.com/${{ github.repository }}/actions/workflows/wiki-sync.yml" >> "$GITHUB_STEP_SUMMARY"
+          echo "- runbook: https://github.com/${{ github.repository }}/blob/main/docs/runbooks/wiki-bootstrap.md" >> "$GITHUB_STEP_SUMMARY"
