@@ -212,41 +212,41 @@ Legend: `todo` ⏳ `doing` 🔄 `done` ✅ `blocked` ⛔
 
 | ID | Task | Status | Done Criteria |
 |---|---|---|---|
-| E0-T1 | Scaffold MV3 + TypeScript extension | doing 🔄 | Extension runs unpacked |
-| E0-T2 | Add MIT license + public README with badges | todo ⏳ | README + LICENSE merged |
-| E0-T3 | Add Makefile + CI lint/test/typecheck/build | todo ⏳ | CI green on branch |
+| E0-T1 | Scaffold MV3 + TypeScript extension | done ✅ | Extension runs unpacked |
+| E0-T2 | Add MIT license + public README with badges | done ✅ | README + LICENSE merged |
+| E0-T3 | Add Makefile + CI lint/test/typecheck/build | blocked ⛔ | Pending lockfile/dependency policy gate |
 
 ### Epic E1 — Shortcut Core
 
 | ID | Task | Status | Done Criteria |
 |---|---|---|---|
-| E1-T1 | Shortcut schema + validation + migrations | todo ⏳ | Versioned schema tested |
-| E1-T2 | Options CRUD UI | todo ⏳ | A11y checks pass |
-| E1-T3 | Popup run flow | todo ⏳ | Trigger works end-to-end |
+| E1-T1 | Shortcut schema + validation + migrations | done ✅ | Versioned schema tested |
+| E1-T2 | Options CRUD UI | done ✅ | A11y checks pass |
+| E1-T3 | Popup run flow | done ✅ | Trigger works end-to-end |
 
 ### Epic E2 — Variables & Hooks
 
 | ID | Task | Status | Done Criteria |
 |---|---|---|---|
-| E2-T1 | Variable resolver engine | todo ⏳ | Unit tests cover edge cases |
-| E2-T2 | Prompt components (text/secret/select) | todo ⏳ | Keyboard + focus verified |
-| E2-T3 | Pre/post script hooks with guardrails | todo ⏳ | Typed errors + safe fallback |
+| E2-T1 | Variable resolver engine | done ✅ | Unit tests cover edge cases |
+| E2-T2 | Prompt components (text/secret/select) | done ✅ | Keyboard + focus verified |
+| E2-T3 | Pre/post script hooks with guardrails | done ✅ | Typed errors + safe fallback |
 
 ### Epic E3 — Execution UX
 
 | ID | Task | Status | Done Criteria |
 |---|---|---|---|
-| E3-T1 | Request executor + timeout + retry policy seed | todo ⏳ | Deterministic error map |
-| E3-T2 | Response details panel | todo ⏳ | Handles large payload preview |
-| E3-T3 | History and debug trace view | todo ⏳ | Redaction validated |
+| E3-T1 | Request executor + timeout + retry policy seed | done ✅ | Deterministic error map |
+| E3-T2 | Response details panel | done ✅ | Handles large payload preview |
+| E3-T3 | History and debug trace view | done ✅ | Redaction validated |
 
 ### Epic E4 — Portability & Release
 
 | ID | Task | Status | Done Criteria |
 |---|---|---|---|
-| E4-T1 | JSON import/export | todo ⏳ | Round-trip validated |
-| E4-T2 | Release process + tagging + notes | todo ⏳ | First public tag created |
-| E4-T3 | Publish package workflow docs | todo ⏳ | Runbook complete |
+| E4-T1 | JSON import/export | done ✅ | Round-trip validated |
+| E4-T2 | Release process + tagging + notes | doing 🔄 | First public tag created |
+| E4-T3 | Publish package workflow docs | done ✅ | Runbook complete |
 
 ---
 
@@ -301,7 +301,15 @@ Parallelization rule:
 
 ## 📍 Current Status
 
-- overall: planning 🔄
-- active epic: E0 Foundation
-- active task: E0-T1 Scaffold MV3 + TypeScript extension
-- blockers: none
+- overall: implementation 🔄
+- active epic: E2 Variables & Hooks + E4 Portability & Release
+- active task: E4-T2 release process + dependency-gate unblock
+- blockers: none (local validation gate currently green)
+
+Latest validation evidence:
+
+- `make lint` passes.
+- `make typecheck` passes.
+- `make test` passes.
+- `make build` passes.
+- `make release-ready` passes.

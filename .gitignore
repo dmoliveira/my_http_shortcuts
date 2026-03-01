@@ -1,3 +1,6 @@
 .DS_Store
 .beads/
 .opencode/
+node_modules/
+dist/
+release.zip

@@ -1,0 +1,31 @@
+{
+  "name": "my_http_shortcuts",
+  "version": "0.1.0",
+  "description": "Lean Chrome extension for running HTTP shortcuts",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "clean": "rimraf dist",
+    "lint": "eslint \"src/**/*.ts\" \"tests/**/*.ts\"",
+    "typecheck": "tsc --noEmit",
+    "test": "vitest run",
+    "build": "npm run clean && tsc -p tsconfig.build.json && node scripts/copy-static.mjs",
+    "package": "npm run build && cd dist && zip -r ../release.zip .",
+    "release-notes": "node scripts/release-notes.mjs",
+    "release-notes:smoke": "node scripts/release-notes-smoke.mjs",
+    "release-check": "node scripts/release-check.mjs",
+    "release-check:smoke": "node scripts/release-check-smoke.mjs"
+  },
+  "devDependencies": {
+    "@eslint/js": "^9.21.0",
+    "@types/chrome": "^0.0.322",
+    "@types/node": "^22.13.10",
+    "@typescript-eslint/eslint-plugin": "^8.26.1",
+    "@typescript-eslint/parser": "^8.26.1",
+    "eslint": "^9.21.0",
+    "globals": "^16.0.0",
+    "rimraf": "^6.0.1",
+    "typescript": "^5.8.2",
+    "vitest": "^3.0.8"
+  }
+}

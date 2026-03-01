@@ -1,0 +1,178 @@
+import {
+  readResultText,
+  filterPopupHistory,
+  limitPopupHistory,
+  renderHistory,
+  renderHistoryStats,
+  renderPopupStatus,
+  renderResult,
+  renderShortcutOptions,
+  setButtonsBusy
+} from "./popup-view";
+import { runPopupAction } from "./actions";
+import { copyTextToClipboard } from "./clipboard";
+import { readPopupHistoryControls, resetPopupHistoryControls } from "./history-controls";
+import { extractTemplateVariables, promptTemplateVariables } from "./template-variables";
+import type { Shortcut } from "../types/api";
+import { sendRuntimeMessage } from "../utils/io/runtime-message";
+import type { HistoryItem, HistoryStats } from "../types/storage";
+
+/**
+ * Reads context from active tab and user selection.
+ */
+async function buildExecutionContext(): Promise<{ input: string; pageUrl: string }> {
+  const [tab] = await chrome.tabs.query({ active: true, currentWindow: true });
+  const tabId = tab?.id;
+
+  if (!tabId) {
+    return { input: "", pageUrl: tab?.url ?? "" };
+  }
+
+  const injectionResults = await chrome.scripting.executeScript({
+    target: { tabId },
+    func: () => window.getSelection?.()?.toString() ?? ""
+  });
+  const input = injectionResults[0]?.result;
+
+  return {
+    input: typeof input === "string" ? input : "",
+    pageUrl: tab?.url ?? ""
+  };
+}
+
+/**
+ * Loads recent history entries into popup list.
+ */
+async function refreshHistory(): Promise<void> {
+  const historyElement = document.getElementById("history") as HTMLElement;
+  const filterElement = document.getElementById("popup-history-filter") as HTMLSelectElement;
+  const maxElement = document.getElementById("popup-history-max") as HTMLSelectElement;
+  const controls = readPopupHistoryControls({ filter: filterElement, maxItems: maxElement });
+  const history = await sendRuntimeMessage<HistoryItem[]>({ type: "history:list" });
+  const filtered = filterPopupHistory(history, controls.filter);
+  renderHistory(historyElement, limitPopupHistory(filtered, controls.maxItems));
+}
+
+/**
+ * Loads aggregated history stats into popup summary line.
+ */
+async function refreshHistoryStats(): Promise<void> {
+  const statsElement = document.getElementById("history-stats") as HTMLElement;
+  const stats = await sendRuntimeMessage<HistoryStats>({ type: "history:stats" });
+  renderHistoryStats(statsElement, stats);
+}
+
+/**
+ * Initializes popup event handlers and data loading.
+ */
+async function initPopup(): Promise<void> {
+  const selectElement = document.getElementById("shortcut-select") as HTMLSelectElement;
+  const resultElement = document.getElementById("result") as HTMLElement;
+  const statusElement = document.getElementById("popup-status") as HTMLElement;
+  const runButton = document.getElementById("run-btn") as HTMLButtonElement;
+  const copyResultButton = document.getElementById("copy-result-btn") as HTMLButtonElement;
+  const clearHistoryButton = document.getElementById("clear-history-btn") as HTMLButtonElement;
+  const historyFilter = document.getElementById("popup-history-filter") as HTMLSelectElement;
+  const historyMax = document.getElementById("popup-history-max") as HTMLSelectElement;
+  const historyReset = document.getElementById("popup-history-reset-btn") as HTMLButtonElement;
+
+  const shortcuts = await sendRuntimeMessage<Shortcut[]>({ type: "shortcuts:list" });
+  renderShortcutOptions(selectElement, shortcuts);
+  await refreshHistory();
+  await refreshHistoryStats();
+
+  runButton.addEventListener("click", async () => {
+    setButtonsBusy([runButton, copyResultButton, clearHistoryButton], true);
+    renderPopupStatus(statusElement, "Running shortcut...");
+    try {
+      if (!selectElement.value) {
+        throw new Error("Please create and select a shortcut first");
+      }
+      const selectedShortcut = shortcuts.find((shortcut) => shortcut.id === selectElement.value);
+      if (!selectedShortcut) {
+        throw new Error("Selected shortcut could not be found");
+      }
+      const context = await buildExecutionContext();
+      const variableNames = extractTemplateVariables([selectedShortcut.url, selectedShortcut.bodyTemplate]);
+      const promptedVariables = promptTemplateVariables(variableNames);
+      if (promptedVariables === null) {
+        renderPopupStatus(statusElement, "Run cancelled");
+        return;
+      }
+      const result = await sendRuntimeMessage({
+        type: "shortcut:run",
+        payload: {
+          shortcutId: selectElement.value,
+          context: {
+            ...context,
+            variables: promptedVariables
+          }
+        }
+      });
+      renderResult(resultElement, result);
+      await refreshHistory();
+      await refreshHistoryStats();
+      renderPopupStatus(statusElement, "Run completed");
+    } catch (error) {
+      renderResult(resultElement, {
+        ok: false,
+        error: error instanceof Error ? error.message : "Unknown popup error"
+      });
+      renderPopupStatus(statusElement, "Run failed");
+    } finally {
+      setButtonsBusy([runButton, copyResultButton, clearHistoryButton], false);
+    }
+  });
+
+  clearHistoryButton.addEventListener("click", async () => {
+    const ok = await runPopupAction(
+      async () => {
+        await sendRuntimeMessage({ type: "history:clear" });
+        await refreshHistory();
+        await refreshHistoryStats();
+      },
+      (message) => renderPopupStatus(statusElement, message),
+      "History clear failed"
+    );
+    if (ok) {
+      renderPopupStatus(statusElement, "History cleared");
+    }
+  });
+
+  historyFilter.addEventListener("change", async () => {
+    await refreshHistory();
+  });
+
+  historyMax.addEventListener("change", async () => {
+    await refreshHistory();
+  });
+
+  historyReset.addEventListener("click", async () => {
+    resetPopupHistoryControls({ filter: historyFilter, maxItems: historyMax });
+    await refreshHistory();
+    renderPopupStatus(statusElement, "Popup history view reset");
+  });
+
+  copyResultButton.addEventListener("click", async () => {
+    const text = readResultText(resultElement);
+    if (!text.trim()) {
+      renderPopupStatus(statusElement, "No result to copy");
+      return;
+    }
+    const ok = await runPopupAction(
+      async () => {
+        const copied = await copyTextToClipboard(text);
+        if (!copied) {
+          throw new Error("Clipboard permission denied or unavailable");
+        }
+      },
+      (message) => renderPopupStatus(statusElement, message),
+      "Copy failed"
+    );
+    if (ok) {
+      renderPopupStatus(statusElement, "Result copied");
+    }
+  });
+}
+
+void initPopup();

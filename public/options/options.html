@@ -1,0 +1,144 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>My HTTP Shortcuts Settings</title>
+    <style>
+      body {
+        margin: 0;
+        font-family: "Segoe UI", Tahoma, sans-serif;
+        background: linear-gradient(120deg, #f8fafb, #eef5f7);
+        color: #1c1c1c;
+      }
+      .wrap {
+        max-width: 900px;
+        margin: 0 auto;
+        padding: 24px;
+      }
+      textarea,
+      input,
+      select,
+      button {
+        width: 100%;
+        box-sizing: border-box;
+        margin-top: 6px;
+        margin-bottom: 12px;
+        padding: 10px;
+      }
+      button {
+        background: #005f73;
+        color: white;
+        border: 0;
+        border-radius: 6px;
+        max-width: 200px;
+      }
+      ul {
+        padding-left: 20px;
+      }
+      li {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 12px;
+        margin-bottom: 8px;
+      }
+      li button {
+        max-width: 110px;
+        margin: 0;
+        background: #9b2226;
+      }
+      code {
+        background: #f3f3f3;
+        padding: 1px 4px;
+      }
+    </style>
+  </head>
+  <body>
+    <main class="wrap">
+      <h1>🛠️ Shortcut Editor</h1>
+      <p>Define shortcut requests. You can use variables like <code>{{input}}</code>.</p>
+      <p id="status" aria-live="polite"></p>
+
+      <label for="name">Name</label>
+      <input id="name" type="text" />
+
+      <label for="method">Method</label>
+      <select id="method">
+        <option>GET</option>
+        <option>POST</option>
+        <option>PUT</option>
+        <option>PATCH</option>
+        <option>DELETE</option>
+      </select>
+
+      <label for="url">URL</label>
+      <input id="url" type="url" />
+
+      <label for="headers">Headers JSON</label>
+      <textarea id="headers" rows="4">{}</textarea>
+
+      <label for="body">Body Template</label>
+      <textarea id="body" rows="4"></textarea>
+
+      <label for="pre-script">Pre Script</label>
+      <textarea id="pre-script" rows="4"></textarea>
+
+      <label for="post-script">Post Script</label>
+      <textarea id="post-script" rows="4"></textarea>
+
+      <button id="save-btn" type="button">Save Shortcut</button>
+
+      <h2>Existing Shortcuts</h2>
+      <ul id="shortcuts"></ul>
+
+      <h2>🎯 Context Menu Default</h2>
+      <label for="default-context-shortcut">Default shortcut for context menu</label>
+      <select id="default-context-shortcut" aria-label="Default context shortcut"></select>
+      <button id="save-default-context-btn" type="button">Save Default</button>
+
+      <h2>📦 Import / Export</h2>
+      <label for="state-json">State JSON</label>
+      <textarea id="state-json" rows="10" aria-label="State JSON textarea"></textarea>
+      <button id="export-btn" type="button">Export JSON</button>
+      <button id="import-btn" type="button">Import JSON</button>
+
+      <h2>🧭 Debug History</h2>
+      <label for="history-source-filter">Source filter</label>
+      <select id="history-source-filter" aria-label="History source filter">
+        <option value="all">All sources</option>
+        <option value="popup">Popup</option>
+        <option value="context_menu">Context menu</option>
+        <option value="unknown">Unknown</option>
+      </select>
+      <label for="history-result-filter">Result filter</label>
+      <select id="history-result-filter" aria-label="History result filter">
+        <option value="all">All results</option>
+        <option value="ok">Success only</option>
+        <option value="error">Error only</option>
+      </select>
+      <label for="history-query-filter">Shortcut search</label>
+      <input id="history-query-filter" type="text" placeholder="Search by shortcut name" />
+      <label for="history-sort-mode">Sort mode</label>
+      <select id="history-sort-mode" aria-label="History sort mode">
+        <option value="newest">Newest first</option>
+        <option value="oldest">Oldest first</option>
+        <option value="slowest">Slowest first</option>
+        <option value="fastest">Fastest first</option>
+      </select>
+      <label for="history-max-items">Max items</label>
+      <select id="history-max-items" aria-label="History max items">
+        <option value="10">10 items</option>
+        <option value="20" selected>20 items</option>
+        <option value="50">50 items</option>
+      </select>
+      <label for="history-min-duration">Min duration (ms)</label>
+      <input id="history-min-duration" type="number" min="0" step="1" value="0" />
+      <button id="history-reset-filters-btn" type="button">Reset Filters</button>
+      <p id="options-history-stats" aria-live="polite"></p>
+      <button id="clear-history-options-btn" type="button">Clear History</button>
+      <ul id="options-history" aria-live="polite"></ul>
+    </main>
+    <script type="module" src="../options/options.js"></script>
+  </body>
+</html>

@@ -1,0 +1,105 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>My HTTP Shortcuts</title>
+    <style>
+      :root {
+        color-scheme: light;
+        --bg: #f7f7f7;
+        --fg: #1c1c1c;
+        --accent: #005f73;
+      }
+      body {
+        margin: 0;
+        width: 360px;
+        font-family: "Segoe UI", Tahoma, sans-serif;
+        background: radial-gradient(circle at top left, #e9f5f7, var(--bg));
+        color: var(--fg);
+      }
+      .wrap {
+        padding: 12px;
+      }
+      .row {
+        display: flex;
+        gap: 8px;
+      }
+      .sr-only {
+        position: absolute;
+        width: 1px;
+        height: 1px;
+        padding: 0;
+        margin: -1px;
+        overflow: hidden;
+        clip: rect(0, 0, 0, 0);
+        border: 0;
+      }
+      select,
+      button {
+        flex: 1;
+        padding: 8px;
+      }
+      button {
+        background: var(--accent);
+        color: #fff;
+        border: 0;
+        border-radius: 6px;
+      }
+      pre {
+        white-space: pre-wrap;
+        max-height: 220px;
+        overflow: auto;
+        background: #fff;
+        border: 1px solid #ddd;
+        padding: 8px;
+      }
+      #history {
+        background: #fff;
+        border: 1px solid #ddd;
+        margin: 8px 0;
+        padding: 8px;
+        max-height: 130px;
+        overflow: auto;
+      }
+      #history li {
+        margin-bottom: 4px;
+      }
+    </style>
+  </head>
+  <body>
+    <main class="wrap">
+      <h1>⚡ Run Shortcut</h1>
+      <div class="row">
+        <label for="shortcut-select" class="sr-only">Choose shortcut</label>
+        <select id="shortcut-select" aria-label="Shortcut"></select>
+        <button id="run-btn" type="button">Run</button>
+      </div>
+      <p id="popup-status" aria-live="polite"></p>
+      <h2>Result</h2>
+      <div class="row">
+        <button id="copy-result-btn" type="button">Copy Result</button>
+      </div>
+      <pre id="result" aria-live="polite">No request yet.</pre>
+      <div class="row">
+        <h2>History</h2>
+        <button id="clear-history-btn" type="button">Clear</button>
+      </div>
+      <label for="popup-history-filter">History filter</label>
+      <select id="popup-history-filter" aria-label="Popup history filter">
+        <option value="all">All entries</option>
+        <option value="error">Errors only</option>
+      </select>
+      <label for="popup-history-max">Max entries</label>
+      <select id="popup-history-max" aria-label="Popup history max entries">
+        <option value="5">5</option>
+        <option value="10" selected>10</option>
+        <option value="20">20</option>
+      </select>
+      <button id="popup-history-reset-btn" type="button">Reset History View</button>
+      <p id="history-stats" aria-live="polite"></p>
+      <ul id="history" aria-live="polite"></ul>
+    </main>
+    <script type="module" src="../popup/popup.js"></script>
+  </body>
+</html>
