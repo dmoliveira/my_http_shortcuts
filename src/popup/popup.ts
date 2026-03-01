@@ -12,6 +12,8 @@ import {
 import { runPopupAction } from "./actions";
 import { copyTextToClipboard } from "./clipboard";
 import { readPopupHistoryControls, resetPopupHistoryControls } from "./history-controls";
+import { extractTemplateVariables, promptTemplateVariables } from "./template-variables";
+import type { Shortcut } from "../types/api";
 import { sendRuntimeMessage } from "../utils/io/runtime-message";
 import type { HistoryItem, HistoryStats } from "../types/storage";
 
@@ -73,7 +75,7 @@ async function initPopup(): Promise<void> {
   const historyMax = document.getElementById("popup-history-max") as HTMLSelectElement;
   const historyReset = document.getElementById("popup-history-reset-btn") as HTMLButtonElement;
 
-  const shortcuts = await sendRuntimeMessage<Array<{ id: string; name: string }>>({ type: "shortcuts:list" });
+  const shortcuts = await sendRuntimeMessage<Shortcut[]>({ type: "shortcuts:list" });
   renderShortcutOptions(selectElement, shortcuts);
   await refreshHistory();
   await refreshHistoryStats();
@@ -85,12 +87,25 @@ async function initPopup(): Promise<void> {
       if (!selectElement.value) {
         throw new Error("Please create and select a shortcut first");
       }
+      const selectedShortcut = shortcuts.find((shortcut) => shortcut.id === selectElement.value);
+      if (!selectedShortcut) {
+        throw new Error("Selected shortcut could not be found");
+      }
       const context = await buildExecutionContext();
+      const variableNames = extractTemplateVariables([selectedShortcut.url, selectedShortcut.bodyTemplate]);
+      const promptedVariables = promptTemplateVariables(variableNames);
+      if (promptedVariables === null) {
+        renderPopupStatus(statusElement, "Run cancelled");
+        return;
+      }
       const result = await sendRuntimeMessage({
         type: "shortcut:run",
         payload: {
           shortcutId: selectElement.value,
-          context
+          context: {
+            ...context,
+            variables: promptedVariables
+          }
         }
       });
       renderResult(resultElement, result);

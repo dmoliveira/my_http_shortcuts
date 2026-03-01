@@ -23,6 +23,7 @@ export type HttpMethod = "GET" | "POST" | "PUT" | "PATCH" | "DELETE";
 export interface ExecutionContext {
   input: string;
   pageUrl: string;
+  variables?: Record<string, string>;
 }
 
 /**

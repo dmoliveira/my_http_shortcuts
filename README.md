@@ -10,6 +10,7 @@ A lean Chrome extension to run configurable HTTP shortcuts from the browser, wit
 
 - 🧩 Shortcut-based request execution
 - 🧠 Variable templates with prompts (`{{name}}`)
+- 📝 Popup prompts for unresolved template variables before execution
 - 🔁 Optional pre/post script hooks
 - 🧪 Test-first utility modules
 - 🛡️ Fail-fast validation and robust error mapping

@@ -33,7 +33,7 @@ export async function executeShortcut(
 
   try {
     logInfo(correlationId, "Execution started", { shortcutId });
-    const baseVariables = buildVariableMap(context);
+    const baseVariables = { ...buildVariableMap(context), ...(context.variables ?? {}) };
     const variables = runPreScript(shortcut.preScript, baseVariables);
     const templateVariables = { ...baseVariables, ...variables };
     const resolvedUrl = resolveTemplate(shortcut.url, templateVariables);
