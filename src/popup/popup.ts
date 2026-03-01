@@ -1,5 +1,6 @@
-import { renderResult, renderShortcutOptions } from "./popup-view";
+import { renderHistory, renderResult, renderShortcutOptions } from "./popup-view";
 import { sendRuntimeMessage } from "../utils/io/runtime-message";
+import type { HistoryItem } from "../types/storage";
 
 /**
  * Reads context from active tab and user selection.
@@ -24,15 +25,26 @@ async function buildExecutionContext(): Promise<{ input: string; pageUrl: string
 }
 
 /**
+ * Loads recent history entries into popup list.
+ */
+async function refreshHistory(): Promise<void> {
+  const historyElement = document.getElementById("history") as HTMLElement;
+  const history = await sendRuntimeMessage<HistoryItem[]>({ type: "history:list" });
+  renderHistory(historyElement, history);
+}
+
+/**
  * Initializes popup event handlers and data loading.
  */
 async function initPopup(): Promise<void> {
   const selectElement = document.getElementById("shortcut-select") as HTMLSelectElement;
   const resultElement = document.getElementById("result") as HTMLElement;
   const runButton = document.getElementById("run-btn") as HTMLButtonElement;
+  const clearHistoryButton = document.getElementById("clear-history-btn") as HTMLButtonElement;
 
   const shortcuts = await sendRuntimeMessage<Array<{ id: string; name: string }>>({ type: "shortcuts:list" });
   renderShortcutOptions(selectElement, shortcuts);
+  await refreshHistory();
 
   runButton.addEventListener("click", async () => {
     try {
@@ -48,12 +60,18 @@ async function initPopup(): Promise<void> {
         }
       });
       renderResult(resultElement, result);
+      await refreshHistory();
     } catch (error) {
       renderResult(resultElement, {
         ok: false,
         error: error instanceof Error ? error.message : "Unknown popup error"
       });
     }
+  });
+
+  clearHistoryButton.addEventListener("click", async () => {
+    await sendRuntimeMessage({ type: "history:clear" });
+    await refreshHistory();
   });
 }
 

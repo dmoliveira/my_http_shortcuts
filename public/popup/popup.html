@@ -44,6 +44,17 @@
         border: 1px solid #ddd;
         padding: 8px;
       }
+      #history {
+        background: #fff;
+        border: 1px solid #ddd;
+        margin: 8px 0;
+        padding: 8px;
+        max-height: 130px;
+        overflow: auto;
+      }
+      #history li {
+        margin-bottom: 4px;
+      }
     </style>
   </head>
   <body>
@@ -56,6 +67,11 @@
       </div>
       <h2>Result</h2>
       <pre id="result" aria-live="polite">No request yet.</pre>
+      <div class="row">
+        <h2>History</h2>
+        <button id="clear-history-btn" type="button">Clear</button>
+      </div>
+      <ul id="history" aria-live="polite"></ul>
     </main>
     <script type="module" src="../popup/popup.js"></script>
   </body>
