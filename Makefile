@@ -2,7 +2,7 @@ SHELL := /bin/bash
 PROJECT := my_http_shortcuts
 VERSION := $(shell node -p "require('./package.json').version")
 
-.PHONY: help install dependency-security-report dependency-unblock-packet gate-status wiki-status wiki-doctor wiki-remind wiki-sync-run wiki-watch wiki-verify wiki-complete wiki-pulse wiki-autopilot toolchain-check validate-local release-ready lint test typecheck build package release-notes release-notes-file release-notes-smoke release-check release-check-smoke tag
+.PHONY: help install dependency-security-report dependency-unblock-packet gate-status wiki-status wiki-status-json wiki-doctor wiki-remind wiki-sync-run wiki-watch wiki-verify wiki-complete wiki-pulse wiki-autopilot toolchain-check validate-local release-ready lint test typecheck build package release-notes release-notes-file release-notes-smoke release-check release-check-smoke tag
 
 help:
 	@printf "$(PROJECT) v$(VERSION)\n"
@@ -12,6 +12,7 @@ help:
 	@printf "  make dependency-unblock-packet Capture blocker evidence bundle\n"
 	@printf "  make gate-status    Print dependency-gate readiness\n"
 	@printf "  make wiki-status    Check wiki git backend readiness\n"
+	@printf "  make wiki-status-json  Print wiki status as JSON\n"
 	@printf "  make wiki-doctor    Print full wiki diagnostics snapshot\n"
 	@printf "  make wiki-remind    Post wiki status comment to reminder issue\n"
 	@printf "  make wiki-sync-run  Dispatch wiki sync workflow if ready\n"
@@ -49,6 +50,9 @@ gate-status:
 
 wiki-status:
 	node scripts/wiki-status.mjs
+
+wiki-status-json:
+	node scripts/wiki-status.mjs --json
 
 wiki-doctor:
 	node scripts/wiki-doctor.mjs
