@@ -8,11 +8,13 @@ GitHub wiki repositories (`<repo>.wiki.git`) are not always initialized until a 
 
 If the workflow warns that the wiki repo is unavailable, run this one-time bootstrap.
 
-Pre-check command:
+Current repo status may still be pending until first page is created. Check anytime with:
 
 ```bash
 make wiki-status
 ```
+
+Pre-check command (same as above) should report `Wiki status: available` before automated sync can push pages.
 
 ## One-time bootstrap steps
 
