@@ -228,7 +228,7 @@ Legend: `todo` ⏳ `doing` 🔄 `done` ✅ `blocked` ⛔
 
 | ID | Task | Status | Done Criteria |
 |---|---|---|---|
-| E2-T1 | Variable resolver engine | todo ⏳ | Unit tests cover edge cases |
+| E2-T1 | Variable resolver engine | doing 🔄 | Unit tests cover edge cases |
 | E2-T2 | Prompt components (text/secret/select) | todo ⏳ | Keyboard + focus verified |
 | E2-T3 | Pre/post script hooks with guardrails | todo ⏳ | Typed errors + safe fallback |
 
@@ -302,6 +302,6 @@ Parallelization rule:
 ## 📍 Current Status
 
 - overall: implementation 🔄
-- active epic: E4 Portability & Release
-- active task: E4-T2 Release process + tagging + notes
-- blockers: validation still blocked by local dependency installation policy gate
+- active epic: E2 Variables & Hooks + E4 Portability & Release
+- active task: E2-T1 variable resolver + E4-T2 release process
+- blockers: dependency-policy gate blocks tooling install, so full validation remains pending

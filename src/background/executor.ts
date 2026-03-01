@@ -33,9 +33,11 @@ export async function executeShortcut(
 
   try {
     logInfo(correlationId, "Execution started", { shortcutId });
-    const variables = runPreScript(shortcut.preScript, buildVariableMap(context));
-    const resolvedUrl = resolveTemplate(shortcut.url, { ...context, input: variables.input ?? context.input });
-    const resolvedBody = resolveTemplate(shortcut.bodyTemplate, { ...context, input: variables.input ?? context.input });
+    const baseVariables = buildVariableMap(context);
+    const variables = runPreScript(shortcut.preScript, baseVariables);
+    const templateVariables = { ...baseVariables, ...variables };
+    const resolvedUrl = resolveTemplate(shortcut.url, templateVariables);
+    const resolvedBody = resolveTemplate(shortcut.bodyTemplate, templateVariables);
 
     const response = await runWithRetry(
       async () =>
