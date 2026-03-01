@@ -7,11 +7,12 @@ describe("formatOptionsHistoryEntry", () => {
       id: "h1",
       shortcutId: "s1",
       shortcutName: "Ping",
+      source: "context_menu",
       createdAt: "2026-03-01T00:00:00.000Z",
       correlationId: "cid-1",
       result: { ok: true, status: 200, headers: {}, body: "ok", durationMs: 9 }
     });
 
-    expect(output).toBe("OK Ping (200) cid-1");
+    expect(output).toBe("OK [context_menu] Ping (200) cid-1");
   });
 });

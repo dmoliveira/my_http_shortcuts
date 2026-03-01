@@ -67,5 +67,6 @@ export function formatResultText(result: unknown): string {
 export function formatHistoryEntry(item: HistoryItem): string {
   const status = item.result.ok ? "OK" : "ERR";
   const time = new Date(item.createdAt).toLocaleTimeString();
-  return `${status} ${item.shortcutName} (${item.result.status}) ${item.result.durationMs}ms @ ${time}`;
+  const source = item.source === "context_menu" ? "ctx" : item.source === "popup" ? "pop" : "unk";
+  return `${status} [${source}] ${item.shortcutName} (${item.result.status}) ${item.result.durationMs}ms @ ${time}`;
 }

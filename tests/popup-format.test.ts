@@ -8,12 +8,13 @@ describe("popup formatting", () => {
       id: "h1",
       shortcutId: "s1",
       shortcutName: "Ping",
+      source: "popup",
       createdAt: "2026-03-01T00:00:00.000Z",
       correlationId: "c1",
       result: { ok: true, status: 200, headers: {}, body: "ok", durationMs: 42 }
     });
 
-    expect(output).toContain("OK Ping (200) 42ms");
+    expect(output).toContain("OK [pop] Ping (200) 42ms");
   });
 
   it("truncates very large result output", () => {

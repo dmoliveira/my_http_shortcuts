@@ -5,7 +5,7 @@ import type { HistoryItem } from "../types/storage";
  */
 export function formatOptionsHistoryEntry(item: HistoryItem): string {
   const status = item.result.ok ? "OK" : "ERR";
-  return `${status} ${item.shortcutName} (${item.result.status}) ${item.correlationId}`;
+  return `${status} [${item.source}] ${item.shortcutName} (${item.result.status}) ${item.correlationId}`;
 }
 
 /**
