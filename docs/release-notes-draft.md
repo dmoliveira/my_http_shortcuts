@@ -1,9 +1,11 @@
 # Release v0.1.0
 
 ## Adds
-- ed08985 feat(hooks): enforce typed pre/post script output contracts
+- N/A
 
 ## Changes
+- d179222 docs(runbook): record manual dependency metadata checks
+- 5dec4ae docs(release): refresh draft after blocker evidence log
 - f985690 docs(runbook): add validation blocker evidence log
 - 0d2ad0c docs(release): refresh draft after gate-status tooling
 - b770143 chore(tooling): add gate-status readiness reporter
@@ -21,7 +23,6 @@
 - 8bbc5bd docs(plan): sync E2 status and troubleshooting steps
 - 9bb1f7c docs(release): refresh draft after runtime guard hardening
 - 4bb7ac4 docs(release): refresh draft after hook and popup updates
-- ecef7f2 docs(release): document dependency gate prerequisite
 
 ## Fixes
 - 146fa1f fix(runtime): validate payload shapes for known message types
