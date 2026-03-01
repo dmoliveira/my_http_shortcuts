@@ -1,4 +1,5 @@
 import type { HistoryItem } from "../types/storage";
+import { formatHistoryEntry, formatResultText } from "./popup-format";
 
 /**
  * Renders shortcut options into the popup select element.
@@ -20,7 +21,7 @@ export function renderShortcutOptions(
  * Renders execution results in a readable text block.
  */
 export function renderResult(preElement: HTMLElement, result: unknown): void {
-  preElement.textContent = JSON.stringify(result, null, 2);
+  preElement.textContent = formatResultText(result);
 }
 
 /**
@@ -38,8 +39,7 @@ export function renderHistory(listElement: HTMLElement, history: HistoryItem[]):
 
   for (const item of history.slice(0, 10)) {
     const li = document.createElement("li");
-    const status = item.result.ok ? "OK" : "ERR";
-    li.textContent = `${status} ${item.shortcutName} (${item.result.status})`;
+    li.textContent = formatHistoryEntry(item);
     listElement.append(li);
   }
 }
