@@ -1,4 +1,5 @@
 import { createShortcut } from "../domain/shortcut";
+import { resolveDefaultContextShortcutId } from "../domain/settings";
 import type { RuntimeMessage } from "../types/api";
 import { exportStateJson, importStateJson } from "../utils/io/portability";
 import { loadState, saveState } from "../utils/io/storage";
@@ -44,17 +45,29 @@ export async function handleRuntimeMessage(message: RuntimeMessage): Promise<unk
   if (message.type === "shortcuts:delete") {
     const state = await loadState();
     const shortcuts = state.shortcuts.filter((entry) => entry.id !== message.payload.shortcutId);
-    await saveState({ ...state, shortcuts });
+    await saveState({
+      ...state,
+      shortcuts,
+      settings: {
+        ...state.settings,
+        defaultContextShortcutId: resolveDefaultContextShortcutId(shortcuts, state.settings.defaultContextShortcutId)
+      }
+    });
     return { deleted: true };
   }
 
   if (message.type === "settings:update") {
     const state = await loadState();
+    const defaultContextShortcutId = resolveDefaultContextShortcutId(
+      state.shortcuts,
+      message.payload.defaultContextShortcutId
+    );
+
     await saveState({
       ...state,
       settings: {
         ...state.settings,
-        defaultContextShortcutId: message.payload.defaultContextShortcutId
+        defaultContextShortcutId
       }
     });
     return { saved: true };

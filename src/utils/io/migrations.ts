@@ -1,6 +1,7 @@
 import { APP_CONSTANTS } from "../../config/constants";
 import { getDefaultState } from "../../config/defaults";
 import { createShortcut } from "../../domain/shortcut";
+import { resolveDefaultContextShortcutId } from "../../domain/settings";
 import type { PersistedState } from "../../types/storage";
 import { assertShortcutValid } from "../validation/schema";
 
@@ -116,7 +117,10 @@ export function migrateState(value: unknown): PersistedState {
 
   const shortcuts = normalizeShortcuts(value.shortcuts);
   const history = normalizeHistory(value.history);
-  const settings = normalizeSettings(value.settings);
+  const settingsRaw = normalizeSettings(value.settings);
+  const settings = {
+    defaultContextShortcutId: resolveDefaultContextShortcutId(shortcuts, settingsRaw.defaultContextShortcutId)
+  };
 
   return {
     shortcuts,
