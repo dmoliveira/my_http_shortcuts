@@ -16,6 +16,12 @@ Current repo status may still be pending until first page is created. Check anyt
 make wiki-status
 ```
 
+JSON form (for scripts/automation):
+
+```bash
+make wiki-status-json
+```
+
 Pre-check command (same as above) should report `Wiki status: available` before automated sync can push pages.
 
 Full diagnostics snapshot:

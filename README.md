@@ -26,6 +26,7 @@ Quick navigation: [Project Index](#-project-index) · [Highlights](#-highlights)
 - Wiki bootstrap runbook: `docs/runbooks/wiki-bootstrap.md`
 - Wiki monitor workflow: `https://github.com/dmoliveira/my_http_shortcuts/actions/workflows/wiki-monitor.yml`
 - Current wiki status: run `make wiki-status` (shows if one-time manual bootstrap is still pending)
+- Machine-readable status: run `make wiki-status-json`
 - Debugging guide: `docs/runbooks/debugging.md`
 - Extension smoke tests: `docs/runbooks/extension-smoke-test.md`
 - Release process: `docs/runbooks/release.md`
@@ -118,6 +119,7 @@ make dependency-security-report
 make dependency-unblock-packet
 make gate-status
 make wiki-status
+make wiki-status-json
 make wiki-doctor
 make wiki-remind
 make wiki-sync-run
