@@ -2,10 +2,10 @@
 
 ## Adds
 - ed08985 feat(hooks): enforce typed pre/post script output contracts
-- e5aae3b feat(popup): prompt for unresolved template variables
-- e5850c9 feat(execution): support generic template variable placeholders
 
 ## Changes
+- f985690 docs(runbook): add validation blocker evidence log
+- 0d2ad0c docs(release): refresh draft after gate-status tooling
 - b770143 chore(tooling): add gate-status readiness reporter
 - ff23cf6 docs(release): refresh draft after plan status update
 - 6944a41 docs(plan): mark E2 prompts done and capture blocker evidence
