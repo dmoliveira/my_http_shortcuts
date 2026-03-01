@@ -4,6 +4,7 @@ import { executeShortcut } from "./executor";
 import { selectContextShortcut } from "./context-shortcut";
 import { loadState } from "../utils/io/storage";
 import { createCorrelationId, logError, logInfo } from "../utils/log/logger";
+import { isRuntimeMessage } from "../utils/validation/runtime-message";
 
 /**
  * Registers background listeners for extension runtime events.
@@ -18,6 +19,11 @@ function registerListeners(): void {
   });
 
   chrome.runtime.onMessage.addListener((message, _sender, sendResponse) => {
+    if (!isRuntimeMessage(message)) {
+      sendResponse({ ok: false, error: "Invalid runtime message payload" });
+      return false;
+    }
+
     handleRuntimeMessage(message)
       .then((result) => sendResponse({ ok: true, result }))
       .catch((error) => sendResponse({ ok: false, error: error instanceof Error ? error.message : "Unknown error" }));
