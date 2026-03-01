@@ -6,7 +6,7 @@ import { runPostScript, runPreScript } from "../scripts/hooks";
 import type { ExecutionContext, ExecutionResult } from "../types/api";
 import type { HistoryItem } from "../types/storage";
 import { loadState, saveState } from "../utils/io/storage";
-import { logError, logInfo } from "../utils/log/logger";
+import { createCorrelationId, logError, logInfo } from "../utils/log/logger";
 import { buildRequestInit } from "../utils/net/request-builder";
 import { fetchWithTimeout } from "../utils/net/timeout";
 import { AppError } from "../utils/validation/errors";
@@ -16,7 +16,7 @@ import { AppError } from "../utils/validation/errors";
  */
 export async function executeShortcut(shortcutId: string, context: ExecutionContext): Promise<ExecutionResult> {
   const startedAt = Date.now();
-  const correlationId = `${Date.now()}-${crypto.randomUUID()}`;
+  const correlationId = createCorrelationId();
   const state = await loadState();
   const shortcut = getShortcutById(state.shortcuts, shortcutId);
 

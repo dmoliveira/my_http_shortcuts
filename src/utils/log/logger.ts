@@ -1,4 +1,5 @@
 import { redactSecrets } from "./redact";
+import { safeJsonStringify } from "../io/serialization";
 
 /**
  * Creates a correlation id to group related logs.
@@ -18,6 +19,6 @@ export function logInfo(correlationId: string, message: string, details?: unknow
  * Logs a structured error event with sanitized details.
  */
 export function logError(correlationId: string, message: string, error: unknown): void {
-  const raw = typeof error === "string" ? error : JSON.stringify(error);
+  const raw = typeof error === "string" ? error : safeJsonStringify(error);
   console.error(JSON.stringify({ level: "error", correlationId, message, error: redactSecrets(raw) }));
 }
