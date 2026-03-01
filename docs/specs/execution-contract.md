@@ -28,3 +28,9 @@
 
 - redact secret-like fields in logs and history
 - never persist raw access tokens in debug output
+
+## Portability Notes
+
+- exported state is JSON with current schema version
+- imported state is migrated to the current schema
+- malformed JSON import must fail fast and return `null`
