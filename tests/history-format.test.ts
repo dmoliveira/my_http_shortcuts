@@ -1,5 +1,5 @@
 import { describe, expect, it } from "vitest";
-import { formatOptionsHistoryEntry, renderOptionsHistoryStats } from "../src/options/history-view";
+import { filterHistoryBySource, formatOptionsHistoryEntry, renderOptionsHistoryStats } from "../src/options/history-view";
 
 describe("formatOptionsHistoryEntry", () => {
   it("formats compact line with status and correlation id", () => {
@@ -26,5 +26,34 @@ describe("formatOptionsHistoryEntry", () => {
     });
 
     expect(element.textContent).toBe("Total: 3 | OK: 2 | ERR: 1 | pop: 2 | ctx: 1");
+  });
+
+  it("filters history by selected source", () => {
+    const filtered = filterHistoryBySource(
+      [
+        {
+          id: "1",
+          shortcutId: "s1",
+          shortcutName: "A",
+          source: "popup",
+          createdAt: "2026-03-01T00:00:00.000Z",
+          correlationId: "c1",
+          result: { ok: true, status: 200, headers: {}, body: "ok", durationMs: 10 }
+        },
+        {
+          id: "2",
+          shortcutId: "s2",
+          shortcutName: "B",
+          source: "context_menu",
+          createdAt: "2026-03-01T00:00:00.000Z",
+          correlationId: "c2",
+          result: { ok: true, status: 200, headers: {}, body: "ok", durationMs: 10 }
+        }
+      ],
+      "popup"
+    );
+
+    expect(filtered).toHaveLength(1);
+    expect(filtered[0]?.source).toBe("popup");
   });
 });

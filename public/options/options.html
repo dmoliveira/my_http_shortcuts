@@ -104,6 +104,13 @@
       <button id="import-btn" type="button">Import JSON</button>
 
       <h2>🧭 Debug History</h2>
+      <label for="history-source-filter">Source filter</label>
+      <select id="history-source-filter" aria-label="History source filter">
+        <option value="all">All sources</option>
+        <option value="popup">Popup</option>
+        <option value="context_menu">Context menu</option>
+        <option value="unknown">Unknown</option>
+      </select>
       <p id="options-history-stats" aria-live="polite"></p>
       <button id="clear-history-options-btn" type="button">Clear History</button>
       <ul id="options-history" aria-live="polite"></ul>

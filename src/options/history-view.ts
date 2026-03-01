@@ -1,6 +1,16 @@
 import type { HistoryItem, HistoryStats } from "../types/storage";
 
 /**
+ * Filters history entries by source selector value.
+ */
+export function filterHistoryBySource(history: HistoryItem[], source: string): HistoryItem[] {
+  if (source === "all") {
+    return history;
+  }
+  return history.filter((item) => item.source === source);
+}
+
+/**
  * Formats one options history entry text line.
  */
 export function formatOptionsHistoryEntry(item: HistoryItem): string {
