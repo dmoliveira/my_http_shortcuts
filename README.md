@@ -31,6 +31,7 @@ A lean Chrome extension to run configurable HTTP shortcuts from the browser, wit
 - ♻️ Default context shortcut setting self-heals when referenced shortcut is removed
 - 🧾 History entries record execution source (`popup` / `context_menu`)
 - 📊 Popup shows live history summary stats (total / ok / error)
+- 📈 Options debug history also shows source-aware summary stats
 
 ## 🚀 Quickstart
 
