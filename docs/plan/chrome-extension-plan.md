@@ -214,7 +214,7 @@ Legend: `todo` ⏳ `doing` 🔄 `done` ✅ `blocked` ⛔
 |---|---|---|---|
 | E0-T1 | Scaffold MV3 + TypeScript extension | done ✅ | Extension runs unpacked |
 | E0-T2 | Add MIT license + public README with badges | done ✅ | README + LICENSE merged |
-| E0-T3 | Add Makefile + CI lint/test/typecheck/build | doing 🔄 | CI green on branch |
+| E0-T3 | Add Makefile + CI lint/test/typecheck/build | blocked ⛔ | Pending lockfile/dependency policy gate |
 
 ### Epic E1 — Shortcut Core
 
@@ -302,6 +302,6 @@ Parallelization rule:
 ## 📍 Current Status
 
 - overall: implementation 🔄
-- active epic: E1 Shortcut Core
-- active task: E1-T1 Shortcut schema + validation + migrations
-- blockers: dependency install command blocked by local policy gate (validation pending)
+- active epic: E0 Foundation
+- active task: E0-T3 Add Makefile + CI lint/test/typecheck/build
+- blockers: local dependency installation policy gate prevents lockfile generation and full validation
