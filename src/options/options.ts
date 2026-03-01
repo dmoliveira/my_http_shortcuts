@@ -9,6 +9,7 @@ import {
   renderOptionsHistoryStats,
   sortHistory
 } from "./history-view";
+import { readHistoryFilters, resetHistoryFilters } from "./history-filters";
 import { readDefaultContextSelection, renderDefaultContextOptions } from "./default-context";
 import type { Shortcut } from "../types/api";
 import type { HistoryItem, HistoryStats } from "../types/storage";
@@ -40,19 +41,21 @@ async function refreshHistoryList(): Promise<void> {
   const history = await sendRuntimeMessage<HistoryItem[]>({ type: "history:list" });
   const container = document.getElementById("options-history") as HTMLElement;
   const statsElement = document.getElementById("options-history-stats") as HTMLElement;
-  const filterElement = document.getElementById("history-source-filter") as HTMLSelectElement;
-  const resultFilterElement = document.getElementById("history-result-filter") as HTMLSelectElement;
-  const queryFilterElement = document.getElementById("history-query-filter") as HTMLInputElement;
-  const sortModeElement = document.getElementById("history-sort-mode") as HTMLSelectElement;
-  const maxItemsElement = document.getElementById("history-max-items") as HTMLSelectElement;
-  const minDurationElement = document.getElementById("history-min-duration") as HTMLInputElement;
+  const filters = readHistoryFilters({
+    source: document.getElementById("history-source-filter") as HTMLSelectElement,
+    result: document.getElementById("history-result-filter") as HTMLSelectElement,
+    query: document.getElementById("history-query-filter") as HTMLInputElement,
+    sort: document.getElementById("history-sort-mode") as HTMLSelectElement,
+    maxItems: document.getElementById("history-max-items") as HTMLSelectElement,
+    minDurationMs: document.getElementById("history-min-duration") as HTMLInputElement
+  });
   const stats = await sendRuntimeMessage<HistoryStats>({ type: "history:stats" });
-  const sourceFiltered = filterHistoryBySource(history, filterElement.value);
-  const resultFiltered = filterHistoryByResult(sourceFiltered, resultFilterElement.value);
-  const queryFiltered = filterHistoryByQuery(resultFiltered, queryFilterElement.value);
-  const durationFiltered = filterHistoryByMinDuration(queryFiltered, Number(minDurationElement.value));
-  const sorted = sortHistory(durationFiltered, sortModeElement.value);
-  const finalHistory = limitHistoryEntries(sorted, Number(maxItemsElement.value));
+  const sourceFiltered = filterHistoryBySource(history, filters.source);
+  const resultFiltered = filterHistoryByResult(sourceFiltered, filters.result);
+  const queryFiltered = filterHistoryByQuery(resultFiltered, filters.query);
+  const durationFiltered = filterHistoryByMinDuration(queryFiltered, filters.minDurationMs);
+  const sorted = sortHistory(durationFiltered, filters.sort);
+  const finalHistory = limitHistoryEntries(sorted, filters.maxItems);
   renderOptionsHistory(container, finalHistory);
   renderOptionsHistoryStats(statsElement, stats);
 }
@@ -136,6 +139,7 @@ async function initOptionsPage(): Promise<void> {
   const historySortMode = document.getElementById("history-sort-mode") as HTMLSelectElement;
   const historyMaxItems = document.getElementById("history-max-items") as HTMLSelectElement;
   const historyMinDuration = document.getElementById("history-min-duration") as HTMLInputElement;
+  const historyResetFiltersButton = document.getElementById("history-reset-filters-btn") as HTMLButtonElement;
   const list = document.getElementById("shortcuts") as HTMLElement;
 
   saveButton.addEventListener("click", async () => {
@@ -193,6 +197,19 @@ async function initOptionsPage(): Promise<void> {
 
   historyMinDuration.addEventListener("input", async () => {
     await refreshHistoryList();
+  });
+
+  historyResetFiltersButton.addEventListener("click", async () => {
+    resetHistoryFilters({
+      source: historySourceFilter,
+      result: historyResultFilter,
+      query: historyQueryFilter,
+      sort: historySortMode,
+      maxItems: historyMaxItems,
+      minDurationMs: historyMinDuration
+    });
+    await refreshHistoryList();
+    setStatus("History filters reset");
   });
 
   list.addEventListener("click", async (event) => {
