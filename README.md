@@ -23,6 +23,7 @@ A lean Chrome extension to run configurable HTTP shortcuts from the browser, wit
 - 🔄 Timeout/network retry seed with deterministic error mapping
 - 📎 One-click result copy and storage-safe history body truncation
 - 🎯 Configurable default shortcut for context-menu runs
+- 🟢 Popup run status feedback and busy-state controls
 
 ## 🚀 Quickstart
 
