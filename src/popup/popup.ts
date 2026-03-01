@@ -6,6 +6,7 @@ import {
   renderShortcutOptions,
   setButtonsBusy
 } from "./popup-view";
+import { copyTextToClipboard } from "./clipboard";
 import { sendRuntimeMessage } from "../utils/io/runtime-message";
 import type { HistoryItem } from "../types/storage";
 
@@ -87,6 +88,7 @@ async function initPopup(): Promise<void> {
   clearHistoryButton.addEventListener("click", async () => {
     await sendRuntimeMessage({ type: "history:clear" });
     await refreshHistory();
+    renderPopupStatus(statusElement, "History cleared");
   });
 
   copyResultButton.addEventListener("click", async () => {
@@ -95,8 +97,8 @@ async function initPopup(): Promise<void> {
       renderPopupStatus(statusElement, "No result to copy");
       return;
     }
-    await navigator.clipboard.writeText(text);
-    renderPopupStatus(statusElement, "Result copied");
+    const copied = await copyTextToClipboard(text);
+    renderPopupStatus(statusElement, copied ? "Result copied" : "Clipboard copy failed");
   });
 }
 
