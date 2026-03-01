@@ -29,7 +29,7 @@ A lean Chrome extension to run configurable HTTP shortcuts from the browser, wit
 - 🧰 Runtime message envelope validation for safer extension messaging
 - 📋 Clipboard copy now reports success/failure clearly
 - 🧯 Popup actions use centralized error handling for clearer diagnostics
-- 🛡️ Background listener rejects invalid runtime message payloads early
+- 🛡️ Background listener enforces typed runtime payload contracts early
 - ♻️ Default context shortcut setting self-heals when referenced shortcut is removed
 - 🧾 History entries record execution source (`popup` / `context_menu`)
 - 📊 Popup shows live history summary stats (total / ok / error)
