@@ -55,6 +55,12 @@ Post-publish verification (checks expected wiki pages):
 make wiki-verify
 ```
 
+One-command flow (wait for bootstrap, dispatch sync, then verify):
+
+```bash
+make wiki-complete
+```
+
 Automatic fallback:
 
 - `wiki-monitor.yml` checks wiki availability every 30 minutes and dispatches `wiki-sync.yml` automatically once initialization is detected.
