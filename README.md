@@ -80,6 +80,7 @@ make build
 ## 🧪 Quality Commands
 
 ```bash
+make toolchain-check
 make lint
 make typecheck
 make test

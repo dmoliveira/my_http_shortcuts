@@ -32,6 +32,7 @@ This must pass before creating release artifacts or tags.
 2b. Validate local toolchain is available:
 
 ```bash
+make toolchain-check
 make lint
 make typecheck
 make test

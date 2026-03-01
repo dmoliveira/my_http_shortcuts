@@ -2,12 +2,13 @@ SHELL := /bin/bash
 PROJECT := my_http_shortcuts
 VERSION := $(shell node -p "require('./package.json').version")
 
-.PHONY: help install lint test typecheck build package release-notes release-notes-file release-notes-smoke release-check release-check-smoke tag
+.PHONY: help install toolchain-check lint test typecheck build package release-notes release-notes-file release-notes-smoke release-check release-check-smoke tag
 
 help:
 	@printf "$(PROJECT) v$(VERSION)\n"
 	@printf "Commands:\n"
 	@printf "  make install        Install dependencies\n"
+	@printf "  make toolchain-check Verify required local binaries\n"
 	@printf "  make lint           Run lint checks\n"
 	@printf "  make typecheck      Run TypeScript checks\n"
 	@printf "  make test           Run automated tests\n"
@@ -22,6 +23,9 @@ help:
 
 install:
 	npm install --yes
+
+toolchain-check:
+	node scripts/toolchain-check.mjs
 
 lint:
 	npm run lint
