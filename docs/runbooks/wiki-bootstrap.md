@@ -43,6 +43,12 @@ CLI shortcut (after wiki is initialized):
 make wiki-sync-run
 ```
 
+CLI watcher (waits for bootstrap, then dispatches sync automatically):
+
+```bash
+make wiki-watch
+```
+
 Automatic fallback:
 
 - `wiki-monitor.yml` checks wiki availability every 30 minutes and dispatches `wiki-sync.yml` automatically once initialization is detected.

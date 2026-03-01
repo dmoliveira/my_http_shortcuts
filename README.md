@@ -50,6 +50,12 @@ If status is `not initialized`, complete this one-time action in GitHub UI:
 make wiki-sync-run
 ```
 
+Or keep a watcher running that dispatches sync automatically right after bootstrap:
+
+```bash
+make wiki-watch
+```
+
 The `wiki-monitor.yml` workflow also checks every 30 minutes and auto-dispatches sync once wiki becomes available.
 
 ## ✨ Highlights
@@ -115,6 +121,7 @@ make wiki-status
 make wiki-doctor
 make wiki-remind
 make wiki-sync-run
+make wiki-watch
 make validate-local
 make release-ready
 ```
