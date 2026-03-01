@@ -43,5 +43,8 @@ export interface ExecutionResult {
 export type RuntimeMessage =
   | { type: "shortcuts:list" }
   | { type: "shortcuts:save"; payload: Shortcut }
+  | { type: "shortcuts:delete"; payload: { shortcutId: string } }
   | { type: "shortcut:run"; payload: { shortcutId: string; context: ExecutionContext } }
-  | { type: "history:list" };
+  | { type: "history:list" }
+  | { type: "state:export" }
+  | { type: "state:import"; payload: { json: string } };

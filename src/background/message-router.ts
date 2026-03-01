@@ -1,7 +1,9 @@
 import { createShortcut } from "../domain/shortcut";
 import type { RuntimeMessage } from "../types/api";
+import { exportStateJson, importStateJson } from "../utils/io/portability";
 import { loadState, saveState } from "../utils/io/storage";
 import { assertShortcutValid } from "../utils/validation/schema";
+import { AppError } from "../utils/validation/errors";
 import { executeShortcut } from "./executor";
 
 /**
@@ -28,8 +30,29 @@ export async function handleRuntimeMessage(message: RuntimeMessage): Promise<unk
     return shortcut;
   }
 
+  if (message.type === "shortcuts:delete") {
+    const state = await loadState();
+    const shortcuts = state.shortcuts.filter((entry) => entry.id !== message.payload.shortcutId);
+    await saveState({ ...state, shortcuts });
+    return { deleted: true };
+  }
+
   if (message.type === "shortcut:run") {
     return executeShortcut(message.payload.shortcutId, message.payload.context);
+  }
+
+  if (message.type === "state:export") {
+    const state = await loadState();
+    return { json: exportStateJson(state) };
+  }
+
+  if (message.type === "state:import") {
+    const state = importStateJson(message.payload.json);
+    if (!state) {
+      throw new AppError("STATE_IMPORT_INVALID_JSON", "State import payload is not valid JSON");
+    }
+    await saveState(state);
+    return { imported: true, shortcuts: state.shortcuts.length };
   }
 
   return null;
