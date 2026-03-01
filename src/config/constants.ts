@@ -6,5 +6,7 @@ export const APP_CONSTANTS = {
   schemaVersion: 1,
   historyLimit: 50,
   defaultTimeoutMs: 15000,
+  defaultRetryCount: 1,
+  defaultRetryDelayMs: 300,
   storageKey: "my_http_shortcuts_state"
 } as const;
