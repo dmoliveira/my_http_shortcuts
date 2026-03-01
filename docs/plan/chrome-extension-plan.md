@@ -238,7 +238,7 @@ Legend: `todo` ⏳ `doing` 🔄 `done` ✅ `blocked` ⛔
 |---|---|---|---|
 | E3-T1 | Request executor + timeout + retry policy seed | todo ⏳ | Deterministic error map |
 | E3-T2 | Response details panel | todo ⏳ | Handles large payload preview |
-| E3-T3 | History and debug trace view | todo ⏳ | Redaction validated |
+| E3-T3 | History and debug trace view | doing 🔄 | Redaction validated |
 
 ### Epic E4 — Portability & Release
 
@@ -302,6 +302,6 @@ Parallelization rule:
 ## 📍 Current Status
 
 - overall: implementation 🔄
-- active epic: E1 Shortcut Core
-- active task: E1-T2 Options CRUD UI
+- active epic: E3 Execution UX
+- active task: E3-T3 History and debug trace view
 - blockers: validation still blocked by local dependency installation policy gate
