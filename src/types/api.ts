@@ -46,5 +46,6 @@ export type RuntimeMessage =
   | { type: "shortcuts:delete"; payload: { shortcutId: string } }
   | { type: "shortcut:run"; payload: { shortcutId: string; context: ExecutionContext } }
   | { type: "history:list" }
+  | { type: "history:clear" }
   | { type: "state:export" }
   | { type: "state:import"; payload: { json: string } };

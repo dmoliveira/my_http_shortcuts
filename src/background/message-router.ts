@@ -20,6 +20,12 @@ export async function handleRuntimeMessage(message: RuntimeMessage): Promise<unk
     return state.history;
   }
 
+  if (message.type === "history:clear") {
+    const state = await loadState();
+    await saveState({ ...state, history: [] });
+    return { cleared: true };
+  }
+
   if (message.type === "shortcuts:save") {
     const state = await loadState();
     const shortcut = createShortcut(message.payload);
