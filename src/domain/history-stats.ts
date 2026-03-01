@@ -8,6 +8,7 @@ export function summarizeHistory(items: HistoryItem[]): HistoryStats {
     total: items.length,
     ok: 0,
     error: 0,
+    successRatePct: 0,
     avgDurationMs: 0,
     maxDurationMs: 0,
     bySource: {}
@@ -27,6 +28,7 @@ export function summarizeHistory(items: HistoryItem[]): HistoryStats {
   }
 
   stats.avgDurationMs = stats.total > 0 ? Math.round(totalDurationMs / stats.total) : 0;
+  stats.successRatePct = stats.total > 0 ? Math.round((stats.ok / stats.total) * 100) : 0;
 
   return stats;
 }

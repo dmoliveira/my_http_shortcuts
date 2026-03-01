@@ -27,10 +27,11 @@ describe("popup view helpers", () => {
       total: 3,
       ok: 2,
       error: 1,
+      successRatePct: 67,
       avgDurationMs: 40,
       maxDurationMs: 91,
       bySource: { popup: 2, context_menu: 1 }
     });
-    expect(stats.textContent).toBe("Total: 3 | OK: 2 | ERR: 1 | avg: 40ms | max: 91ms");
+    expect(stats.textContent).toBe("Total: 3 | OK: 2 | ERR: 1 | success: 67% | avg: 40ms | max: 91ms");
   });
 });

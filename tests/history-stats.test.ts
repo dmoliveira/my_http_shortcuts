@@ -8,6 +8,7 @@ describe("summarizeHistory", () => {
       total: 0,
       ok: 0,
       error: 0,
+      successRatePct: 0,
       avgDurationMs: 0,
       maxDurationMs: 0,
       bySource: {}
@@ -39,6 +40,7 @@ describe("summarizeHistory", () => {
     expect(stats.total).toBe(2);
     expect(stats.ok).toBe(1);
     expect(stats.error).toBe(1);
+    expect(stats.successRatePct).toBe(50);
     expect(stats.avgDurationMs).toBe(15);
     expect(stats.maxDurationMs).toBe(20);
     expect(stats.bySource.popup).toBe(1);

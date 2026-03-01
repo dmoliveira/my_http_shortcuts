@@ -27,6 +27,7 @@ export interface HistoryStats {
   total: number;
   ok: number;
   error: number;
+  successRatePct: number;
   avgDurationMs: number;
   maxDurationMs: number;
   bySource: Record<string, number>;

@@ -108,5 +108,5 @@ export function renderOptionsHistory(listElement: HTMLElement, history: HistoryI
 export function renderOptionsHistoryStats(statsElement: HTMLElement, stats: HistoryStats): void {
   const popupCount = stats.bySource.popup ?? 0;
   const contextCount = stats.bySource.context_menu ?? 0;
-  statsElement.textContent = `Total: ${stats.total} | OK: ${stats.ok} | ERR: ${stats.error} | avg: ${stats.avgDurationMs}ms | max: ${stats.maxDurationMs}ms | pop: ${popupCount} | ctx: ${contextCount}`;
+  statsElement.textContent = `Total: ${stats.total} | OK: ${stats.ok} | ERR: ${stats.error} | success: ${stats.successRatePct}% | avg: ${stats.avgDurationMs}ms | max: ${stats.maxDurationMs}ms | pop: ${popupCount} | ctx: ${contextCount}`;
 }

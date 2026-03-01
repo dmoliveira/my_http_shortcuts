@@ -31,12 +31,15 @@ describe("formatOptionsHistoryEntry", () => {
       total: 3,
       ok: 2,
       error: 1,
+      successRatePct: 67,
       avgDurationMs: 33,
       maxDurationMs: 70,
       bySource: { popup: 2, context_menu: 1 }
     });
 
-    expect(element.textContent).toBe("Total: 3 | OK: 2 | ERR: 1 | avg: 33ms | max: 70ms | pop: 2 | ctx: 1");
+    expect(element.textContent).toBe(
+      "Total: 3 | OK: 2 | ERR: 1 | success: 67% | avg: 33ms | max: 70ms | pop: 2 | ctx: 1"
+    );
   });
 
   it("filters history by selected source", () => {
