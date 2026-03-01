@@ -47,6 +47,8 @@ make toolchain-check
 make release-ready
 ```
 
+For current command evidence and exact error text, see `docs/runbooks/validation-blocker-log.md`.
+
 ## Expected success criteria
 
 - `make toolchain-check` passes.
