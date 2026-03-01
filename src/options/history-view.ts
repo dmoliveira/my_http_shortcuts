@@ -11,6 +11,22 @@ export function filterHistoryBySource(history: HistoryItem[], source: string): H
 }
 
 /**
+ * Filters history entries by result status selector value.
+ */
+export function filterHistoryByResult(history: HistoryItem[], resultFilter: string): HistoryItem[] {
+  if (resultFilter === "all") {
+    return history;
+  }
+  if (resultFilter === "ok") {
+    return history.filter((item) => item.result.ok);
+  }
+  if (resultFilter === "error") {
+    return history.filter((item) => !item.result.ok);
+  }
+  return history;
+}
+
+/**
  * Formats one options history entry text line.
  */
 export function formatOptionsHistoryEntry(item: HistoryItem): string {

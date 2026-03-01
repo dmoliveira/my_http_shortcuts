@@ -1,5 +1,10 @@
 import { readShortcutFromForm, renderShortcutList } from "./shortcut-editor";
-import { filterHistoryBySource, renderOptionsHistory, renderOptionsHistoryStats } from "./history-view";
+import {
+  filterHistoryByResult,
+  filterHistoryBySource,
+  renderOptionsHistory,
+  renderOptionsHistoryStats
+} from "./history-view";
 import { readDefaultContextSelection, renderDefaultContextOptions } from "./default-context";
 import type { Shortcut } from "../types/api";
 import type { HistoryItem, HistoryStats } from "../types/storage";
@@ -32,8 +37,11 @@ async function refreshHistoryList(): Promise<void> {
   const container = document.getElementById("options-history") as HTMLElement;
   const statsElement = document.getElementById("options-history-stats") as HTMLElement;
   const filterElement = document.getElementById("history-source-filter") as HTMLSelectElement;
+  const resultFilterElement = document.getElementById("history-result-filter") as HTMLSelectElement;
   const stats = await sendRuntimeMessage<HistoryStats>({ type: "history:stats" });
-  renderOptionsHistory(container, filterHistoryBySource(history, filterElement.value));
+  const sourceFiltered = filterHistoryBySource(history, filterElement.value);
+  const finalHistory = filterHistoryByResult(sourceFiltered, resultFilterElement.value);
+  renderOptionsHistory(container, finalHistory);
   renderOptionsHistoryStats(statsElement, stats);
 }
 
@@ -111,6 +119,7 @@ async function initOptionsPage(): Promise<void> {
   const clearHistoryButton = document.getElementById("clear-history-options-btn") as HTMLButtonElement;
   const saveDefaultContextButton = document.getElementById("save-default-context-btn") as HTMLButtonElement;
   const historySourceFilter = document.getElementById("history-source-filter") as HTMLSelectElement;
+  const historyResultFilter = document.getElementById("history-result-filter") as HTMLSelectElement;
   const list = document.getElementById("shortcuts") as HTMLElement;
 
   saveButton.addEventListener("click", async () => {
@@ -147,6 +156,10 @@ async function initOptionsPage(): Promise<void> {
   });
 
   historySourceFilter.addEventListener("change", async () => {
+    await refreshHistoryList();
+  });
+
+  historyResultFilter.addEventListener("change", async () => {
     await refreshHistoryList();
   });
 
