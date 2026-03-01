@@ -46,7 +46,11 @@ make refresh-extension
    - Click popup history reset and verify defaults are restored.
    - In options, exercise source/result/query/sort/max/min-duration filters and reset.
 
-6. **Import/export round trip**
+6. **Keyboard focus and visual rhythm**
+   - Use `Tab` navigation in popup and options pages.
+   - Confirm focus rings are visible on buttons/inputs/selects and card spacing remains readable on narrow viewport widths.
+
+7. **Import/export round trip**
    - Export extension state.
    - Clear history and remove one shortcut.
    - Import previous export and verify shortcuts/settings/history restore correctly.
@@ -67,6 +71,6 @@ make refresh-extension
 
 ## Pass Criteria
 
-- All six core functional checks pass.
+- All seven core functional checks pass.
 - Guardrail checks produce expected controlled failures.
 - No uncaught errors appear in popup/options/service-worker console during normal flows.
