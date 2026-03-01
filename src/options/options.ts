@@ -1,8 +1,8 @@
 import { readShortcutFromForm, renderShortcutList } from "./shortcut-editor";
+import { renderOptionsHistory } from "./history-view";
 import type { Shortcut } from "../types/api";
 import type { HistoryItem } from "../types/storage";
 import { sendRuntimeMessage } from "../utils/io/runtime-message";
-import { renderOptionsHistory } from "./history-view";
 
 /**
  * Loads all shortcuts and renders them in options UI.
@@ -14,7 +14,7 @@ async function refreshShortcutList(): Promise<void> {
 }
 
 /**
- * Loads all history entries and renders them in options panel.
+ * Loads and renders debug history in options panel.
  */
 async function refreshHistoryList(): Promise<void> {
   const history = await sendRuntimeMessage<HistoryItem[]>({ type: "history:list" });
@@ -70,7 +70,7 @@ async function importStateFromTextarea(): Promise<void> {
 }
 
 /**
- * Clears execution history and refreshes history list.
+ * Clears execution history and refreshes debug panel.
  */
 async function clearHistory(): Promise<void> {
   await sendRuntimeMessage({ type: "history:clear" });

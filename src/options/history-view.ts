@@ -1,6 +1,14 @@
 import type { HistoryItem } from "../types/storage";
 
 /**
+ * Formats one options history entry text line.
+ */
+export function formatOptionsHistoryEntry(item: HistoryItem): string {
+  const status = item.result.ok ? "OK" : "ERR";
+  return `${status} ${item.shortcutName} (${item.result.status}) ${item.correlationId}`;
+}
+
+/**
  * Renders recent history items in options debug panel.
  */
 export function renderOptionsHistory(listElement: HTMLElement, history: HistoryItem[]): void {
@@ -15,8 +23,7 @@ export function renderOptionsHistory(listElement: HTMLElement, history: HistoryI
 
   for (const item of history.slice(0, 20)) {
     const li = document.createElement("li");
-    const status = item.result.ok ? "OK" : "ERR";
-    li.textContent = `${status} ${item.shortcutName} (${item.result.status}) ${item.correlationId}`;
+    li.textContent = formatOptionsHistoryEntry(item);
     listElement.append(li);
   }
 }
