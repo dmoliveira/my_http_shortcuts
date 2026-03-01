@@ -12,6 +12,7 @@ Provide a fast path to diagnose shortcut execution failures.
 4. Validate script hook output (pre/post) and error messages.
 5. Check sanitized history entry in options/popup response output.
 6. Check popup status messages (run started/completed/failed/copy state).
+7. Check popup history stats line for total/ok/error drift.
 
 ## Common Failure Types
 
