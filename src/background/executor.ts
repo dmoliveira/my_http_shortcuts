@@ -11,6 +11,7 @@ import { buildRequestInit } from "../utils/net/request-builder";
 import { fetchWithTimeout } from "../utils/net/timeout";
 import { AppError } from "../utils/validation/errors";
 import { mapExecutionError } from "./error-map";
+import { buildHistoryResult } from "./history-payload";
 import { runWithRetry } from "./retry";
 
 /**
@@ -57,7 +58,7 @@ export async function executeShortcut(shortcutId: string, context: ExecutionCont
       shortcutName: shortcut.name,
       createdAt: new Date().toISOString(),
       correlationId,
-      result
+      result: buildHistoryResult(result)
     };
 
     await saveState({ ...state, history: pushHistory(state.history, historyItem) });

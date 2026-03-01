@@ -5,6 +5,7 @@ export const APP_CONSTANTS = {
   appName: "my_http_shortcuts",
   schemaVersion: 1,
   historyLimit: 50,
+  historyBodyLimitChars: 12000,
   defaultTimeoutMs: 15000,
   defaultRetryCount: 1,
   defaultRetryDelayMs: 300,
