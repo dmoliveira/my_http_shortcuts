@@ -17,6 +17,7 @@ A lean Chrome extension to run configurable HTTP shortcuts from the browser, wit
 - 📦 JSON import/export with schema migration support
 - ✂️ Selected text context capture from active tab
 - 🕘 Popup history preview with one-click clear
+- ✅ Fail-fast JSON/header validation in options workflows
 
 ## 🚀 Quickstart
 

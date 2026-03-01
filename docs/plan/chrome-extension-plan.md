@@ -220,7 +220,7 @@ Legend: `todo` ⏳ `doing` 🔄 `done` ✅ `blocked` ⛔
 
 | ID | Task | Status | Done Criteria |
 |---|---|---|---|
-| E1-T1 | Shortcut schema + validation + migrations | doing 🔄 | Versioned schema tested |
+| E1-T1 | Shortcut schema + validation + migrations | done ✅ | Versioned schema tested |
 | E1-T2 | Options CRUD UI | doing 🔄 | A11y checks pass |
 | E1-T3 | Popup run flow | todo ⏳ | Trigger works end-to-end |
 
