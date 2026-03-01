@@ -11,6 +11,18 @@ export const DEFAULT_HISTORY_FILTERS = {
 } as const;
 
 /**
+ * Parses numeric filter values and falls back to defaults when invalid.
+ */
+function parseNumericFilter(value: string, fallback: string): number {
+  const parsed = Number(value);
+  const fallbackParsed = Number(fallback);
+  if (!Number.isFinite(parsed) || parsed < 0) {
+    return fallbackParsed;
+  }
+  return parsed;
+}
+
+/**
  * Reads history filter values from options controls.
  */
 export function readHistoryFilters(elements: {
@@ -33,8 +45,8 @@ export function readHistoryFilters(elements: {
     result: elements.result.value,
     query: elements.query.value,
     sort: elements.sort.value,
-    maxItems: Number(elements.maxItems.value),
-    minDurationMs: Number(elements.minDurationMs.value)
+    maxItems: parseNumericFilter(elements.maxItems.value, DEFAULT_HISTORY_FILTERS.maxItems),
+    minDurationMs: parseNumericFilter(elements.minDurationMs.value, DEFAULT_HISTORY_FILTERS.minDurationMs)
   };
 }
 
