@@ -10,6 +10,12 @@ Use this checklist after loading `dist/` in Chrome to validate end-user flows.
 make build
 ```
 
+   Iteration shortcut after first load:
+
+```bash
+make refresh-extension
+```
+
 2. In Chrome, open `chrome://extensions`, enable Developer mode, and load unpacked `dist/`.
 
 ## Core Functional Checks
@@ -23,6 +29,8 @@ make build
    - Select text on any webpage.
    - Open popup and run the created shortcut.
    - Confirm popup prompts for `tenant`, and result renders with status/body.
+
+   - Confirm the extension icon appears as a teal tile with a yellow bolt in toolbar and extension list.
 
 3. **Popup: copy result**
    - Click copy result button.

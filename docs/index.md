@@ -5,6 +5,7 @@
 - `docs/getting-started.md` - install, load in Chrome, and run your first shortcut
 - `docs/runbooks/extension-smoke-test.md` - manual extension testing checklist
 - `docs/runbooks/debugging.md` - troubleshooting and diagnostics workflow
+- `make refresh-extension` - rebuild extension and open `chrome://extensions` for one-click reload
 
 ## Release & Operations
 

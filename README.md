@@ -103,6 +103,14 @@ make build
 - click "Load unpacked"
 - select `dist/`
 
+4. Fast iteration loop after first load:
+
+```bash
+make refresh-extension
+```
+
+Then click **Reload** on the extension card in `chrome://extensions`.
+
 ## 🏗️ Architecture
 
 - `src/background`: orchestration and execution pipeline
@@ -129,6 +137,7 @@ make wiki-complete
 make wiki-pulse
 make wiki-autopilot
 make validate-local
+make refresh-extension
 make release-ready
 ```
 
