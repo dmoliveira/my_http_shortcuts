@@ -1,24 +1,24 @@
 import { renderResult, renderShortcutOptions } from "./popup-view";
-import type { RuntimeMessage } from "../types/api";
-
-/**
- * Sends a typed runtime message and unwraps background response.
- */
-async function sendMessage<T>(message: RuntimeMessage): Promise<T> {
-  const response = await chrome.runtime.sendMessage(message);
-  if (!response.ok) {
-    throw new Error(response.error ?? "Unknown runtime error");
-  }
-  return response.result as T;
-}
+import { sendRuntimeMessage } from "../utils/io/runtime-message";
 
 /**
  * Reads context from active tab and user selection.
  */
 async function buildExecutionContext(): Promise<{ input: string; pageUrl: string }> {
   const [tab] = await chrome.tabs.query({ active: true, currentWindow: true });
+  const tabId = tab?.id;
+
+  if (!tabId) {
+    return { input: "", pageUrl: tab?.url ?? "" };
+  }
+
+  const [{ result: input }] = await chrome.scripting.executeScript({
+    target: { tabId },
+    func: () => window.getSelection?.()?.toString() ?? ""
+  });
+
   return {
-    input: "",
+    input: typeof input === "string" ? input : "",
     pageUrl: tab?.url ?? ""
   };
 }
@@ -31,19 +31,29 @@ async function initPopup(): Promise<void> {
   const resultElement = document.getElementById("result") as HTMLElement;
   const runButton = document.getElementById("run-btn") as HTMLButtonElement;
 
-  const shortcuts = await sendMessage<Array<{ id: string; name: string }>>({ type: "shortcuts:list" });
+  const shortcuts = await sendRuntimeMessage<Array<{ id: string; name: string }>>({ type: "shortcuts:list" });
   renderShortcutOptions(selectElement, shortcuts);
 
   runButton.addEventListener("click", async () => {
-    const context = await buildExecutionContext();
-    const result = await sendMessage({
-      type: "shortcut:run",
-      payload: {
-        shortcutId: selectElement.value,
-        context
+    try {
+      if (!selectElement.value) {
+        throw new Error("Please create and select a shortcut first");
       }
-    });
-    renderResult(resultElement, result);
+      const context = await buildExecutionContext();
+      const result = await sendRuntimeMessage({
+        type: "shortcut:run",
+        payload: {
+          shortcutId: selectElement.value,
+          context
+        }
+      });
+      renderResult(resultElement, result);
+    } catch (error) {
+      renderResult(resultElement, {
+        ok: false,
+        error: error instanceof Error ? error.message : "Unknown popup error"
+      });
+    }
   });
 }
 
