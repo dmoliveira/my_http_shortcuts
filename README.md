@@ -12,6 +12,8 @@
 
 A lean Chrome extension to run configurable HTTP shortcuts from the browser, with input preprocessing and response postprocessing.
 
+Quick navigation: [Project Index](#-project-index) · [Highlights](#-highlights) · [Quickstart](#-quickstart) · [Architecture](#-architecture) · [Quality Commands](#-quality-commands) · [Security & Privacy](#-security--privacy) · [Releases](#-releases) · [Support](#-support-this-project)
+
 ## 🗂️ Project Index
 
 - Getting started: `docs/getting-started.md`
@@ -23,45 +25,25 @@ A lean Chrome extension to run configurable HTTP shortcuts from the browser, wit
 
 ## ✨ Highlights
 
-- 🧩 Shortcut-based request execution
-- 🧠 Variable templates with prompts (`{{name}}`)
-- 📝 Popup prompts for unresolved template variables before execution
-- 🔁 Optional pre/post script hooks
-- 🧪 Test-first utility modules
-- 🛡️ Fail-fast validation and robust error mapping
-- 🧯 Script hooks enforce safe output contracts (pre: string map, post: string)
-- 🧭 Structured logs for debugging
-- 📦 JSON import/export with schema migration support
-- ✂️ Selected text context capture from active tab
-- 🕘 Popup history preview with one-click clear
-- ✅ Fail-fast JSON/header validation in options workflows
-- 🧾 Options debug history list with correlation IDs
-- 📋 Structured popup response details (status, headers, body, duration)
-- 🔄 Timeout/network retry seed with deterministic error mapping
-- 📎 One-click result copy and storage-safe history body truncation
-- 🎯 Configurable default shortcut for context-menu runs
-- 🟢 Popup run status feedback and busy-state controls
-- 🧰 Runtime message envelope validation for safer extension messaging
-- 📋 Clipboard copy now reports success/failure clearly
-- 🧯 Popup actions use centralized error handling for clearer diagnostics
-- 🛡️ Background listener enforces typed runtime payload contracts early
-- ♻️ Default context shortcut setting self-heals when referenced shortcut is removed
-- 🧾 History entries record execution source (`popup` / `context_menu`)
-- 📊 Popup shows live history summary stats (total / ok / error)
-- 📈 Options debug history also shows source-aware summary stats
-- 🔎 Options debug history supports source-based filtering
-- ✅ Options debug history supports success/error filtering
-- 🔤 Options debug history supports shortcut-name search filtering
-- ↕️ Options debug history supports newest/oldest/slowest/fastest sorting
-- 🔢 Options debug history supports max-items limit control
-- ⏱️ Options debug history supports minimum-duration filtering
-- 📏 History stats include average and max duration for latency tracking
-- 💯 History stats include success-rate percentage for quick reliability checks
-- ♻️ Options debug history supports one-click filter reset
-- 🧪 History filter numeric inputs are validated with safe defaults
-- 🚨 Popup history includes an errors-only quick filter
-- 🔢 Popup history supports max-entries limiter for focused triage
-- ♻️ Popup history controls include one-click reset
+- **⚙️ Core execution**
+  - 🧩 Shortcut-based request execution with optional pre/post script hooks
+  - 🧠 Variable templates with prompts (`{{name}}`) and selected-text context capture
+  - 🎯 Configurable default shortcut for context-menu runs
+
+- **🧪 Safety and reliability**
+  - 🛡️ Fail-fast URL/headers/runtime-message validation and robust error mapping
+  - 🧯 Script hooks enforce safe output contracts (pre: string map, post: string)
+  - 🔄 Timeout/network retry seed with deterministic error handling
+
+- **🧭 Debuggability and UX**
+  - 🟢 Popup run status feedback, one-click copy, and structured response rendering
+  - 🕘 Popup and options history views with source tagging and correlation IDs
+  - 📊 Live history stats (success rate, avg/max duration) with practical filter controls
+
+- **📦 Portability and quality**
+  - 📦 JSON import/export with schema migration support
+  - 🧪 Test-first modules with lint/typecheck/test/build workflow
+  - 🧰 Release/check tooling and smoke-test runbooks included
 
 ## 🚀 Quickstart
 
