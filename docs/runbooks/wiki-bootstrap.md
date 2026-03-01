@@ -24,6 +24,12 @@ Full diagnostics snapshot:
 make wiki-doctor
 ```
 
+Post current diagnostics to the reminder issue:
+
+```bash
+make wiki-remind
+```
+
 ## One-time bootstrap steps
 
 1. Open: `https://github.com/dmoliveira/my_http_shortcuts/wiki`
