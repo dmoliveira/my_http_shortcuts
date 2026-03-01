@@ -1,14 +1,13 @@
 import { APP_CONSTANTS } from "../../config/constants";
-import { getDefaultState } from "../../config/defaults";
 import type { PersistedState } from "../../types/storage";
+import { migrateState } from "./migrations";
 
 /**
  * Reads persisted extension state or returns defaults.
  */
 export async function loadState(): Promise<PersistedState> {
   const stored = await chrome.storage.local.get(APP_CONSTANTS.storageKey);
-  const value = stored[APP_CONSTANTS.storageKey] as PersistedState | undefined;
-  return value ?? getDefaultState();
+  return migrateState(stored[APP_CONSTANTS.storageKey]);
 }
 
 /**
