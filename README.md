@@ -94,6 +94,7 @@ make release-ready
 ## 📦 Releases
 
 - release process guide: `docs/runbooks/release.md`
+- dependency gate unblock guide: `docs/runbooks/dependency-gate.md`
 - draft notes command: `make release-notes`
 - draft notes file: `make release-notes-file` -> `docs/release-notes-draft.md`
 - metadata check command: `make release-check`

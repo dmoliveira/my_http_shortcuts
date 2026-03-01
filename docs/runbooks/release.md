@@ -11,6 +11,8 @@ Publish a tagged release with validated metadata, package artifact, and release 
 3. `VERSION`, `package.json`, and `CHANGELOG.md` are updated.
 4. Local dependency-policy gate allows JS toolchain install (`npm install --yes`).
 
+If blocked, follow `docs/runbooks/dependency-gate.md` first.
+
 ## Release Steps
 
 1. Sync local main:
