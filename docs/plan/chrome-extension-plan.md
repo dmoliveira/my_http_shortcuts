@@ -220,7 +220,7 @@ Legend: `todo` ⏳ `doing` 🔄 `done` ✅ `blocked` ⛔
 
 | ID | Task | Status | Done Criteria |
 |---|---|---|---|
-| E1-T1 | Shortcut schema + validation + migrations | todo ⏳ | Versioned schema tested |
+| E1-T1 | Shortcut schema + validation + migrations | doing 🔄 | Versioned schema tested |
 | E1-T2 | Options CRUD UI | todo ⏳ | A11y checks pass |
 | E1-T3 | Popup run flow | todo ⏳ | Trigger works end-to-end |
 
@@ -302,6 +302,6 @@ Parallelization rule:
 ## 📍 Current Status
 
 - overall: implementation 🔄
-- active epic: E0 Foundation
-- active task: E0-T3 Add Makefile + CI lint/test/typecheck/build
-- blockers: local dependency installation policy gate prevents lockfile generation and full validation
+- active epic: E1 Shortcut Core
+- active task: E1-T1 Shortcut schema + validation + migrations
+- blockers: validation still blocked by local dependency installation policy gate
