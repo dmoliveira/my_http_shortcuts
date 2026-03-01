@@ -49,6 +49,12 @@ CLI watcher (waits for bootstrap, then dispatches sync automatically):
 make wiki-watch
 ```
 
+Post-publish verification (checks expected wiki pages):
+
+```bash
+make wiki-verify
+```
+
 Automatic fallback:
 
 - `wiki-monitor.yml` checks wiki availability every 30 minutes and dispatches `wiki-sync.yml` automatically once initialization is detected.

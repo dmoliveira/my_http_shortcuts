@@ -122,6 +122,7 @@ make wiki-doctor
 make wiki-remind
 make wiki-sync-run
 make wiki-watch
+make wiki-verify
 make validate-local
 make release-ready
 ```
