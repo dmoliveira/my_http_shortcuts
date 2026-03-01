@@ -32,6 +32,26 @@ Quick navigation: [Project Index](#-project-index) · [Highlights](#-highlights)
 - Support and donations: `docs/support-the-project.md`
 - Hero image generation guide: `docs/assets/hero-image-generation.md`
 
+## 📘 Wiki Bootstrap Status
+
+If wiki sync has not published pages yet, run:
+
+```bash
+make wiki-status
+```
+
+If status is `not initialized`, complete this one-time action in GitHub UI:
+
+1. Open `https://github.com/dmoliveira/my_http_shortcuts/wiki`
+2. Create and save the first page (`Home`)
+3. Run:
+
+```bash
+make wiki-sync-run
+```
+
+The `wiki-monitor.yml` workflow also checks every 30 minutes and auto-dispatches sync once wiki becomes available.
+
 ## ✨ Highlights
 
 - **⚙️ Core execution**
