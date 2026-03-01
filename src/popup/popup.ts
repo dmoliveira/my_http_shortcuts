@@ -1,4 +1,4 @@
-import { renderHistory, renderResult, renderShortcutOptions } from "./popup-view";
+import { readResultText, renderHistory, renderResult, renderShortcutOptions } from "./popup-view";
 import { sendRuntimeMessage } from "../utils/io/runtime-message";
 import type { HistoryItem } from "../types/storage";
 
@@ -40,6 +40,7 @@ async function initPopup(): Promise<void> {
   const selectElement = document.getElementById("shortcut-select") as HTMLSelectElement;
   const resultElement = document.getElementById("result") as HTMLElement;
   const runButton = document.getElementById("run-btn") as HTMLButtonElement;
+  const copyResultButton = document.getElementById("copy-result-btn") as HTMLButtonElement;
   const clearHistoryButton = document.getElementById("clear-history-btn") as HTMLButtonElement;
 
   const shortcuts = await sendRuntimeMessage<Array<{ id: string; name: string }>>({ type: "shortcuts:list" });
@@ -72,6 +73,14 @@ async function initPopup(): Promise<void> {
   clearHistoryButton.addEventListener("click", async () => {
     await sendRuntimeMessage({ type: "history:clear" });
     await refreshHistory();
+  });
+
+  copyResultButton.addEventListener("click", async () => {
+    const text = readResultText(resultElement);
+    if (!text.trim()) {
+      return;
+    }
+    await navigator.clipboard.writeText(text);
   });
 }
 

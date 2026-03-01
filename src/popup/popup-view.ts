@@ -25,6 +25,13 @@ export function renderResult(preElement: HTMLElement, result: unknown): void {
 }
 
 /**
+ * Reads the rendered result text from popup container.
+ */
+export function readResultText(preElement: HTMLElement): string {
+  return preElement.textContent ?? "";
+}
+
+/**
  * Renders compact history entries in popup.
  */
 export function renderHistory(listElement: HTMLElement, history: HistoryItem[]): void {

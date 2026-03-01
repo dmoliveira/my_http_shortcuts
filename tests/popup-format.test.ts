@@ -1,5 +1,6 @@
 import { describe, expect, it } from "vitest";
 import { formatHistoryEntry, formatResultText } from "../src/popup/popup-format";
+import { readResultText } from "../src/popup/popup-view";
 
 describe("popup formatting", () => {
   it("formats history entries with status and timing", () => {
@@ -33,5 +34,11 @@ describe("popup formatting", () => {
     expect(output).toContain("status: 200");
     expect(output).toContain("headers:");
     expect(output).toContain("body:");
+  });
+
+  it("reads rendered result text safely", () => {
+    const pre = document.createElement("pre");
+    pre.textContent = "hello";
+    expect(readResultText(pre)).toBe("hello");
   });
 });
