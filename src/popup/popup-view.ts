@@ -79,6 +79,16 @@ export function filterPopupHistory(history: HistoryItem[], mode: string): Histor
 }
 
 /**
+ * Limits popup history entries to selected count.
+ */
+export function limitPopupHistory(history: HistoryItem[], maxItems: number): HistoryItem[] {
+  if (!Number.isFinite(maxItems) || maxItems <= 0) {
+    return history;
+  }
+  return history.slice(0, maxItems);
+}
+
+/**
  * Renders compact history aggregate stats in popup.
  */
 export function renderHistoryStats(statsElement: HTMLElement, stats: HistoryStats): void {

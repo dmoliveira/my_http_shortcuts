@@ -1,6 +1,7 @@
 import {
   readResultText,
   filterPopupHistory,
+  limitPopupHistory,
   renderHistory,
   renderHistoryStats,
   renderPopupStatus,
@@ -41,8 +42,10 @@ async function buildExecutionContext(): Promise<{ input: string; pageUrl: string
 async function refreshHistory(): Promise<void> {
   const historyElement = document.getElementById("history") as HTMLElement;
   const filterElement = document.getElementById("popup-history-filter") as HTMLSelectElement;
+  const maxElement = document.getElementById("popup-history-max") as HTMLSelectElement;
   const history = await sendRuntimeMessage<HistoryItem[]>({ type: "history:list" });
-  renderHistory(historyElement, filterPopupHistory(history, filterElement.value));
+  const filtered = filterPopupHistory(history, filterElement.value);
+  renderHistory(historyElement, limitPopupHistory(filtered, Number(maxElement.value)));
 }
 
 /**
@@ -65,6 +68,7 @@ async function initPopup(): Promise<void> {
   const copyResultButton = document.getElementById("copy-result-btn") as HTMLButtonElement;
   const clearHistoryButton = document.getElementById("clear-history-btn") as HTMLButtonElement;
   const historyFilter = document.getElementById("popup-history-filter") as HTMLSelectElement;
+  const historyMax = document.getElementById("popup-history-max") as HTMLSelectElement;
 
   const shortcuts = await sendRuntimeMessage<Array<{ id: string; name: string }>>({ type: "shortcuts:list" });
   renderShortcutOptions(selectElement, shortcuts);
@@ -117,6 +121,10 @@ async function initPopup(): Promise<void> {
   });
 
   historyFilter.addEventListener("change", async () => {
+    await refreshHistory();
+  });
+
+  historyMax.addEventListener("change", async () => {
     await refreshHistory();
   });
 
