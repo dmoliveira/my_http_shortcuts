@@ -1,0 +1,69 @@
+import { APP_CONSTANTS } from "../config/constants";
+import { buildVariableMap, resolveTemplate } from "../domain/execution";
+import { pushHistory } from "../domain/history";
+import { getShortcutById } from "../domain/shortcut";
+import { runPostScript, runPreScript } from "../scripts/hooks";
+import type { ExecutionContext, ExecutionResult } from "../types/api";
+import type { HistoryItem } from "../types/storage";
+import { loadState, saveState } from "../utils/io/storage";
+import { logError, logInfo } from "../utils/log/logger";
+import { buildRequestInit } from "../utils/net/request-builder";
+import { fetchWithTimeout } from "../utils/net/timeout";
+import { AppError } from "../utils/validation/errors";
+
+/**
+ * Executes one configured shortcut by id using provided context.
+ */
+export async function executeShortcut(shortcutId: string, context: ExecutionContext): Promise<ExecutionResult> {
+  const startedAt = Date.now();
+  const correlationId = `${Date.now()}-${crypto.randomUUID()}`;
+  const state = await loadState();
+  const shortcut = getShortcutById(state.shortcuts, shortcutId);
+
+  if (!shortcut) {
+    throw new AppError("SHORTCUT_NOT_FOUND", "Shortcut was not found");
+  }
+
+  try {
+    logInfo(correlationId, "Execution started", { shortcutId });
+    const variables = runPreScript(shortcut.preScript, buildVariableMap(context));
+    const resolvedUrl = resolveTemplate(shortcut.url, { ...context, input: variables.input ?? context.input });
+    const resolvedBody = resolveTemplate(shortcut.bodyTemplate, { ...context, input: variables.input ?? context.input });
+
+    const response = await fetchWithTimeout(
+      resolvedUrl,
+      buildRequestInit(shortcut, resolvedBody),
+      APP_CONSTANTS.defaultTimeoutMs
+    );
+    const body = runPostScript(shortcut.postScript, await response.text());
+    const result: ExecutionResult = {
+      ok: response.ok,
+      status: response.status,
+      headers: Object.fromEntries(response.headers.entries()),
+      body,
+      durationMs: Date.now() - startedAt
+    };
+
+    const historyItem: HistoryItem = {
+      id: crypto.randomUUID(),
+      shortcutId: shortcut.id,
+      shortcutName: shortcut.name,
+      createdAt: new Date().toISOString(),
+      correlationId,
+      result
+    };
+
+    await saveState({ ...state, history: pushHistory(state.history, historyItem) });
+    return result;
+  } catch (error) {
+    logError(correlationId, "Execution failed", error);
+    return {
+      ok: false,
+      status: 0,
+      headers: {},
+      body: "",
+      durationMs: Date.now() - startedAt,
+      error: error instanceof Error ? error.message : "Unknown error"
+    };
+  }
+}
