@@ -222,7 +222,7 @@ Legend: `todo` ⏳ `doing` 🔄 `done` ✅ `blocked` ⛔
 |---|---|---|---|
 | E1-T1 | Shortcut schema + validation + migrations | done ✅ | Versioned schema tested |
 | E1-T2 | Options CRUD UI | done ✅ | A11y checks pass |
-| E1-T3 | Popup run flow | todo ⏳ | Trigger works end-to-end |
+| E1-T3 | Popup run flow | done ✅ | Trigger works end-to-end |
 
 ### Epic E2 — Variables & Hooks
 
@@ -236,7 +236,7 @@ Legend: `todo` ⏳ `doing` 🔄 `done` ✅ `blocked` ⛔
 
 | ID | Task | Status | Done Criteria |
 |---|---|---|---|
-| E3-T1 | Request executor + timeout + retry policy seed | todo ⏳ | Deterministic error map |
+| E3-T1 | Request executor + timeout + retry policy seed | doing 🔄 | Deterministic error map |
 | E3-T2 | Response details panel | doing 🔄 | Handles large payload preview |
 | E3-T3 | History and debug trace view | done ✅ | Redaction validated |
 
