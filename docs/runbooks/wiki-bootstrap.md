@@ -69,6 +69,8 @@ Operational pulse (doctor snapshot + reminder update + monitor dispatch/watch):
 make wiki-pulse
 ```
 
+`make wiki-pulse` uses a 10-minute monitor cooldown to avoid repeated dispatches. Override with `WIKI_MONITOR_COOLDOWN_MINUTES=<n>` when needed.
+
 Automatic fallback:
 
 - `wiki-monitor.yml` checks wiki availability every 30 minutes and dispatches `wiki-sync.yml` automatically once initialization is detected.
