@@ -25,6 +25,7 @@ A lean Chrome extension to run configurable HTTP shortcuts from the browser, wit
 - 🎯 Configurable default shortcut for context-menu runs
 - 🟢 Popup run status feedback and busy-state controls
 - 🧰 Runtime message envelope validation for safer extension messaging
+- 📋 Clipboard copy now reports success/failure clearly
 
 ## 🚀 Quickstart
 

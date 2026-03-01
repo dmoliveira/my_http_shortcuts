@@ -19,6 +19,7 @@ Provide a fast path to diagnose shortcut execution failures.
 - fetch timeout / network failure
 - script runtime error
 - malformed headers JSON
+- clipboard permission/write failure in popup
 
 ## Fast Checks
 
