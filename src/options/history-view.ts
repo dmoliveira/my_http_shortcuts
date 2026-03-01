@@ -27,6 +27,17 @@ export function filterHistoryByResult(history: HistoryItem[], resultFilter: stri
 }
 
 /**
+ * Filters history entries by shortcut name query.
+ */
+export function filterHistoryByQuery(history: HistoryItem[], query: string): HistoryItem[] {
+  const normalized = query.trim().toLowerCase();
+  if (!normalized) {
+    return history;
+  }
+  return history.filter((item) => item.shortcutName.toLowerCase().includes(normalized));
+}
+
+/**
  * Formats one options history entry text line.
  */
 export function formatOptionsHistoryEntry(item: HistoryItem): string {

@@ -1,5 +1,6 @@
 import { describe, expect, it } from "vitest";
 import {
+  filterHistoryByQuery,
   filterHistoryByResult,
   filterHistoryBySource,
   formatOptionsHistoryEntry,
@@ -89,5 +90,34 @@ describe("formatOptionsHistoryEntry", () => {
 
     expect(filtered).toHaveLength(1);
     expect(filtered[0]?.result.ok).toBe(false);
+  });
+
+  it("filters history by shortcut name query", () => {
+    const filtered = filterHistoryByQuery(
+      [
+        {
+          id: "1",
+          shortcutId: "s1",
+          shortcutName: "Translate",
+          source: "popup",
+          createdAt: "2026-03-01T00:00:00.000Z",
+          correlationId: "c1",
+          result: { ok: true, status: 200, headers: {}, body: "ok", durationMs: 10 }
+        },
+        {
+          id: "2",
+          shortcutId: "s2",
+          shortcutName: "Summarize",
+          source: "context_menu",
+          createdAt: "2026-03-01T00:00:00.000Z",
+          correlationId: "c2",
+          result: { ok: true, status: 200, headers: {}, body: "ok", durationMs: 10 }
+        }
+      ],
+      "summ"
+    );
+
+    expect(filtered).toHaveLength(1);
+    expect(filtered[0]?.shortcutName).toBe("Summarize");
   });
 });

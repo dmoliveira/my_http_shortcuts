@@ -1,5 +1,6 @@
 import { readShortcutFromForm, renderShortcutList } from "./shortcut-editor";
 import {
+  filterHistoryByQuery,
   filterHistoryByResult,
   filterHistoryBySource,
   renderOptionsHistory,
@@ -38,9 +39,11 @@ async function refreshHistoryList(): Promise<void> {
   const statsElement = document.getElementById("options-history-stats") as HTMLElement;
   const filterElement = document.getElementById("history-source-filter") as HTMLSelectElement;
   const resultFilterElement = document.getElementById("history-result-filter") as HTMLSelectElement;
+  const queryFilterElement = document.getElementById("history-query-filter") as HTMLInputElement;
   const stats = await sendRuntimeMessage<HistoryStats>({ type: "history:stats" });
   const sourceFiltered = filterHistoryBySource(history, filterElement.value);
-  const finalHistory = filterHistoryByResult(sourceFiltered, resultFilterElement.value);
+  const resultFiltered = filterHistoryByResult(sourceFiltered, resultFilterElement.value);
+  const finalHistory = filterHistoryByQuery(resultFiltered, queryFilterElement.value);
   renderOptionsHistory(container, finalHistory);
   renderOptionsHistoryStats(statsElement, stats);
 }
@@ -120,6 +123,7 @@ async function initOptionsPage(): Promise<void> {
   const saveDefaultContextButton = document.getElementById("save-default-context-btn") as HTMLButtonElement;
   const historySourceFilter = document.getElementById("history-source-filter") as HTMLSelectElement;
   const historyResultFilter = document.getElementById("history-result-filter") as HTMLSelectElement;
+  const historyQueryFilter = document.getElementById("history-query-filter") as HTMLInputElement;
   const list = document.getElementById("shortcuts") as HTMLElement;
 
   saveButton.addEventListener("click", async () => {
@@ -160,6 +164,10 @@ async function initOptionsPage(): Promise<void> {
   });
 
   historyResultFilter.addEventListener("change", async () => {
+    await refreshHistoryList();
+  });
+
+  historyQueryFilter.addEventListener("input", async () => {
     await refreshHistoryList();
   });
 
