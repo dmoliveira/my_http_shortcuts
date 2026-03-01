@@ -7,24 +7,60 @@
     <style>
       :root {
         color-scheme: light;
-        --bg: #f7f7f7;
-        --fg: #1c1c1c;
-        --accent: #005f73;
+        --page-bg: #edf3f5;
+        --card-bg: #ffffff;
+        --card-border: #c7d9df;
+        --text-main: #0b1e26;
+        --text-muted: #4b6470;
+        --accent: #0b5d77;
+        --accent-strong: #09465a;
+        --accent-soft: #e1f1f6;
+        --danger: #8f2e2e;
       }
+
+      * {
+        box-sizing: border-box;
+      }
+
       body {
         margin: 0;
-        width: 360px;
-        font-family: "Segoe UI", Tahoma, sans-serif;
-        background: radial-gradient(circle at top left, #e9f5f7, var(--bg));
-        color: var(--fg);
+        width: 380px;
+        font-family: "Avenir Next", "Trebuchet MS", "Segoe UI", sans-serif;
+        background: radial-gradient(circle at top left, #f7fcfe 0%, var(--page-bg) 52%, #e4eef1 100%);
+        color: var(--text-main);
       }
+
       .wrap {
+        padding: 14px;
+      }
+
+      .panel {
+        background: var(--card-bg);
+        border: 1px solid var(--card-border);
+        border-radius: 14px;
         padding: 12px;
+        box-shadow: 0 8px 24px rgba(16, 43, 58, 0.08);
       }
-      .row {
-        display: flex;
-        gap: 8px;
+
+      h1,
+      h2 {
+        margin: 0;
+        letter-spacing: 0.01em;
       }
+
+      h1 {
+        font-size: 28px;
+        line-height: 1.1;
+      }
+
+      h2 {
+        font-size: 20px;
+      }
+
+      p {
+        margin: 0;
+      }
+
       .sr-only {
         position: absolute;
         width: 1px;
@@ -35,70 +71,225 @@
         clip: rect(0, 0, 0, 0);
         border: 0;
       }
+
+      .headline {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 8px;
+        margin-bottom: 8px;
+      }
+
+      .headline-mark {
+        font-size: 24px;
+      }
+
+      .eyebrow {
+        color: var(--text-muted);
+        font-size: 13px;
+      }
+
+      .stack {
+        display: grid;
+        gap: 10px;
+      }
+
+      .row {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+      }
+
+      .meta-row {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 8px;
+      }
+
+      .field {
+        display: grid;
+        gap: 4px;
+      }
+
+      label {
+        font-size: 12px;
+        font-weight: 600;
+        color: var(--text-muted);
+      }
+
       select,
       button {
-        flex: 1;
-        padding: 8px;
+        height: 36px;
+        border-radius: 9px;
+        border: 1px solid #98b6c1;
+        font: inherit;
       }
+
+      select {
+        min-width: 0;
+        padding: 0 10px;
+        background: #fff;
+        color: var(--text-main);
+      }
+
       button {
-        background: var(--accent);
-        color: #fff;
         border: 0;
-        border-radius: 6px;
+        padding: 0 12px;
+        color: #fff;
+        background: linear-gradient(160deg, var(--accent), #0a708f);
+        font-weight: 700;
+        cursor: pointer;
+        transition: transform 120ms ease, filter 120ms ease;
       }
+
+      button:hover {
+        filter: brightness(1.06);
+      }
+
+      button:active {
+        transform: translateY(1px);
+      }
+
+      button.secondary {
+        color: var(--accent-strong);
+        background: var(--accent-soft);
+        border: 1px solid #9fc3cf;
+      }
+
+      button.danger {
+        background: linear-gradient(160deg, #ab4646, var(--danger));
+      }
+
+      button:disabled {
+        opacity: 0.62;
+        cursor: not-allowed;
+      }
+
+      #shortcut-select {
+        flex: 1;
+      }
+
+      #run-btn {
+        width: 110px;
+        flex: 0 0 auto;
+      }
+
+      #popup-status {
+        min-height: 18px;
+        color: var(--text-muted);
+        font-size: 12px;
+      }
+
       pre {
+        margin: 0;
         white-space: pre-wrap;
-        max-height: 220px;
+        max-height: 190px;
         overflow: auto;
-        background: #fff;
-        border: 1px solid #ddd;
-        padding: 8px;
+        background: #f7fafb;
+        border: 1px solid #cfdee3;
+        border-radius: 10px;
+        padding: 10px;
+        font-family: "SF Mono", "Menlo", "Consolas", monospace;
+        font-size: 12px;
       }
+
       #history {
-        background: #fff;
-        border: 1px solid #ddd;
-        margin: 8px 0;
-        padding: 8px;
-        max-height: 130px;
+        margin: 0;
+        padding: 10px 10px 10px 24px;
+        background: #f9fcfd;
+        border: 1px solid #cfdee3;
+        border-radius: 10px;
+        max-height: 132px;
         overflow: auto;
+        font-size: 12px;
       }
+
       #history li {
-        margin-bottom: 4px;
+        margin-bottom: 6px;
+      }
+
+      #history-stats {
+        color: var(--text-muted);
+        font-size: 12px;
+      }
+
+      .section-head {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+      }
+
+      .section-head button {
+        width: 96px;
+        flex: 0 0 auto;
+      }
+
+      .rule {
+        height: 1px;
+        background: linear-gradient(90deg, transparent, #bdd3da 25%, #bdd3da 75%, transparent);
       }
     </style>
   </head>
   <body>
     <main class="wrap">
-      <h1>⚡ Run Shortcut</h1>
-      <div class="row">
-        <label for="shortcut-select" class="sr-only">Choose shortcut</label>
-        <select id="shortcut-select" aria-label="Shortcut"></select>
-        <button id="run-btn" type="button">Run</button>
-      </div>
-      <p id="popup-status" aria-live="polite"></p>
-      <h2>Result</h2>
-      <div class="row">
-        <button id="copy-result-btn" type="button">Copy Result</button>
-      </div>
-      <pre id="result" aria-live="polite">No request yet.</pre>
-      <div class="row">
-        <h2>History</h2>
-        <button id="clear-history-btn" type="button">Clear</button>
-      </div>
-      <label for="popup-history-filter">History filter</label>
-      <select id="popup-history-filter" aria-label="Popup history filter">
-        <option value="all">All entries</option>
-        <option value="error">Errors only</option>
-      </select>
-      <label for="popup-history-max">Max entries</label>
-      <select id="popup-history-max" aria-label="Popup history max entries">
-        <option value="5">5</option>
-        <option value="10" selected>10</option>
-        <option value="20">20</option>
-      </select>
-      <button id="popup-history-reset-btn" type="button">Reset History View</button>
-      <p id="history-stats" aria-live="polite"></p>
-      <ul id="history" aria-live="polite"></ul>
+      <section class="panel stack">
+        <div class="headline">
+          <div>
+            <p class="eyebrow">My HTTP Shortcuts</p>
+            <h1><span class="headline-mark">⚡</span> Run Shortcut</h1>
+          </div>
+        </div>
+
+        <div class="row">
+          <label for="shortcut-select" class="sr-only">Choose shortcut</label>
+          <select id="shortcut-select" aria-label="Shortcut"></select>
+          <button id="run-btn" type="button">Run</button>
+        </div>
+
+        <p id="popup-status" aria-live="polite"></p>
+
+        <div class="rule"></div>
+
+        <div class="stack">
+          <div class="section-head">
+            <h2>Result</h2>
+            <button id="copy-result-btn" class="secondary" type="button">Copy</button>
+          </div>
+          <pre id="result" aria-live="polite">No request yet.</pre>
+        </div>
+
+        <div class="rule"></div>
+
+        <div class="stack">
+          <div class="section-head">
+            <h2>History</h2>
+            <button id="clear-history-btn" class="danger" type="button">Clear</button>
+          </div>
+
+          <div class="meta-row">
+            <div class="field">
+              <label for="popup-history-filter">Filter</label>
+              <select id="popup-history-filter" aria-label="Popup history filter">
+                <option value="all">All entries</option>
+                <option value="error">Errors only</option>
+              </select>
+            </div>
+
+            <div class="field">
+              <label for="popup-history-max">Max entries</label>
+              <select id="popup-history-max" aria-label="Popup history max entries">
+                <option value="5">5</option>
+                <option value="10" selected>10</option>
+                <option value="20">20</option>
+              </select>
+            </div>
+          </div>
+
+          <button id="popup-history-reset-btn" class="secondary" type="button">Reset History View</button>
+          <p id="history-stats" aria-live="polite"></p>
+          <ul id="history" aria-live="polite"></ul>
+        </div>
+      </section>
     </main>
     <script type="module" src="../popup/popup.js"></script>
   </body>

@@ -26,6 +26,16 @@ make build
 4. Open popup and run the shortcut
 5. Inspect response, copy result, and review history
 
+## Iteration loop (fast reload)
+
+When you update code, run:
+
+```bash
+make refresh-extension
+```
+
+This rebuilds `dist/` and opens `chrome://extensions`. Click **Reload** on **My HTTP Shortcuts**.
+
 ## 4) Context menu usage
 
 1. In options, set a **default context shortcut**
