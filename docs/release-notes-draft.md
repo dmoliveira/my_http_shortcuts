@@ -4,6 +4,7 @@
 - N/A
 
 ## Changes
+- 2280424 docs(release): refresh draft after dependency report
 - 2fd7364 chore(security): generate dependency metadata report
 - 815903f docs(release): refresh draft after dependency review log
 - d179222 docs(runbook): record manual dependency metadata checks
@@ -22,11 +23,9 @@
 - 02e3ad8 docs(release): refresh draft after toolchain preflight
 - d96caec chore(tooling): add local toolchain preflight check
 - cb2daa1 docs(release): refresh draft after plan and debug updates
-- 8bbc5bd docs(plan): sync E2 status and troubleshooting steps
-- 9bb1f7c docs(release): refresh draft after runtime guard hardening
 
 ## Fixes
-- N/A
+- afd0f4a fix(validation): restore green local release-ready checks
 
 ## Removals
 - N/A
