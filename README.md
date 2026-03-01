@@ -32,6 +32,7 @@ A lean Chrome extension to run configurable HTTP shortcuts from the browser, wit
 - 🧾 History entries record execution source (`popup` / `context_menu`)
 - 📊 Popup shows live history summary stats (total / ok / error)
 - 📈 Options debug history also shows source-aware summary stats
+- 🔎 Options debug history supports source-based filtering
 
 ## 🚀 Quickstart
 

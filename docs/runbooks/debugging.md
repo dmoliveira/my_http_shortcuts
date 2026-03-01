@@ -14,6 +14,7 @@ Provide a fast path to diagnose shortcut execution failures.
 6. Check popup status messages (run started/completed/failed/copy state).
 7. Check popup history stats line for total/ok/error drift.
 8. Check options history stats line for popup/context source split drift.
+9. Use options history source filter to isolate popup vs context-menu issues.
 
 ## Common Failure Types
 
