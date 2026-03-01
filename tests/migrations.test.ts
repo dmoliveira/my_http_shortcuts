@@ -17,7 +17,13 @@ describe("migrateState", () => {
         { id: "1", name: "Ping", method: "GET", url: "https://example.com", headers: {} },
         { id: "2", name: "Bad", method: "GET", url: "ftp://example.com" }
       ],
-      history: [{ id: "h", result: { ok: true, status: 200, headers: {}, body: "ok", durationMs: 10 } }],
+      history: [
+        {
+          id: "h",
+          source: "popup",
+          result: { ok: true, status: 200, headers: {}, body: "ok", durationMs: 10 }
+        }
+      ],
       settings: { defaultContextShortcutId: "2" },
       schemaVersion: 0
     });
@@ -27,6 +33,7 @@ describe("migrateState", () => {
     expect(result.shortcuts).toHaveLength(1);
     expect(result.shortcuts[0]?.id).toBe("1");
     expect(result.history[0]?.id).toBe("h");
+    expect(result.history[0]?.source).toBe("popup");
     expect(result.settings.defaultContextShortcutId).toBeNull();
     expect(result.schemaVersion).toBe(APP_CONSTANTS.schemaVersion);
   });

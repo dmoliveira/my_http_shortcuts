@@ -74,7 +74,7 @@ export async function handleRuntimeMessage(message: RuntimeMessage): Promise<unk
   }
 
   if (message.type === "shortcut:run") {
-    return executeShortcut(message.payload.shortcutId, message.payload.context);
+    return executeShortcut(message.payload.shortcutId, message.payload.context, "popup");
   }
 
   if (message.type === "state:export") {

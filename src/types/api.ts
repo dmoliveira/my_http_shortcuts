@@ -38,6 +38,11 @@ export interface ExecutionResult {
 }
 
 /**
+ * Defines origin of shortcut execution trigger.
+ */
+export type ExecutionSource = "popup" | "context_menu" | "unknown";
+
+/**
  * Defines shape of messages exchanged with background worker.
  */
 export type RuntimeMessage =

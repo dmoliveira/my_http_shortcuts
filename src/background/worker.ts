@@ -46,7 +46,7 @@ function registerListeners(): void {
     }
 
     try {
-      await executeShortcut(targetShortcut.id, buildContextMenuExecutionContext(info.selectionText, tab?.url));
+      await executeShortcut(targetShortcut.id, buildContextMenuExecutionContext(info.selectionText, tab?.url), "context_menu");
       logInfo(correlationId, "Context menu run completed", { shortcutId: targetShortcut.id });
     } catch (error) {
       logError(correlationId, "Context menu run failed", error);

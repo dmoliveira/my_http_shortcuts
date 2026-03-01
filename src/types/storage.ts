@@ -1,4 +1,4 @@
-import type { ExecutionResult, Shortcut } from "./api";
+import type { ExecutionResult, ExecutionSource, Shortcut } from "./api";
 
 /**
  * Describes a persisted history item for past executions.
@@ -7,6 +7,7 @@ export interface HistoryItem {
   id: string;
   shortcutId: string;
   shortcutName: string;
+  source: ExecutionSource;
   createdAt: string;
   correlationId: string;
   result: ExecutionResult;

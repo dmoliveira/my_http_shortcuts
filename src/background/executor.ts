@@ -3,7 +3,7 @@ import { buildVariableMap, resolveTemplate } from "../domain/execution";
 import { pushHistory } from "../domain/history";
 import { getShortcutById } from "../domain/shortcut";
 import { runPostScript, runPreScript } from "../scripts/hooks";
-import type { ExecutionContext, ExecutionResult } from "../types/api";
+import type { ExecutionContext, ExecutionResult, ExecutionSource } from "../types/api";
 import type { HistoryItem } from "../types/storage";
 import { loadState, saveState } from "../utils/io/storage";
 import { createCorrelationId, logError, logInfo } from "../utils/log/logger";
@@ -17,7 +17,11 @@ import { runWithRetry } from "./retry";
 /**
  * Executes one configured shortcut by id using provided context.
  */
-export async function executeShortcut(shortcutId: string, context: ExecutionContext): Promise<ExecutionResult> {
+export async function executeShortcut(
+  shortcutId: string,
+  context: ExecutionContext,
+  source: ExecutionSource = "popup"
+): Promise<ExecutionResult> {
   const startedAt = Date.now();
   const correlationId = createCorrelationId();
   const state = await loadState();
@@ -56,6 +60,7 @@ export async function executeShortcut(shortcutId: string, context: ExecutionCont
       id: crypto.randomUUID(),
       shortcutId: shortcut.id,
       shortcutName: shortcut.name,
+      source,
       createdAt: new Date().toISOString(),
       correlationId,
       result: buildHistoryResult(result)

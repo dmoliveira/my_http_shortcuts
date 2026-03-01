@@ -75,6 +75,10 @@ function normalizeHistory(value: unknown): PersistedState["history"] {
       id: typeof item.id === "string" ? item.id : crypto.randomUUID(),
       shortcutId: typeof item.shortcutId === "string" ? item.shortcutId : "",
       shortcutName: typeof item.shortcutName === "string" ? item.shortcutName : "Unknown",
+      source:
+        item.source === "popup" || item.source === "context_menu" || item.source === "unknown"
+          ? item.source
+          : "unknown",
       createdAt: typeof item.createdAt === "string" ? item.createdAt : new Date().toISOString(),
       correlationId: typeof item.correlationId === "string" ? item.correlationId : `${Date.now()}-${crypto.randomUUID()}`,
       result: {
