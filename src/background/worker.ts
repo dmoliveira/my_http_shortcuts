@@ -1,7 +1,9 @@
 import { handleRuntimeMessage } from "./message-router";
+import { buildContextMenuExecutionContext } from "./context-menu";
 import { executeShortcut } from "./executor";
 import { selectContextShortcut } from "./context-shortcut";
 import { loadState } from "../utils/io/storage";
+import { createCorrelationId, logError, logInfo } from "../utils/log/logger";
 
 /**
  * Registers background listeners for extension runtime events.
@@ -27,17 +29,22 @@ function registerListeners(): void {
       return;
     }
 
+    const correlationId = createCorrelationId();
+
     const state = await loadState();
     const targetShortcut = selectContextShortcut(state.shortcuts, state.settings.defaultContextShortcutId);
 
     if (!targetShortcut) {
+      logInfo(correlationId, "Context menu run skipped: no shortcuts configured");
       return;
     }
 
-    await executeShortcut(targetShortcut.id, {
-      input: info.selectionText ?? "",
-      pageUrl: tab?.url ?? ""
-    });
+    try {
+      await executeShortcut(targetShortcut.id, buildContextMenuExecutionContext(info.selectionText, tab?.url));
+      logInfo(correlationId, "Context menu run completed", { shortcutId: targetShortcut.id });
+    } catch (error) {
+      logError(correlationId, "Context menu run failed", error);
+    }
   });
 }
 
