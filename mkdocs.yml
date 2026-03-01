@@ -5,15 +5,21 @@ repo_url: https://github.com/dmoliveira/my_http_shortcuts
 theme:
   name: mkdocs
 nav:
-  - Home: docs/index.md
-  - Getting Started: docs/getting-started.md
+  - Home: index.md
+  - Getting Started: getting-started.md
   - Runbooks:
-      - Extension Smoke Test: docs/runbooks/extension-smoke-test.md
-      - Debugging: docs/runbooks/debugging.md
-      - Release: docs/runbooks/release.md
-      - Dependency Gate: docs/runbooks/dependency-gate.md
-      - Validation Blocker Log: docs/runbooks/validation-blocker-log.md
+      - Extension Smoke Test: runbooks/extension-smoke-test.md
+      - Debugging: runbooks/debugging.md
+      - Release: runbooks/release.md
+      - Dependency Gate: runbooks/dependency-gate.md
+      - Validation Blocker Log: runbooks/validation-blocker-log.md
   - Planning & Specs:
-      - Chrome Extension Plan: docs/plan/chrome-extension-plan.md
-      - Execution Contract: docs/specs/execution-contract.md
-  - Support: docs/support-the-project.md
+      - Chrome Extension Plan: plan/chrome-extension-plan.md
+      - Execution Contract: specs/execution-contract.md
+  - Reports:
+      - Release Notes Draft: release-notes-draft.md
+      - Dependency Security Report: dependency-security-report.md
+      - Dependency Unblock Packet: dependency-unblock-packet.md
+  - Assets:
+      - Hero Image Generation: assets/hero-image-generation.md
+  - Support: support-the-project.md
