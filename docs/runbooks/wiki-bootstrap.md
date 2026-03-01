@@ -2,6 +2,8 @@
 
 The wiki sync workflow publishes markdown docs into the repository wiki.
 
+Quick summary version is also available in `README.md` under **Wiki Bootstrap Status**.
+
 ## Why this may be needed
 
 GitHub wiki repositories (`<repo>.wiki.git`) are not always initialized until a first wiki page exists.
