@@ -1,4 +1,5 @@
 import type { HistoryItem } from "../types/storage";
+import type { HistoryStats } from "../types/storage";
 import { formatHistoryEntry, formatResultText } from "./popup-format";
 
 /**
@@ -65,4 +66,11 @@ export function renderHistory(listElement: HTMLElement, history: HistoryItem[]):
     li.textContent = formatHistoryEntry(item);
     listElement.append(li);
   }
+}
+
+/**
+ * Renders compact history aggregate stats in popup.
+ */
+export function renderHistoryStats(statsElement: HTMLElement, stats: HistoryStats): void {
+  statsElement.textContent = `Total: ${stats.total} | OK: ${stats.ok} | ERR: ${stats.error}`;
 }

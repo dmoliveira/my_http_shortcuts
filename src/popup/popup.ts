@@ -1,6 +1,7 @@
 import {
   readResultText,
   renderHistory,
+  renderHistoryStats,
   renderPopupStatus,
   renderResult,
   renderShortcutOptions,
@@ -9,7 +10,7 @@ import {
 import { runPopupAction } from "./actions";
 import { copyTextToClipboard } from "./clipboard";
 import { sendRuntimeMessage } from "../utils/io/runtime-message";
-import type { HistoryItem } from "../types/storage";
+import type { HistoryItem, HistoryStats } from "../types/storage";
 
 /**
  * Reads context from active tab and user selection.
@@ -43,6 +44,15 @@ async function refreshHistory(): Promise<void> {
 }
 
 /**
+ * Loads aggregated history stats into popup summary line.
+ */
+async function refreshHistoryStats(): Promise<void> {
+  const statsElement = document.getElementById("history-stats") as HTMLElement;
+  const stats = await sendRuntimeMessage<HistoryStats>({ type: "history:stats" });
+  renderHistoryStats(statsElement, stats);
+}
+
+/**
  * Initializes popup event handlers and data loading.
  */
 async function initPopup(): Promise<void> {
@@ -56,6 +66,7 @@ async function initPopup(): Promise<void> {
   const shortcuts = await sendRuntimeMessage<Array<{ id: string; name: string }>>({ type: "shortcuts:list" });
   renderShortcutOptions(selectElement, shortcuts);
   await refreshHistory();
+  await refreshHistoryStats();
 
   runButton.addEventListener("click", async () => {
     setButtonsBusy([runButton, copyResultButton, clearHistoryButton], true);
@@ -74,6 +85,7 @@ async function initPopup(): Promise<void> {
       });
       renderResult(resultElement, result);
       await refreshHistory();
+      await refreshHistoryStats();
       renderPopupStatus(statusElement, "Run completed");
     } catch (error) {
       renderResult(resultElement, {
@@ -91,6 +103,7 @@ async function initPopup(): Promise<void> {
       async () => {
         await sendRuntimeMessage({ type: "history:clear" });
         await refreshHistory();
+        await refreshHistoryStats();
       },
       (message) => renderPopupStatus(statusElement, message),
       "History clear failed"
