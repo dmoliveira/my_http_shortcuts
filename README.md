@@ -125,6 +125,7 @@ make wiki-watch
 make wiki-verify
 make wiki-complete
 make wiki-pulse
+make wiki-autopilot
 make validate-local
 make release-ready
 ```
