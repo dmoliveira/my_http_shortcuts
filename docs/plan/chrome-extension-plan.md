@@ -229,7 +229,7 @@ Legend: `todo` ⏳ `doing` 🔄 `done` ✅ `blocked` ⛔
 | ID | Task | Status | Done Criteria |
 |---|---|---|---|
 | E2-T1 | Variable resolver engine | done ✅ | Unit tests cover edge cases |
-| E2-T2 | Prompt components (text/secret/select) | doing 🔄 | Keyboard + focus verified |
+| E2-T2 | Prompt components (text/secret/select) | done ✅ | Keyboard + focus verified |
 | E2-T3 | Pre/post script hooks with guardrails | done ✅ | Typed errors + safe fallback |
 
 ### Epic E3 — Execution UX
@@ -303,5 +303,10 @@ Parallelization rule:
 
 - overall: implementation 🔄
 - active epic: E2 Variables & Hooks + E4 Portability & Release
-- active task: E2-T2 prompt components + E4-T2 release process
+- active task: E4-T2 release process + dependency-gate unblock
 - blockers: dependency-policy gate blocks tooling install, so full validation remains pending
+
+Latest blocker evidence:
+
+- `npm install --yes` fails with: `Lockfile/dependency edits require explicit security validation`.
+- `make validate-local` fails at `make toolchain-check` because local binaries are missing.
