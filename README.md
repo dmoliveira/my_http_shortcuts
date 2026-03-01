@@ -38,6 +38,7 @@ A lean Chrome extension to run configurable HTTP shortcuts from the browser, wit
 - ↕️ Options debug history supports newest/oldest/slowest/fastest sorting
 - 🔢 Options debug history supports max-items limit control
 - ⏱️ Options debug history supports minimum-duration filtering
+- 📏 History stats include average and max duration for latency tracking
 
 ## 🚀 Quickstart
 
