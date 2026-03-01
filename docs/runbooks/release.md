@@ -23,6 +23,7 @@ git pull --rebase
 
 ```bash
 make release-check
+make release-check-smoke
 ```
 
 This must pass before creating release artifacts or tags.

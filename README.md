@@ -91,6 +91,7 @@ make build
 - draft notes command: `make release-notes`
 - draft notes file: `make release-notes-file` -> `docs/release-notes-draft.md`
 - metadata check command: `make release-check`
+- metadata smoke command: `make release-check-smoke`
 
 ## 🤝 Contributing
 
