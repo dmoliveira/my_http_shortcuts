@@ -7,6 +7,12 @@
   - `input` (string)
   - `pageUrl` (string)
 
+## Context Menu Trigger
+
+- when triggered from context menu, extension uses configured `defaultContextShortcutId`
+- if configured shortcut is missing, fallback is first available shortcut
+- if no shortcuts exist, no request is executed
+
 ## Pipeline
 
 1. resolve shortcut by id
