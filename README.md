@@ -98,6 +98,7 @@ make release-ready
 
 - release process guide: `docs/runbooks/release.md`
 - dependency gate unblock guide: `docs/runbooks/dependency-gate.md`
+- manual extension smoke checklist: `docs/runbooks/extension-smoke-test.md`
 - draft notes command: `make release-notes`
 - draft notes file: `make release-notes-file` -> `docs/release-notes-draft.md`
 - metadata check command: `make release-check`
