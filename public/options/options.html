@@ -36,6 +36,18 @@
       ul {
         padding-left: 20px;
       }
+      li {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 12px;
+        margin-bottom: 8px;
+      }
+      li button {
+        max-width: 110px;
+        margin: 0;
+        background: #9b2226;
+      }
       code {
         background: #f3f3f3;
         padding: 1px 4px;
@@ -78,6 +90,12 @@
 
       <h2>Existing Shortcuts</h2>
       <ul id="shortcuts"></ul>
+
+      <h2>📦 Import / Export</h2>
+      <label for="state-json">State JSON</label>
+      <textarea id="state-json" rows="10" aria-label="State JSON textarea"></textarea>
+      <button id="export-btn" type="button">Export JSON</button>
+      <button id="import-btn" type="button">Import JSON</button>
     </main>
     <script type="module" src="../options/options.js"></script>
   </body>

@@ -25,7 +25,16 @@ export function renderShortcutList(container: HTMLElement, shortcuts: Shortcut[]
   container.innerHTML = "";
   for (const shortcut of shortcuts) {
     const li = document.createElement("li");
-    li.textContent = `${shortcut.name} (${shortcut.method} ${shortcut.url})`;
+    const label = document.createElement("span");
+    label.textContent = `${shortcut.name} (${shortcut.method} ${shortcut.url})`;
+
+    const button = document.createElement("button");
+    button.type = "button";
+    button.textContent = "Delete";
+    button.setAttribute("data-action", "delete-shortcut");
+    button.setAttribute("data-shortcut-id", shortcut.id);
+
+    li.append(label, button);
     container.append(li);
   }
 }
