@@ -2,7 +2,7 @@
   "manifest_version": 3,
   "name": "My HTTP Shortcuts",
   "description": "Run configurable HTTP shortcuts from your browser.",
-  "version": "0.1.3",
+  "version": "0.1.4",
   "permissions": ["storage", "activeTab", "contextMenus", "scripting"],
   "host_permissions": ["<all_urls>"],
   "background": {
