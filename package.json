@@ -12,6 +12,7 @@
     "build": "npm run clean && tsc -p tsconfig.build.json && node scripts/copy-static.mjs",
     "package": "npm run build && cd dist && zip -r ../release.zip .",
     "release-notes": "node scripts/release-notes.mjs",
+    "release-notes:smoke": "node scripts/release-notes-smoke.mjs",
     "release-check": "node scripts/release-check.mjs"
   },
   "devDependencies": {
