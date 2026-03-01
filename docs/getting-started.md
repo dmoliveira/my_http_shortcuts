@@ -34,7 +34,7 @@ When you update code, run:
 make refresh-extension
 ```
 
-This rebuilds `dist/` and opens `chrome://extensions`. Click **Reload** on **My HTTP Shortcuts**.
+This rebuilds `dist/` and opens `chrome://extensions`. Click **Reload** on **My HTTP Shortcuts** and verify the toolbar icon shows the yellow bolt on teal background.
 
 ## 4) Context menu usage
 
