@@ -14,6 +14,31 @@ async function refreshShortcutList(): Promise<void> {
 }
 
 /**
+ * Loads shortcuts and settings, then renders default context selector.
+ */
+async function refreshDefaultContextSelector(): Promise<void> {
+  const select = document.getElementById("default-context-shortcut") as HTMLSelectElement;
+  const shortcuts = await sendRuntimeMessage<Shortcut[]>({ type: "shortcuts:list" });
+  const settings = await sendRuntimeMessage<{ defaultContextShortcutId: string | null }>({ type: "settings:get" });
+
+  select.innerHTML = "";
+
+  const none = document.createElement("option");
+  none.value = "";
+  none.textContent = "(None)";
+  select.append(none);
+
+  for (const shortcut of shortcuts) {
+    const option = document.createElement("option");
+    option.value = shortcut.id;
+    option.textContent = shortcut.name;
+    select.append(option);
+  }
+
+  select.value = settings.defaultContextShortcutId ?? "";
+}
+
+/**
  * Loads and renders debug history in options panel.
  */
 async function refreshHistoryList(): Promise<void> {
@@ -78,6 +103,15 @@ async function clearHistory(): Promise<void> {
 }
 
 /**
+ * Saves selected default shortcut for context menu execution.
+ */
+async function saveDefaultContextShortcut(): Promise<void> {
+  const select = document.getElementById("default-context-shortcut") as HTMLSelectElement;
+  const defaultContextShortcutId = select.value || null;
+  await sendRuntimeMessage({ type: "settings:update", payload: { defaultContextShortcutId } });
+}
+
+/**
  * Initializes options page interactions.
  */
 async function initOptionsPage(): Promise<void> {
@@ -85,6 +119,7 @@ async function initOptionsPage(): Promise<void> {
   const exportButton = document.getElementById("export-btn") as HTMLButtonElement;
   const importButton = document.getElementById("import-btn") as HTMLButtonElement;
   const clearHistoryButton = document.getElementById("clear-history-options-btn") as HTMLButtonElement;
+  const saveDefaultContextButton = document.getElementById("save-default-context-btn") as HTMLButtonElement;
   const list = document.getElementById("shortcuts") as HTMLElement;
 
   saveButton.addEventListener("click", async () => {
@@ -92,6 +127,7 @@ async function initOptionsPage(): Promise<void> {
       const shortcut = readShortcutFromForm();
       await sendRuntimeMessage({ type: "shortcuts:save", payload: shortcut });
       await refreshShortcutList();
+      await refreshDefaultContextSelector();
     }, "Shortcut saved");
   });
 
@@ -113,6 +149,12 @@ async function initOptionsPage(): Promise<void> {
     }, "History cleared");
   });
 
+  saveDefaultContextButton.addEventListener("click", async () => {
+    await runWithStatus(async () => {
+      await saveDefaultContextShortcut();
+    }, "Default context shortcut saved");
+  });
+
   list.addEventListener("click", async (event) => {
     const target = event.target as HTMLElement;
     const action = target.getAttribute("data-action");
@@ -120,11 +162,13 @@ async function initOptionsPage(): Promise<void> {
     if (action === "delete-shortcut" && shortcutId) {
       await runWithStatus(async () => {
         await deleteShortcut(shortcutId);
+        await refreshDefaultContextSelector();
       }, "Shortcut deleted");
     }
   });
 
   await refreshShortcutList();
+  await refreshDefaultContextSelector();
   await refreshHistoryList();
 }
 

@@ -27,12 +27,16 @@ function registerListeners(): void {
     }
 
     const state = await loadState();
-    const firstShortcut = state.shortcuts[0];
-    if (!firstShortcut) {
+    const configuredShortcut = state.settings.defaultContextShortcutId
+      ? state.shortcuts.find((shortcut) => shortcut.id === state.settings.defaultContextShortcutId)
+      : null;
+    const targetShortcut = configuredShortcut ?? state.shortcuts[0];
+
+    if (!targetShortcut) {
       return;
     }
 
-    await executeShortcut(firstShortcut.id, {
+    await executeShortcut(targetShortcut.id, {
       input: info.selectionText ?? "",
       pageUrl: tab?.url ?? ""
     });
