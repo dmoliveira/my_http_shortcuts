@@ -113,6 +113,7 @@ make dependency-unblock-packet
 make gate-status
 make wiki-status
 make wiki-doctor
+make wiki-remind
 make wiki-sync-run
 make validate-local
 make release-ready

@@ -2,7 +2,7 @@ SHELL := /bin/bash
 PROJECT := my_http_shortcuts
 VERSION := $(shell node -p "require('./package.json').version")
 
-.PHONY: help install dependency-security-report dependency-unblock-packet gate-status wiki-status wiki-doctor wiki-sync-run toolchain-check validate-local release-ready lint test typecheck build package release-notes release-notes-file release-notes-smoke release-check release-check-smoke tag
+.PHONY: help install dependency-security-report dependency-unblock-packet gate-status wiki-status wiki-doctor wiki-remind wiki-sync-run toolchain-check validate-local release-ready lint test typecheck build package release-notes release-notes-file release-notes-smoke release-check release-check-smoke tag
 
 help:
 	@printf "$(PROJECT) v$(VERSION)\n"
@@ -13,6 +13,7 @@ help:
 	@printf "  make gate-status    Print dependency-gate readiness\n"
 	@printf "  make wiki-status    Check wiki git backend readiness\n"
 	@printf "  make wiki-doctor    Print full wiki diagnostics snapshot\n"
+	@printf "  make wiki-remind    Post wiki status comment to reminder issue\n"
 	@printf "  make wiki-sync-run  Dispatch wiki sync workflow if ready\n"
 	@printf "  make toolchain-check Verify required local binaries\n"
 	@printf "  make validate-local Run toolchain + lint/typecheck/test/build\n"
@@ -46,6 +47,9 @@ wiki-status:
 
 wiki-doctor:
 	node scripts/wiki-doctor.mjs
+
+wiki-remind:
+	node scripts/wiki-remind.mjs
 
 wiki-sync-run:
 	node scripts/wiki-sync-run.mjs
