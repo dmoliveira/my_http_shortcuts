@@ -56,6 +56,22 @@ Observed result summary:
 - `make typecheck` fails with `tsc: command not found`
 - `make test` fails with `vitest: command not found`
 
+### 4) Manual dependency metadata review
+
+Command (executed):
+
+```bash
+npm view <devDependency> version license
+```
+
+Observed result summary:
+
+- queried declared devDependencies from `package.json`
+- package metadata resolved from npm registry successfully
+- licenses for queried packages resolved as `MIT`
+
+Even after this manual check, install still remains policy-gated.
+
 ## Unblock checklist
 
 1. Approve/clear dependency security validation for this repo.

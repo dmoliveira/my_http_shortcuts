@@ -48,6 +48,7 @@ make release-ready
 ```
 
 For current command evidence and exact error text, see `docs/runbooks/validation-blocker-log.md`.
+The log also includes latest manual dependency metadata review results.
 
 ## Expected success criteria
 
