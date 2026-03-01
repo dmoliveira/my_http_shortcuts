@@ -6,6 +6,7 @@ import {
   renderShortcutOptions,
   setButtonsBusy
 } from "./popup-view";
+import { runPopupAction } from "./actions";
 import { copyTextToClipboard } from "./clipboard";
 import { sendRuntimeMessage } from "../utils/io/runtime-message";
 import type { HistoryItem } from "../types/storage";
@@ -86,9 +87,17 @@ async function initPopup(): Promise<void> {
   });
 
   clearHistoryButton.addEventListener("click", async () => {
-    await sendRuntimeMessage({ type: "history:clear" });
-    await refreshHistory();
-    renderPopupStatus(statusElement, "History cleared");
+    const ok = await runPopupAction(
+      async () => {
+        await sendRuntimeMessage({ type: "history:clear" });
+        await refreshHistory();
+      },
+      (message) => renderPopupStatus(statusElement, message),
+      "History clear failed"
+    );
+    if (ok) {
+      renderPopupStatus(statusElement, "History cleared");
+    }
   });
 
   copyResultButton.addEventListener("click", async () => {
@@ -97,8 +106,19 @@ async function initPopup(): Promise<void> {
       renderPopupStatus(statusElement, "No result to copy");
       return;
     }
-    const copied = await copyTextToClipboard(text);
-    renderPopupStatus(statusElement, copied ? "Result copied" : "Clipboard copy failed");
+    const ok = await runPopupAction(
+      async () => {
+        const copied = await copyTextToClipboard(text);
+        if (!copied) {
+          throw new Error("Clipboard permission denied or unavailable");
+        }
+      },
+      (message) => renderPopupStatus(statusElement, message),
+      "Copy failed"
+    );
+    if (ok) {
+      renderPopupStatus(statusElement, "Result copied");
+    }
   });
 }
 
