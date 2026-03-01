@@ -1,0 +1,17 @@
+{
+  "manifest_version": 3,
+  "name": "My HTTP Shortcuts",
+  "description": "Run configurable HTTP shortcuts from your browser.",
+  "version": "0.1.0",
+  "permissions": ["storage", "activeTab", "contextMenus"],
+  "host_permissions": ["<all_urls>"],
+  "background": {
+    "service_worker": "background/worker.js",
+    "type": "module"
+  },
+  "action": {
+    "default_title": "My HTTP Shortcuts",
+    "default_popup": "popup/popup.html"
+  },
+  "options_page": "options/options.html"
+}

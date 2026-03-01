@@ -1,0 +1,84 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>My HTTP Shortcuts Settings</title>
+    <style>
+      body {
+        margin: 0;
+        font-family: "Segoe UI", Tahoma, sans-serif;
+        background: linear-gradient(120deg, #f8fafb, #eef5f7);
+        color: #1c1c1c;
+      }
+      .wrap {
+        max-width: 900px;
+        margin: 0 auto;
+        padding: 24px;
+      }
+      textarea,
+      input,
+      select,
+      button {
+        width: 100%;
+        box-sizing: border-box;
+        margin-top: 6px;
+        margin-bottom: 12px;
+        padding: 10px;
+      }
+      button {
+        background: #005f73;
+        color: white;
+        border: 0;
+        border-radius: 6px;
+        max-width: 200px;
+      }
+      ul {
+        padding-left: 20px;
+      }
+      code {
+        background: #f3f3f3;
+        padding: 1px 4px;
+      }
+    </style>
+  </head>
+  <body>
+    <main class="wrap">
+      <h1>🛠️ Shortcut Editor</h1>
+      <p>Define shortcut requests. You can use variables like <code>{{input}}</code>.</p>
+
+      <label for="name">Name</label>
+      <input id="name" type="text" />
+
+      <label for="method">Method</label>
+      <select id="method">
+        <option>GET</option>
+        <option>POST</option>
+        <option>PUT</option>
+        <option>PATCH</option>
+        <option>DELETE</option>
+      </select>
+
+      <label for="url">URL</label>
+      <input id="url" type="url" />
+
+      <label for="headers">Headers JSON</label>
+      <textarea id="headers" rows="4">{}</textarea>
+
+      <label for="body">Body Template</label>
+      <textarea id="body" rows="4"></textarea>
+
+      <label for="pre-script">Pre Script</label>
+      <textarea id="pre-script" rows="4"></textarea>
+
+      <label for="post-script">Post Script</label>
+      <textarea id="post-script" rows="4"></textarea>
+
+      <button id="save-btn" type="button">Save Shortcut</button>
+
+      <h2>Existing Shortcuts</h2>
+      <ul id="shortcuts"></ul>
+    </main>
+    <script type="module" src="../options/options.js"></script>
+  </body>
+</html>

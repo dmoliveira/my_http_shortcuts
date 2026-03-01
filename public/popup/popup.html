@@ -1,0 +1,62 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>My HTTP Shortcuts</title>
+    <style>
+      :root {
+        color-scheme: light;
+        --bg: #f7f7f7;
+        --fg: #1c1c1c;
+        --accent: #005f73;
+      }
+      body {
+        margin: 0;
+        width: 360px;
+        font-family: "Segoe UI", Tahoma, sans-serif;
+        background: radial-gradient(circle at top left, #e9f5f7, var(--bg));
+        color: var(--fg);
+      }
+      .wrap {
+        padding: 12px;
+      }
+      .row {
+        display: flex;
+        gap: 8px;
+      }
+      select,
+      button {
+        flex: 1;
+        padding: 8px;
+      }
+      button {
+        background: var(--accent);
+        color: #fff;
+        border: 0;
+        border-radius: 6px;
+      }
+      pre {
+        white-space: pre-wrap;
+        max-height: 220px;
+        overflow: auto;
+        background: #fff;
+        border: 1px solid #ddd;
+        padding: 8px;
+      }
+    </style>
+  </head>
+  <body>
+    <main class="wrap">
+      <h1>⚡ Run Shortcut</h1>
+      <div class="row">
+        <label for="shortcut-select" class="sr-only">Choose shortcut</label>
+        <select id="shortcut-select" aria-label="Shortcut"></select>
+        <button id="run-btn" type="button">Run</button>
+      </div>
+      <h2>Result</h2>
+      <pre id="result" aria-live="polite">No request yet.</pre>
+    </main>
+    <script type="module" src="../popup/popup.js"></script>
+  </body>
+</html>
