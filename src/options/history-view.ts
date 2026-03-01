@@ -65,6 +65,16 @@ export function limitHistoryEntries(history: HistoryItem[], maxItems: number): H
 }
 
 /**
+ * Filters history entries by minimum duration threshold.
+ */
+export function filterHistoryByMinDuration(history: HistoryItem[], minDurationMs: number): HistoryItem[] {
+  if (!Number.isFinite(minDurationMs) || minDurationMs <= 0) {
+    return history;
+  }
+  return history.filter((item) => item.result.durationMs >= minDurationMs);
+}
+
+/**
  * Formats one options history entry text line.
  */
 export function formatOptionsHistoryEntry(item: HistoryItem): string {

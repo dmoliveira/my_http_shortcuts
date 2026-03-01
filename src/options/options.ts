@@ -1,5 +1,6 @@
 import { readShortcutFromForm, renderShortcutList } from "./shortcut-editor";
 import {
+  filterHistoryByMinDuration,
   filterHistoryByQuery,
   filterHistoryByResult,
   filterHistoryBySource,
@@ -44,11 +45,13 @@ async function refreshHistoryList(): Promise<void> {
   const queryFilterElement = document.getElementById("history-query-filter") as HTMLInputElement;
   const sortModeElement = document.getElementById("history-sort-mode") as HTMLSelectElement;
   const maxItemsElement = document.getElementById("history-max-items") as HTMLSelectElement;
+  const minDurationElement = document.getElementById("history-min-duration") as HTMLInputElement;
   const stats = await sendRuntimeMessage<HistoryStats>({ type: "history:stats" });
   const sourceFiltered = filterHistoryBySource(history, filterElement.value);
   const resultFiltered = filterHistoryByResult(sourceFiltered, resultFilterElement.value);
   const queryFiltered = filterHistoryByQuery(resultFiltered, queryFilterElement.value);
-  const sorted = sortHistory(queryFiltered, sortModeElement.value);
+  const durationFiltered = filterHistoryByMinDuration(queryFiltered, Number(minDurationElement.value));
+  const sorted = sortHistory(durationFiltered, sortModeElement.value);
   const finalHistory = limitHistoryEntries(sorted, Number(maxItemsElement.value));
   renderOptionsHistory(container, finalHistory);
   renderOptionsHistoryStats(statsElement, stats);
@@ -132,6 +135,7 @@ async function initOptionsPage(): Promise<void> {
   const historyQueryFilter = document.getElementById("history-query-filter") as HTMLInputElement;
   const historySortMode = document.getElementById("history-sort-mode") as HTMLSelectElement;
   const historyMaxItems = document.getElementById("history-max-items") as HTMLSelectElement;
+  const historyMinDuration = document.getElementById("history-min-duration") as HTMLInputElement;
   const list = document.getElementById("shortcuts") as HTMLElement;
 
   saveButton.addEventListener("click", async () => {
@@ -184,6 +188,10 @@ async function initOptionsPage(): Promise<void> {
   });
 
   historyMaxItems.addEventListener("change", async () => {
+    await refreshHistoryList();
+  });
+
+  historyMinDuration.addEventListener("input", async () => {
     await refreshHistoryList();
   });
 

@@ -1,5 +1,6 @@
 import { describe, expect, it } from "vitest";
 import {
+  filterHistoryByMinDuration,
   filterHistoryByQuery,
   filterHistoryByResult,
   filterHistoryBySource,
@@ -178,5 +179,34 @@ describe("formatOptionsHistoryEntry", () => {
 
     expect(limited).toHaveLength(1);
     expect(limited[0]?.id).toBe("1");
+  });
+
+  it("filters history by minimum duration", () => {
+    const filtered = filterHistoryByMinDuration(
+      [
+        {
+          id: "1",
+          shortcutId: "s1",
+          shortcutName: "A",
+          source: "popup",
+          createdAt: "2026-03-01T00:00:00.000Z",
+          correlationId: "c1",
+          result: { ok: true, status: 200, headers: {}, body: "ok", durationMs: 10 }
+        },
+        {
+          id: "2",
+          shortcutId: "s2",
+          shortcutName: "B",
+          source: "popup",
+          createdAt: "2026-03-01T00:00:00.000Z",
+          correlationId: "c2",
+          result: { ok: true, status: 200, headers: {}, body: "ok", durationMs: 50 }
+        }
+      ],
+      20
+    );
+
+    expect(filtered).toHaveLength(1);
+    expect(filtered[0]?.id).toBe("2");
   });
 });
