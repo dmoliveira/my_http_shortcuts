@@ -68,6 +68,12 @@ make build
 - network requests are timeout-bounded
 - script hooks are explicitly scoped and validated
 
+## 📦 Releases
+
+- release process guide: `docs/runbooks/release.md`
+- draft notes command: `make release-notes`
+- metadata check command: `make release-check`
+
 ## 🤝 Contributing
 
 Use feature branches and open PRs with testing notes. Keep changes small and focused.
