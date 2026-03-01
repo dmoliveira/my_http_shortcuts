@@ -34,5 +34,6 @@ make wiki-sync-run
 Automatic fallback:
 
 - `wiki-monitor.yml` checks wiki availability every 30 minutes and dispatches `wiki-sync.yml` automatically once initialization is detected.
+- the monitor also opens a single reminder GitHub issue while bootstrap is pending and closes it automatically once wiki is available.
 
 After that, wiki sync automation should push generated pages successfully.
