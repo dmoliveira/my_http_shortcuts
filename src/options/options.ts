@@ -1,8 +1,8 @@
 import { readShortcutFromForm, renderShortcutList } from "./shortcut-editor";
-import { renderOptionsHistory } from "./history-view";
+import { renderOptionsHistory, renderOptionsHistoryStats } from "./history-view";
 import { readDefaultContextSelection, renderDefaultContextOptions } from "./default-context";
 import type { Shortcut } from "../types/api";
-import type { HistoryItem } from "../types/storage";
+import type { HistoryItem, HistoryStats } from "../types/storage";
 import { sendRuntimeMessage } from "../utils/io/runtime-message";
 
 /**
@@ -30,7 +30,10 @@ async function refreshDefaultContextSelector(): Promise<void> {
 async function refreshHistoryList(): Promise<void> {
   const history = await sendRuntimeMessage<HistoryItem[]>({ type: "history:list" });
   const container = document.getElementById("options-history") as HTMLElement;
+  const statsElement = document.getElementById("options-history-stats") as HTMLElement;
+  const stats = await sendRuntimeMessage<HistoryStats>({ type: "history:stats" });
   renderOptionsHistory(container, history);
+  renderOptionsHistoryStats(statsElement, stats);
 }
 
 /**

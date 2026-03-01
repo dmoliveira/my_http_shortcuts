@@ -1,4 +1,4 @@
-import type { HistoryItem } from "../types/storage";
+import type { HistoryItem, HistoryStats } from "../types/storage";
 
 /**
  * Formats one options history entry text line.
@@ -26,4 +26,13 @@ export function renderOptionsHistory(listElement: HTMLElement, history: HistoryI
     li.textContent = formatOptionsHistoryEntry(item);
     listElement.append(li);
   }
+}
+
+/**
+ * Renders aggregate history stats in options debug section.
+ */
+export function renderOptionsHistoryStats(statsElement: HTMLElement, stats: HistoryStats): void {
+  const popupCount = stats.bySource.popup ?? 0;
+  const contextCount = stats.bySource.context_menu ?? 0;
+  statsElement.textContent = `Total: ${stats.total} | OK: ${stats.ok} | ERR: ${stats.error} | pop: ${popupCount} | ctx: ${contextCount}`;
 }
