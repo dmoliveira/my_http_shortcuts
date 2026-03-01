@@ -4,6 +4,8 @@
 - N/A
 
 ## Changes
+- 2fd7364 chore(security): generate dependency metadata report
+- 815903f docs(release): refresh draft after dependency review log
 - d179222 docs(runbook): record manual dependency metadata checks
 - 5dec4ae docs(release): refresh draft after blocker evidence log
 - f985690 docs(runbook): add validation blocker evidence log
@@ -22,10 +24,9 @@
 - cb2daa1 docs(release): refresh draft after plan and debug updates
 - 8bbc5bd docs(plan): sync E2 status and troubleshooting steps
 - 9bb1f7c docs(release): refresh draft after runtime guard hardening
-- 4bb7ac4 docs(release): refresh draft after hook and popup updates
 
 ## Fixes
-- 146fa1f fix(runtime): validate payload shapes for known message types
+- N/A
 
 ## Removals
 - N/A
