@@ -25,10 +25,26 @@ export function renderResult(preElement: HTMLElement, result: unknown): void {
 }
 
 /**
+ * Renders popup status text for user feedback.
+ */
+export function renderPopupStatus(statusElement: HTMLElement, message: string): void {
+  statusElement.textContent = message;
+}
+
+/**
  * Reads the rendered result text from popup container.
  */
 export function readResultText(preElement: HTMLElement): string {
   return preElement.textContent ?? "";
+}
+
+/**
+ * Toggles busy state for popup action buttons.
+ */
+export function setButtonsBusy(buttons: HTMLButtonElement[], busy: boolean): void {
+  for (const button of buttons) {
+    button.disabled = busy;
+  }
 }
 
 /**

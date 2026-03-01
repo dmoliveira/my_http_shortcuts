@@ -1,4 +1,11 @@
-import { readResultText, renderHistory, renderResult, renderShortcutOptions } from "./popup-view";
+import {
+  readResultText,
+  renderHistory,
+  renderPopupStatus,
+  renderResult,
+  renderShortcutOptions,
+  setButtonsBusy
+} from "./popup-view";
 import { sendRuntimeMessage } from "../utils/io/runtime-message";
 import type { HistoryItem } from "../types/storage";
 
@@ -39,6 +46,7 @@ async function refreshHistory(): Promise<void> {
 async function initPopup(): Promise<void> {
   const selectElement = document.getElementById("shortcut-select") as HTMLSelectElement;
   const resultElement = document.getElementById("result") as HTMLElement;
+  const statusElement = document.getElementById("popup-status") as HTMLElement;
   const runButton = document.getElementById("run-btn") as HTMLButtonElement;
   const copyResultButton = document.getElementById("copy-result-btn") as HTMLButtonElement;
   const clearHistoryButton = document.getElementById("clear-history-btn") as HTMLButtonElement;
@@ -48,6 +56,8 @@ async function initPopup(): Promise<void> {
   await refreshHistory();
 
   runButton.addEventListener("click", async () => {
+    setButtonsBusy([runButton, copyResultButton, clearHistoryButton], true);
+    renderPopupStatus(statusElement, "Running shortcut...");
     try {
       if (!selectElement.value) {
         throw new Error("Please create and select a shortcut first");
@@ -62,11 +72,15 @@ async function initPopup(): Promise<void> {
       });
       renderResult(resultElement, result);
       await refreshHistory();
+      renderPopupStatus(statusElement, "Run completed");
     } catch (error) {
       renderResult(resultElement, {
         ok: false,
         error: error instanceof Error ? error.message : "Unknown popup error"
       });
+      renderPopupStatus(statusElement, "Run failed");
+    } finally {
+      setButtonsBusy([runButton, copyResultButton, clearHistoryButton], false);
     }
   });
 
@@ -78,9 +92,11 @@ async function initPopup(): Promise<void> {
   copyResultButton.addEventListener("click", async () => {
     const text = readResultText(resultElement);
     if (!text.trim()) {
+      renderPopupStatus(statusElement, "No result to copy");
       return;
     }
     await navigator.clipboard.writeText(text);
+    renderPopupStatus(statusElement, "Result copied");
   });
 }
 
