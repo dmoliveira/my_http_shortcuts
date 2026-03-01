@@ -20,6 +20,7 @@ Provide a fast path to diagnose shortcut execution failures.
 - script runtime error
 - malformed headers JSON
 - clipboard permission/write failure in popup
+- invalid runtime message payload rejected by background listener
 
 ## Fast Checks
 

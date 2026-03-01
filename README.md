@@ -27,6 +27,7 @@ A lean Chrome extension to run configurable HTTP shortcuts from the browser, wit
 - 🧰 Runtime message envelope validation for safer extension messaging
 - 📋 Clipboard copy now reports success/failure clearly
 - 🧯 Popup actions use centralized error handling for clearer diagnostics
+- 🛡️ Background listener rejects invalid runtime message payloads early
 
 ## 🚀 Quickstart
 
