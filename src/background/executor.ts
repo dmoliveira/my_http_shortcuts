@@ -11,6 +11,7 @@ import { buildRequestInit } from "../utils/net/request-builder";
 import { fetchWithTimeout } from "../utils/net/timeout";
 import { AppError } from "../utils/validation/errors";
 import { mapExecutionError } from "./error-map";
+import { runWithRetry } from "./retry";
 
 /**
  * Executes one configured shortcut by id using provided context.
@@ -31,10 +32,15 @@ export async function executeShortcut(shortcutId: string, context: ExecutionCont
     const resolvedUrl = resolveTemplate(shortcut.url, { ...context, input: variables.input ?? context.input });
     const resolvedBody = resolveTemplate(shortcut.bodyTemplate, { ...context, input: variables.input ?? context.input });
 
-    const response = await fetchWithTimeout(
-      resolvedUrl,
-      buildRequestInit(shortcut, resolvedBody),
-      APP_CONSTANTS.defaultTimeoutMs
+    const response = await runWithRetry(
+      async () =>
+        fetchWithTimeout(
+          resolvedUrl,
+          buildRequestInit(shortcut, resolvedBody),
+          APP_CONSTANTS.defaultTimeoutMs
+        ),
+      APP_CONSTANTS.defaultRetryCount,
+      APP_CONSTANTS.defaultRetryDelayMs
     );
     const body = runPostScript(shortcut.postScript, await response.text());
     const result: ExecutionResult = {
