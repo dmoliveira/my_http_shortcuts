@@ -8,9 +8,10 @@
 - cfac9e8 Add max-entries limiter to popup history view
 - 5b9aaf5 Add errors-only filter for popup history list
 - 7d603fc Add one-click reset for options history filters
-- 6a61893 Add success-rate metric to history stats outputs
 
 ## Changes
+- d96caec chore(tooling): add local toolchain preflight check
+- cb2daa1 docs(release): refresh draft after plan and debug updates
 - 8bbc5bd docs(plan): sync E2 status and troubleshooting steps
 - 9bb1f7c docs(release): refresh draft after runtime guard hardening
 - 4bb7ac4 docs(release): refresh draft after hook and popup updates
@@ -21,7 +22,6 @@
 - 9234c7b Document numeric filter fallback diagnostics
 - 44a75aa Harden numeric history filters with safe parsing
 - cf91a99 Document history filter reset workflow
-- fc172e7 Document success-rate diagnostics workflow
 
 ## Fixes
 - 146fa1f fix(runtime): validate payload shapes for known message types
