@@ -1,0 +1,28 @@
+# 📚 Documentation Index
+
+## Start Here
+
+- `docs/getting-started.md` - install, load in Chrome, and run your first shortcut
+- `docs/runbooks/extension-smoke-test.md` - manual extension testing checklist
+- `docs/runbooks/debugging.md` - troubleshooting and diagnostics workflow
+
+## Release & Operations
+
+- `docs/runbooks/release.md` - release flow and checks
+- `docs/runbooks/dependency-gate.md` - dependency policy unblock path
+- `docs/runbooks/validation-blocker-log.md` - blocker evidence log
+- `docs/release-notes-draft.md` - generated release notes draft
+
+## Plans & Specs
+
+- `docs/plan/chrome-extension-plan.md` - roadmap and implementation tracking
+- `docs/specs/execution-contract.md` - runtime behavior contract
+
+## Security & Validation Artifacts
+
+- `docs/dependency-security-report.md` - dependency metadata report
+- `docs/dependency-unblock-packet.md` - command evidence bundle for approval workflows
+
+## Support
+
+- `docs/support-the-project.md` - donation options and sustainability note

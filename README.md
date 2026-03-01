@@ -1,10 +1,25 @@
 # ⚡ My HTTP Shortcuts
 
+![My HTTP Shortcuts Hero](docs/assets/hero-banner.svg)
+
 [![CI](https://github.com/dmoliveira/my_http_shortcuts/actions/workflows/ci.yml/badge.svg)](https://github.com/dmoliveira/my_http_shortcuts/actions/workflows/ci.yml)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
 [![Release](https://img.shields.io/github/v/release/dmoliveira/my_http_shortcuts)](https://github.com/dmoliveira/my_http_shortcuts/releases)
+[![Last Commit](https://img.shields.io/github/last-commit/dmoliveira/my_http_shortcuts)](https://github.com/dmoliveira/my_http_shortcuts/commits/main)
+[![Open Issues](https://img.shields.io/github/issues/dmoliveira/my_http_shortcuts)](https://github.com/dmoliveira/my_http_shortcuts/issues)
+[![Stars](https://img.shields.io/github/stars/dmoliveira/my_http_shortcuts?style=social)](https://github.com/dmoliveira/my_http_shortcuts/stargazers)
+[![Donate](https://img.shields.io/badge/Donate-Stripe-635bff?logo=stripe&logoColor=white)](https://buy.stripe.com/8x200i8bSgVe3Vl3g8bfO00)
 
 A lean Chrome extension to run configurable HTTP shortcuts from the browser, with input preprocessing and response postprocessing.
+
+## 🗂️ Project Index
+
+- Getting started: `docs/getting-started.md`
+- Full docs map: `docs/index.md`
+- Debugging guide: `docs/runbooks/debugging.md`
+- Extension smoke tests: `docs/runbooks/extension-smoke-test.md`
+- Release process: `docs/runbooks/release.md`
+- Support and donations: `docs/support-the-project.md`
 
 ## ✨ Highlights
 
@@ -49,6 +64,8 @@ A lean Chrome extension to run configurable HTTP shortcuts from the browser, wit
 - ♻️ Popup history controls include one-click reset
 
 ## 🚀 Quickstart
+
+Need a simple step-by-step install and usage path? Start with `docs/getting-started.md`.
 
 1. Install dependencies:
 
@@ -103,6 +120,12 @@ make release-ready
 - draft notes file: `make release-notes-file` -> `docs/release-notes-draft.md`
 - metadata check command: `make release-check`
 - metadata smoke command: `make release-check-smoke`
+
+## 💛 Support This Project
+
+- Donate directly via Stripe: https://buy.stripe.com/8x200i8bSgVe3Vl3g8bfO00
+- Support page: `docs/support-the-project.md`
+- Every contribution helps keep maintenance and feature delivery moving.
 
 ## 🤝 Contributing
 
