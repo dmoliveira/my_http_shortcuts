@@ -237,14 +237,14 @@ Legend: `todo` ⏳ `doing` 🔄 `done` ✅ `blocked` ⛔
 | ID | Task | Status | Done Criteria |
 |---|---|---|---|
 | E3-T1 | Request executor + timeout + retry policy seed | todo ⏳ | Deterministic error map |
-| E3-T2 | Response details panel | todo ⏳ | Handles large payload preview |
-| E3-T3 | History and debug trace view | doing 🔄 | Redaction validated |
+| E3-T2 | Response details panel | doing 🔄 | Handles large payload preview |
+| E3-T3 | History and debug trace view | done ✅ | Redaction validated |
 
 ### Epic E4 — Portability & Release
 
 | ID | Task | Status | Done Criteria |
 |---|---|---|---|
-| E4-T1 | JSON import/export | doing 🔄 | Round-trip validated |
+| E4-T1 | JSON import/export | done ✅ | Round-trip validated |
 | E4-T2 | Release process + tagging + notes | todo ⏳ | First public tag created |
 | E4-T3 | Publish package workflow docs | todo ⏳ | Runbook complete |
 
@@ -303,5 +303,5 @@ Parallelization rule:
 
 - overall: implementation 🔄
 - active epic: E3 Execution UX
-- active task: E3-T3 History and debug trace view
+- active task: E3-T2 Response details panel
 - blockers: validation still blocked by local dependency installation policy gate

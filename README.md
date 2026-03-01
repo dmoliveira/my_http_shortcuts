@@ -18,6 +18,7 @@ A lean Chrome extension to run configurable HTTP shortcuts from the browser, wit
 - ✂️ Selected text context capture from active tab
 - 🕘 Popup history preview with one-click clear
 - ✅ Fail-fast JSON/header validation in options workflows
+- 🧾 Options debug history list with correlation IDs
 
 ## 🚀 Quickstart
 
