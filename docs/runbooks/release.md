@@ -37,6 +37,12 @@ make validate-local
 
 If any command fails with missing binaries (`eslint`, `tsc`, `vitest`, `rimraf`), clear the local dependency-policy gate and reinstall dependencies before proceeding.
 
+2c. Optional one-command gate for local release readiness:
+
+```bash
+make release-ready
+```
+
 3. Build and package:
 
 ```bash

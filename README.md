@@ -81,6 +81,7 @@ make build
 
 ```bash
 make validate-local
+make release-ready
 ```
 
 ## 🔐 Security & Privacy
