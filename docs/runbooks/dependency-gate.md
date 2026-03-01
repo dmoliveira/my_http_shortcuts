@@ -37,6 +37,7 @@ make install
 3. Verify toolchain presence:
 
 ```bash
+make gate-status
 make toolchain-check
 ```
 

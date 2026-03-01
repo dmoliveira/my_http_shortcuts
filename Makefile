@@ -2,12 +2,13 @@ SHELL := /bin/bash
 PROJECT := my_http_shortcuts
 VERSION := $(shell node -p "require('./package.json').version")
 
-.PHONY: help install toolchain-check validate-local release-ready lint test typecheck build package release-notes release-notes-file release-notes-smoke release-check release-check-smoke tag
+.PHONY: help install gate-status toolchain-check validate-local release-ready lint test typecheck build package release-notes release-notes-file release-notes-smoke release-check release-check-smoke tag
 
 help:
 	@printf "$(PROJECT) v$(VERSION)\n"
 	@printf "Commands:\n"
 	@printf "  make install        Install dependencies\n"
+	@printf "  make gate-status    Print dependency-gate readiness\n"
 	@printf "  make toolchain-check Verify required local binaries\n"
 	@printf "  make validate-local Run toolchain + lint/typecheck/test/build\n"
 	@printf "  make release-ready  Run release validation sequence\n"
@@ -25,6 +26,9 @@ help:
 
 install:
 	npm install --yes
+
+gate-status:
+	node scripts/gate-status.mjs
 
 toolchain-check:
 	node scripts/toolchain-check.mjs
