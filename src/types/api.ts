@@ -51,6 +51,7 @@ export type RuntimeMessage =
   | { type: "shortcuts:delete"; payload: { shortcutId: string } }
   | { type: "shortcut:run"; payload: { shortcutId: string; context: ExecutionContext } }
   | { type: "history:list" }
+  | { type: "history:stats" }
   | { type: "history:clear" }
   | { type: "settings:get" }
   | { type: "settings:update"; payload: { defaultContextShortcutId: string | null } }

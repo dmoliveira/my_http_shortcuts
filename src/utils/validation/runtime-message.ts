@@ -6,6 +6,7 @@ const VALID_RUNTIME_TYPES = new Set<RuntimeMessage["type"]>([
   "shortcuts:delete",
   "shortcut:run",
   "history:list",
+  "history:stats",
   "history:clear",
   "settings:get",
   "settings:update",

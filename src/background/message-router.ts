@@ -1,4 +1,5 @@
 import { createShortcut } from "../domain/shortcut";
+import { summarizeHistory } from "../domain/history-stats";
 import { resolveDefaultContextShortcutId } from "../domain/settings";
 import type { RuntimeMessage } from "../types/api";
 import { exportStateJson, importStateJson } from "../utils/io/portability";
@@ -19,6 +20,11 @@ export async function handleRuntimeMessage(message: RuntimeMessage): Promise<unk
   if (message.type === "history:list") {
     const state = await loadState();
     return state.history;
+  }
+
+  if (message.type === "history:stats") {
+    const state = await loadState();
+    return summarizeHistory(state.history);
   }
 
   if (message.type === "history:clear") {

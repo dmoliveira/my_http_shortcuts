@@ -21,6 +21,16 @@ export interface AppSettings {
 }
 
 /**
+ * Describes aggregate metrics for execution history.
+ */
+export interface HistoryStats {
+  total: number;
+  ok: number;
+  error: number;
+  bySource: Record<string, number>;
+}
+
+/**
  * Defines extension storage contract.
  */
 export interface PersistedState {

@@ -4,6 +4,7 @@ import { isRuntimeMessage } from "../src/utils/validation/runtime-message";
 describe("isRuntimeMessage", () => {
   it("accepts known message types", () => {
     expect(isRuntimeMessage({ type: "shortcuts:list" })).toBe(true);
+    expect(isRuntimeMessage({ type: "history:stats" })).toBe(true);
     expect(isRuntimeMessage({ type: "settings:update", payload: { defaultContextShortcutId: null } })).toBe(true);
   });
 
