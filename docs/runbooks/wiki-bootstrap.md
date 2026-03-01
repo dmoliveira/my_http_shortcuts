@@ -71,6 +71,14 @@ make wiki-pulse
 
 `make wiki-pulse` uses a 10-minute monitor cooldown to avoid repeated dispatches. Override with `WIKI_MONITOR_COOLDOWN_MINUTES=<n>` when needed.
 
+Autopilot command (attempt complete flow, then pulse fallback if still blocked):
+
+```bash
+make wiki-autopilot
+```
+
+Autopilot uses `WIKI_AUTOPILOT_WATCH_TIMEOUT_SECONDS=45` and `WIKI_AUTOPILOT_WATCH_POLL_SECONDS=3` by default; override as needed.
+
 Automatic fallback:
 
 - `wiki-monitor.yml` checks wiki availability every 30 minutes and dispatches `wiki-sync.yml` automatically once initialization is detected.
