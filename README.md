@@ -112,6 +112,7 @@ make dependency-security-report
 make dependency-unblock-packet
 make gate-status
 make wiki-status
+make wiki-doctor
 make wiki-sync-run
 make validate-local
 make release-ready

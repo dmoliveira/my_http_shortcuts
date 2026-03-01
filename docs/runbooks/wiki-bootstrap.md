@@ -18,6 +18,12 @@ make wiki-status
 
 Pre-check command (same as above) should report `Wiki status: available` before automated sync can push pages.
 
+Full diagnostics snapshot:
+
+```bash
+make wiki-doctor
+```
+
 ## One-time bootstrap steps
 
 1. Open: `https://github.com/dmoliveira/my_http_shortcuts/wiki`
