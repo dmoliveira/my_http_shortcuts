@@ -9,6 +9,7 @@ Publish a tagged release with validated metadata, package artifact, and release 
 1. PR is merged to `main`.
 2. CI is green.
 3. `VERSION`, `package.json`, and `CHANGELOG.md` are updated.
+4. Local dependency-policy gate allows JS toolchain install (`npm install --yes`).
 
 ## Release Steps
 
@@ -27,6 +28,17 @@ make release-check-smoke
 ```
 
 This must pass before creating release artifacts or tags.
+
+2b. Validate local toolchain is available:
+
+```bash
+make lint
+make typecheck
+make test
+make build
+```
+
+If any command fails with missing binaries (`eslint`, `tsc`, `vitest`, `rimraf`), clear the local dependency-policy gate and reinstall dependencies before proceeding.
 
 3. Build and package:
 
