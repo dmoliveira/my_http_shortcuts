@@ -10,8 +10,8 @@
         --page-bg: #edf3f5;
         --card-bg: #ffffff;
         --card-border: #c7d9df;
-        --text-main: #0b1e26;
-        --text-muted: #4b6470;
+        --text-main: #0a1b24;
+        --text-muted: #3d5d6b;
         --accent: #0b5d77;
         --accent-strong: #09465a;
         --accent-soft: #e1f1f6;
@@ -48,6 +48,8 @@
       h2 {
         margin: 0;
         letter-spacing: 0.01em;
+        color: #1b3440;
+        font-weight: 800;
       }
 
       h1 {
@@ -87,7 +89,7 @@
       }
 
       .eyebrow {
-        color: var(--text-muted);
+        color: #567583;
         font-size: 12px;
         letter-spacing: 0.06em;
         text-transform: uppercase;
@@ -118,7 +120,7 @@
       label {
         font-size: 12px;
         font-weight: 700;
-        color: var(--text-muted);
+        color: #385867;
       }
 
       select,
@@ -133,7 +135,7 @@
         min-width: 0;
         padding: 0 10px;
         background: #fff;
-        color: var(--text-main);
+        color: #2a3f49;
       }
 
       button {
@@ -142,6 +144,7 @@
         color: #fff;
         background: linear-gradient(160deg, var(--accent), #0a708f);
         font-weight: 700;
+        font-size: 15px;
         letter-spacing: 0.01em;
         cursor: pointer;
         transition: transform 120ms ease, filter 120ms ease, box-shadow 120ms ease;
@@ -163,9 +166,9 @@
       }
 
       button.secondary {
-        color: var(--accent-strong);
-        background: var(--accent-soft);
-        border: 1px solid #9fc3cf;
+        color: #1f4f62;
+        background: #d3ebf3;
+        border: 1px solid #8cb4c3;
       }
 
       button.danger {
@@ -187,13 +190,17 @@
       }
 
       #popup-status {
-        min-height: 18px;
+        min-height: 0;
         color: #1e5b6f;
         font-size: 12px;
         background: #edf7fa;
         border: 1px solid #c5dfe8;
         border-radius: 8px;
         padding: 4px 8px;
+      }
+
+      #popup-status:empty {
+        display: none;
       }
 
       pre {
@@ -206,7 +213,8 @@
         border-radius: 10px;
         padding: 10px;
         font-family: "SF Mono", "Menlo", "Consolas", monospace;
-        font-size: 12px;
+        font-size: 13px;
+        color: #31444f;
       }
 
       #history {
@@ -218,6 +226,7 @@
         max-height: 132px;
         overflow: auto;
         font-size: 12px;
+        color: #31444f;
       }
 
       #history li {
@@ -265,7 +274,7 @@
       }
 
       .section-head button {
-        width: 96px;
+        width: 132px;
         flex: 0 0 auto;
       }
 
@@ -298,7 +307,7 @@
         <div class="stack">
           <div class="section-head">
             <h2>Result</h2>
-            <button id="copy-result-btn" class="secondary" type="button">Copy</button>
+            <button id="copy-result-btn" class="secondary" type="button">Copy Result</button>
           </div>
           <pre id="result" aria-live="polite">No request yet.</pre>
         </div>
@@ -308,7 +317,7 @@
         <div class="stack">
           <div class="section-head">
             <h2>History</h2>
-            <button id="clear-history-btn" class="danger" type="button">Clear</button>
+            <button id="clear-history-btn" class="danger" type="button">Clear History</button>
           </div>
 
           <div class="meta-row">
