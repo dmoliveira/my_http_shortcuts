@@ -20,6 +20,7 @@ Quick navigation: [Project Index](#-project-index) · [Highlights](#-highlights)
 - Getting started: `docs/getting-started.md`
 - Full docs map: `docs/index.md`
 - GitHub Pages docs (after first pages deploy): `https://dmoliveira.github.io/my_http_shortcuts/`
+- GitHub Wiki: `https://github.com/dmoliveira/my_http_shortcuts/wiki` (auto-synced from markdown docs)
 - Debugging guide: `docs/runbooks/debugging.md`
 - Extension smoke tests: `docs/runbooks/extension-smoke-test.md`
 - Release process: `docs/runbooks/release.md`
