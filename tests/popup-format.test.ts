@@ -19,4 +19,19 @@ describe("popup formatting", () => {
     const output = formatResultText({ value: "x".repeat(8000) });
     expect(output).toContain("[truncated]");
   });
+
+  it("formats execution result payload with details", () => {
+    const output = formatResultText({
+      ok: true,
+      status: 200,
+      headers: { "content-type": "application/json" },
+      body: "{\"ok\":true}",
+      durationMs: 55
+    });
+
+    expect(output).toContain("ok: true");
+    expect(output).toContain("status: 200");
+    expect(output).toContain("headers:");
+    expect(output).toContain("body:");
+  });
 });
