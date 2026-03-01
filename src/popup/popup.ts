@@ -14,6 +14,7 @@ import { copyTextToClipboard } from "./clipboard";
 import { readPopupHistoryControls, resetPopupHistoryControls } from "./history-controls";
 import { extractTemplateVariables, promptTemplateVariables } from "./template-variables";
 import type { Shortcut } from "../types/api";
+import { requireElement } from "../utils/dom/required-element";
 import { sendRuntimeMessage } from "../utils/io/runtime-message";
 import type { HistoryItem, HistoryStats } from "../types/storage";
 
@@ -44,9 +45,9 @@ async function buildExecutionContext(): Promise<{ input: string; pageUrl: string
  * Loads recent history entries into popup list.
  */
 async function refreshHistory(): Promise<void> {
-  const historyElement = document.getElementById("history") as HTMLElement;
-  const filterElement = document.getElementById("popup-history-filter") as HTMLSelectElement;
-  const maxElement = document.getElementById("popup-history-max") as HTMLSelectElement;
+  const historyElement = requireElement<HTMLElement>("history");
+  const filterElement = requireElement<HTMLSelectElement>("popup-history-filter");
+  const maxElement = requireElement<HTMLSelectElement>("popup-history-max");
   const controls = readPopupHistoryControls({ filter: filterElement, maxItems: maxElement });
   const history = await sendRuntimeMessage<HistoryItem[]>({ type: "history:list" });
   const filtered = filterPopupHistory(history, controls.filter);
@@ -57,7 +58,7 @@ async function refreshHistory(): Promise<void> {
  * Loads aggregated history stats into popup summary line.
  */
 async function refreshHistoryStats(): Promise<void> {
-  const statsElement = document.getElementById("history-stats") as HTMLElement;
+  const statsElement = requireElement<HTMLElement>("history-stats");
   const stats = await sendRuntimeMessage<HistoryStats>({ type: "history:stats" });
   renderHistoryStats(statsElement, stats);
 }
@@ -66,15 +67,15 @@ async function refreshHistoryStats(): Promise<void> {
  * Initializes popup event handlers and data loading.
  */
 async function initPopup(): Promise<void> {
-  const selectElement = document.getElementById("shortcut-select") as HTMLSelectElement;
-  const resultElement = document.getElementById("result") as HTMLElement;
-  const statusElement = document.getElementById("popup-status") as HTMLElement;
-  const runButton = document.getElementById("run-btn") as HTMLButtonElement;
-  const copyResultButton = document.getElementById("copy-result-btn") as HTMLButtonElement;
-  const clearHistoryButton = document.getElementById("clear-history-btn") as HTMLButtonElement;
-  const historyFilter = document.getElementById("popup-history-filter") as HTMLSelectElement;
-  const historyMax = document.getElementById("popup-history-max") as HTMLSelectElement;
-  const historyReset = document.getElementById("popup-history-reset-btn") as HTMLButtonElement;
+  const selectElement = requireElement<HTMLSelectElement>("shortcut-select");
+  const resultElement = requireElement<HTMLElement>("result");
+  const statusElement = requireElement<HTMLElement>("popup-status");
+  const runButton = requireElement<HTMLButtonElement>("run-btn");
+  const copyResultButton = requireElement<HTMLButtonElement>("copy-result-btn");
+  const clearHistoryButton = requireElement<HTMLButtonElement>("clear-history-btn");
+  const historyFilter = requireElement<HTMLSelectElement>("popup-history-filter");
+  const historyMax = requireElement<HTMLSelectElement>("popup-history-max");
+  const historyReset = requireElement<HTMLButtonElement>("popup-history-reset-btn");
 
   const shortcuts = await sendRuntimeMessage<Shortcut[]>({ type: "shortcuts:list" });
   renderShortcutOptions(selectElement, shortcuts);

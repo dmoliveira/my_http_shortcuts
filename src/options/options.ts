@@ -13,6 +13,7 @@ import { readHistoryFilters, resetHistoryFilters } from "./history-filters";
 import { readDefaultContextSelection, renderDefaultContextOptions } from "./default-context";
 import type { Shortcut } from "../types/api";
 import type { HistoryItem, HistoryStats } from "../types/storage";
+import { requireElement } from "../utils/dom/required-element";
 import { sendRuntimeMessage } from "../utils/io/runtime-message";
 
 /**
@@ -20,7 +21,7 @@ import { sendRuntimeMessage } from "../utils/io/runtime-message";
  */
 async function refreshShortcutList(): Promise<void> {
   const shortcuts = await sendRuntimeMessage<Shortcut[]>({ type: "shortcuts:list" });
-  const container = document.getElementById("shortcuts") as HTMLElement;
+  const container = requireElement<HTMLElement>("shortcuts");
   renderShortcutList(container, shortcuts);
 }
 
@@ -28,7 +29,7 @@ async function refreshShortcutList(): Promise<void> {
  * Loads shortcuts and settings, then renders default context selector.
  */
 async function refreshDefaultContextSelector(): Promise<void> {
-  const select = document.getElementById("default-context-shortcut") as HTMLSelectElement;
+  const select = requireElement<HTMLSelectElement>("default-context-shortcut");
   const shortcuts = await sendRuntimeMessage<Shortcut[]>({ type: "shortcuts:list" });
   const settings = await sendRuntimeMessage<{ defaultContextShortcutId: string | null }>({ type: "settings:get" });
   renderDefaultContextOptions(select, shortcuts, settings.defaultContextShortcutId);
@@ -39,15 +40,15 @@ async function refreshDefaultContextSelector(): Promise<void> {
  */
 async function refreshHistoryList(): Promise<void> {
   const history = await sendRuntimeMessage<HistoryItem[]>({ type: "history:list" });
-  const container = document.getElementById("options-history") as HTMLElement;
-  const statsElement = document.getElementById("options-history-stats") as HTMLElement;
+  const container = requireElement<HTMLElement>("options-history");
+  const statsElement = requireElement<HTMLElement>("options-history-stats");
   const filters = readHistoryFilters({
-    source: document.getElementById("history-source-filter") as HTMLSelectElement,
-    result: document.getElementById("history-result-filter") as HTMLSelectElement,
-    query: document.getElementById("history-query-filter") as HTMLInputElement,
-    sort: document.getElementById("history-sort-mode") as HTMLSelectElement,
-    maxItems: document.getElementById("history-max-items") as HTMLSelectElement,
-    minDurationMs: document.getElementById("history-min-duration") as HTMLInputElement
+    source: requireElement<HTMLSelectElement>("history-source-filter"),
+    result: requireElement<HTMLSelectElement>("history-result-filter"),
+    query: requireElement<HTMLInputElement>("history-query-filter"),
+    sort: requireElement<HTMLSelectElement>("history-sort-mode"),
+    maxItems: requireElement<HTMLSelectElement>("history-max-items"),
+    minDurationMs: requireElement<HTMLInputElement>("history-min-duration")
   });
   const stats = await sendRuntimeMessage<HistoryStats>({ type: "history:stats" });
   const sourceFiltered = filterHistoryBySource(history, filters.source);
@@ -64,7 +65,7 @@ async function refreshHistoryList(): Promise<void> {
  * Renders user-facing status messages in the options page.
  */
 function setStatus(message: string): void {
-  const statusElement = document.getElementById("status") as HTMLElement;
+  const statusElement = requireElement<HTMLElement>("status");
   statusElement.textContent = message;
 }
 
@@ -92,7 +93,7 @@ async function deleteShortcut(shortcutId: string): Promise<void> {
  * Exports current state into options import/export textarea.
  */
 async function exportStateToTextarea(): Promise<void> {
-  const textarea = document.getElementById("state-json") as HTMLTextAreaElement;
+  const textarea = requireElement<HTMLTextAreaElement>("state-json");
   const result = await sendRuntimeMessage<{ json: string }>({ type: "state:export" });
   textarea.value = result.json;
 }
@@ -101,7 +102,7 @@ async function exportStateToTextarea(): Promise<void> {
  * Imports state from options import/export textarea.
  */
 async function importStateFromTextarea(): Promise<void> {
-  const textarea = document.getElementById("state-json") as HTMLTextAreaElement;
+  const textarea = requireElement<HTMLTextAreaElement>("state-json");
   await sendRuntimeMessage({ type: "state:import", payload: { json: textarea.value } });
   await refreshShortcutList();
   await refreshHistoryList();
@@ -119,7 +120,7 @@ async function clearHistory(): Promise<void> {
  * Saves selected default shortcut for context menu execution.
  */
 async function saveDefaultContextShortcut(): Promise<void> {
-  const select = document.getElementById("default-context-shortcut") as HTMLSelectElement;
+  const select = requireElement<HTMLSelectElement>("default-context-shortcut");
   const defaultContextShortcutId = readDefaultContextSelection(select);
   await sendRuntimeMessage({ type: "settings:update", payload: { defaultContextShortcutId } });
 }
@@ -128,19 +129,19 @@ async function saveDefaultContextShortcut(): Promise<void> {
  * Initializes options page interactions.
  */
 async function initOptionsPage(): Promise<void> {
-  const saveButton = document.getElementById("save-btn") as HTMLButtonElement;
-  const exportButton = document.getElementById("export-btn") as HTMLButtonElement;
-  const importButton = document.getElementById("import-btn") as HTMLButtonElement;
-  const clearHistoryButton = document.getElementById("clear-history-options-btn") as HTMLButtonElement;
-  const saveDefaultContextButton = document.getElementById("save-default-context-btn") as HTMLButtonElement;
-  const historySourceFilter = document.getElementById("history-source-filter") as HTMLSelectElement;
-  const historyResultFilter = document.getElementById("history-result-filter") as HTMLSelectElement;
-  const historyQueryFilter = document.getElementById("history-query-filter") as HTMLInputElement;
-  const historySortMode = document.getElementById("history-sort-mode") as HTMLSelectElement;
-  const historyMaxItems = document.getElementById("history-max-items") as HTMLSelectElement;
-  const historyMinDuration = document.getElementById("history-min-duration") as HTMLInputElement;
-  const historyResetFiltersButton = document.getElementById("history-reset-filters-btn") as HTMLButtonElement;
-  const list = document.getElementById("shortcuts") as HTMLElement;
+  const saveButton = requireElement<HTMLButtonElement>("save-btn");
+  const exportButton = requireElement<HTMLButtonElement>("export-btn");
+  const importButton = requireElement<HTMLButtonElement>("import-btn");
+  const clearHistoryButton = requireElement<HTMLButtonElement>("clear-history-options-btn");
+  const saveDefaultContextButton = requireElement<HTMLButtonElement>("save-default-context-btn");
+  const historySourceFilter = requireElement<HTMLSelectElement>("history-source-filter");
+  const historyResultFilter = requireElement<HTMLSelectElement>("history-result-filter");
+  const historyQueryFilter = requireElement<HTMLInputElement>("history-query-filter");
+  const historySortMode = requireElement<HTMLSelectElement>("history-sort-mode");
+  const historyMaxItems = requireElement<HTMLSelectElement>("history-max-items");
+  const historyMinDuration = requireElement<HTMLInputElement>("history-min-duration");
+  const historyResetFiltersButton = requireElement<HTMLButtonElement>("history-reset-filters-btn");
+  const list = requireElement<HTMLElement>("shortcuts");
 
   saveButton.addEventListener("click", async () => {
     await runWithStatus(async () => {
