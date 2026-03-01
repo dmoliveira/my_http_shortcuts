@@ -10,6 +10,7 @@ import { createCorrelationId, logError, logInfo } from "../utils/log/logger";
 import { buildRequestInit } from "../utils/net/request-builder";
 import { fetchWithTimeout } from "../utils/net/timeout";
 import { AppError } from "../utils/validation/errors";
+import { mapExecutionError } from "./error-map";
 
 /**
  * Executes one configured shortcut by id using provided context.
@@ -57,13 +58,6 @@ export async function executeShortcut(shortcutId: string, context: ExecutionCont
     return result;
   } catch (error) {
     logError(correlationId, "Execution failed", error);
-    return {
-      ok: false,
-      status: 0,
-      headers: {},
-      body: "",
-      durationMs: Date.now() - startedAt,
-      error: error instanceof Error ? error.message : "Unknown error"
-    };
+    return mapExecutionError(error, Date.now() - startedAt);
   }
 }
