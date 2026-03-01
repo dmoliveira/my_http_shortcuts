@@ -3,6 +3,22 @@ import type { Shortcut } from "../types/api";
 import { safeJsonParse } from "../utils/io/serialization";
 
 /**
+ * Parses and validates headers JSON from options form.
+ */
+export function parseHeadersJson(headersRaw: string): Record<string, string> {
+  const parsed = safeJsonParse<unknown>(headersRaw);
+  if (!parsed || typeof parsed !== "object" || Array.isArray(parsed)) {
+    throw new Error("Headers must be a JSON object");
+  }
+
+  const headers: Record<string, string> = {};
+  for (const [key, value] of Object.entries(parsed)) {
+    headers[String(key)] = String(value);
+  }
+  return headers;
+}
+
+/**
  * Reads form fields and builds a shortcut payload.
  */
 export function readShortcutFromForm(): Shortcut {
@@ -14,7 +30,7 @@ export function readShortcutFromForm(): Shortcut {
   const preScript = (document.getElementById("pre-script") as HTMLTextAreaElement).value;
   const postScript = (document.getElementById("post-script") as HTMLTextAreaElement).value;
 
-  const headers = safeJsonParse<Record<string, string>>(headersRaw) ?? {};
+  const headers = parseHeadersJson(headersRaw);
   return createShortcut({ name, method, url, headers, bodyTemplate, preScript, postScript });
 }
 
