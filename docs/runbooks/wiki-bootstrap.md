@@ -8,6 +8,12 @@ GitHub wiki repositories (`<repo>.wiki.git`) are not always initialized until a 
 
 If the workflow warns that the wiki repo is unavailable, run this one-time bootstrap.
 
+Pre-check command:
+
+```bash
+make wiki-status
+```
+
 ## One-time bootstrap steps
 
 1. Open: `https://github.com/dmoliveira/my_http_shortcuts/wiki`
