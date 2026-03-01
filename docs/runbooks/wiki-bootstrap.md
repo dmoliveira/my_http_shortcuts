@@ -61,6 +61,12 @@ One-command flow (wait for bootstrap, dispatch sync, then verify):
 make wiki-complete
 ```
 
+Operational pulse (doctor snapshot + reminder update + monitor dispatch/watch):
+
+```bash
+make wiki-pulse
+```
+
 Automatic fallback:
 
 - `wiki-monitor.yml` checks wiki availability every 30 minutes and dispatches `wiki-sync.yml` automatically once initialization is detected.
