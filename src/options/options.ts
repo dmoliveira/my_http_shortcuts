@@ -3,6 +3,7 @@ import {
   filterHistoryByQuery,
   filterHistoryByResult,
   filterHistoryBySource,
+  limitHistoryEntries,
   renderOptionsHistory,
   renderOptionsHistoryStats,
   sortHistory
@@ -42,11 +43,13 @@ async function refreshHistoryList(): Promise<void> {
   const resultFilterElement = document.getElementById("history-result-filter") as HTMLSelectElement;
   const queryFilterElement = document.getElementById("history-query-filter") as HTMLInputElement;
   const sortModeElement = document.getElementById("history-sort-mode") as HTMLSelectElement;
+  const maxItemsElement = document.getElementById("history-max-items") as HTMLSelectElement;
   const stats = await sendRuntimeMessage<HistoryStats>({ type: "history:stats" });
   const sourceFiltered = filterHistoryBySource(history, filterElement.value);
   const resultFiltered = filterHistoryByResult(sourceFiltered, resultFilterElement.value);
   const queryFiltered = filterHistoryByQuery(resultFiltered, queryFilterElement.value);
-  const finalHistory = sortHistory(queryFiltered, sortModeElement.value);
+  const sorted = sortHistory(queryFiltered, sortModeElement.value);
+  const finalHistory = limitHistoryEntries(sorted, Number(maxItemsElement.value));
   renderOptionsHistory(container, finalHistory);
   renderOptionsHistoryStats(statsElement, stats);
 }
@@ -128,6 +131,7 @@ async function initOptionsPage(): Promise<void> {
   const historyResultFilter = document.getElementById("history-result-filter") as HTMLSelectElement;
   const historyQueryFilter = document.getElementById("history-query-filter") as HTMLInputElement;
   const historySortMode = document.getElementById("history-sort-mode") as HTMLSelectElement;
+  const historyMaxItems = document.getElementById("history-max-items") as HTMLSelectElement;
   const list = document.getElementById("shortcuts") as HTMLElement;
 
   saveButton.addEventListener("click", async () => {
@@ -176,6 +180,10 @@ async function initOptionsPage(): Promise<void> {
   });
 
   historySortMode.addEventListener("change", async () => {
+    await refreshHistoryList();
+  });
+
+  historyMaxItems.addEventListener("change", async () => {
     await refreshHistoryList();
   });
 

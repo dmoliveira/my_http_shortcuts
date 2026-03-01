@@ -55,6 +55,16 @@ export function sortHistory(history: HistoryItem[], mode: string): HistoryItem[]
 }
 
 /**
+ * Limits history entries to requested max count.
+ */
+export function limitHistoryEntries(history: HistoryItem[], maxItems: number): HistoryItem[] {
+  if (!Number.isFinite(maxItems) || maxItems <= 0) {
+    return history;
+  }
+  return history.slice(0, maxItems);
+}
+
+/**
  * Formats one options history entry text line.
  */
 export function formatOptionsHistoryEntry(item: HistoryItem): string {
