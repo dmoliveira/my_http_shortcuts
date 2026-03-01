@@ -124,6 +124,7 @@ make wiki-sync-run
 make wiki-watch
 make wiki-verify
 make wiki-complete
+make wiki-pulse
 make validate-local
 make release-ready
 ```
