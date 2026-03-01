@@ -21,4 +21,10 @@ make wiki-status
 3. Save a simple placeholder page (for example: `Home`)
 4. Re-run **Wiki Sync** workflow from Actions tab (or push a docs change)
 
+CLI shortcut (after wiki is initialized):
+
+```bash
+make wiki-sync-run
+```
+
 After that, wiki sync automation should push generated pages successfully.
