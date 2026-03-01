@@ -1,5 +1,6 @@
 import { readShortcutFromForm, renderShortcutList } from "./shortcut-editor";
 import { renderOptionsHistory } from "./history-view";
+import { readDefaultContextSelection, renderDefaultContextOptions } from "./default-context";
 import type { Shortcut } from "../types/api";
 import type { HistoryItem } from "../types/storage";
 import { sendRuntimeMessage } from "../utils/io/runtime-message";
@@ -20,22 +21,7 @@ async function refreshDefaultContextSelector(): Promise<void> {
   const select = document.getElementById("default-context-shortcut") as HTMLSelectElement;
   const shortcuts = await sendRuntimeMessage<Shortcut[]>({ type: "shortcuts:list" });
   const settings = await sendRuntimeMessage<{ defaultContextShortcutId: string | null }>({ type: "settings:get" });
-
-  select.innerHTML = "";
-
-  const none = document.createElement("option");
-  none.value = "";
-  none.textContent = "(None)";
-  select.append(none);
-
-  for (const shortcut of shortcuts) {
-    const option = document.createElement("option");
-    option.value = shortcut.id;
-    option.textContent = shortcut.name;
-    select.append(option);
-  }
-
-  select.value = settings.defaultContextShortcutId ?? "";
+  renderDefaultContextOptions(select, shortcuts, settings.defaultContextShortcutId);
 }
 
 /**
@@ -107,7 +93,7 @@ async function clearHistory(): Promise<void> {
  */
 async function saveDefaultContextShortcut(): Promise<void> {
   const select = document.getElementById("default-context-shortcut") as HTMLSelectElement;
-  const defaultContextShortcutId = select.value || null;
+  const defaultContextShortcutId = readDefaultContextSelection(select);
   await sendRuntimeMessage({ type: "settings:update", payload: { defaultContextShortcutId } });
 }
 
