@@ -1,31 +1,41 @@
 import { readShortcutFromForm, renderShortcutList } from "./shortcut-editor";
-import type { RuntimeMessage, Shortcut } from "../types/api";
-
-/**
- * Sends a typed runtime message and unwraps background response.
- */
-async function sendMessage<T>(message: RuntimeMessage): Promise<T> {
-  const response = await chrome.runtime.sendMessage(message);
-  if (!response.ok) {
-    throw new Error(response.error ?? "Unknown runtime error");
-  }
-  return response.result as T;
-}
+import type { Shortcut } from "../types/api";
+import { sendRuntimeMessage } from "../utils/io/runtime-message";
 
 /**
  * Loads all shortcuts and renders them in options UI.
  */
 async function refreshShortcutList(): Promise<void> {
-  const shortcuts = await sendMessage<Shortcut[]>({ type: "shortcuts:list" });
+  const shortcuts = await sendRuntimeMessage<Shortcut[]>({ type: "shortcuts:list" });
   const container = document.getElementById("shortcuts") as HTMLElement;
   renderShortcutList(container, shortcuts);
+}
+
+/**
+ * Renders user-facing status messages in the options page.
+ */
+function setStatus(message: string): void {
+  const statusElement = document.getElementById("status") as HTMLElement;
+  statusElement.textContent = message;
+}
+
+/**
+ * Runs one async UI action and reports errors in status area.
+ */
+async function runWithStatus(action: () => Promise<void>, successMessage: string): Promise<void> {
+  try {
+    await action();
+    setStatus(successMessage);
+  } catch (error) {
+    setStatus(error instanceof Error ? error.message : "Unexpected options error");
+  }
 }
 
 /**
  * Deletes a shortcut and refreshes options list.
  */
 async function deleteShortcut(shortcutId: string): Promise<void> {
-  await sendMessage({ type: "shortcuts:delete", payload: { shortcutId } });
+  await sendRuntimeMessage({ type: "shortcuts:delete", payload: { shortcutId } });
   await refreshShortcutList();
 }
 
@@ -34,7 +44,7 @@ async function deleteShortcut(shortcutId: string): Promise<void> {
  */
 async function exportStateToTextarea(): Promise<void> {
   const textarea = document.getElementById("state-json") as HTMLTextAreaElement;
-  const result = await sendMessage<{ json: string }>({ type: "state:export" });
+  const result = await sendRuntimeMessage<{ json: string }>({ type: "state:export" });
   textarea.value = result.json;
 }
 
@@ -43,7 +53,7 @@ async function exportStateToTextarea(): Promise<void> {
  */
 async function importStateFromTextarea(): Promise<void> {
   const textarea = document.getElementById("state-json") as HTMLTextAreaElement;
-  await sendMessage({ type: "state:import", payload: { json: textarea.value } });
+  await sendRuntimeMessage({ type: "state:import", payload: { json: textarea.value } });
   await refreshShortcutList();
 }
 
@@ -57,17 +67,23 @@ async function initOptionsPage(): Promise<void> {
   const list = document.getElementById("shortcuts") as HTMLElement;
 
   saveButton.addEventListener("click", async () => {
-    const shortcut = readShortcutFromForm();
-    await sendMessage({ type: "shortcuts:save", payload: shortcut });
-    await refreshShortcutList();
+    await runWithStatus(async () => {
+      const shortcut = readShortcutFromForm();
+      await sendRuntimeMessage({ type: "shortcuts:save", payload: shortcut });
+      await refreshShortcutList();
+    }, "Shortcut saved");
   });
 
   exportButton.addEventListener("click", async () => {
-    await exportStateToTextarea();
+    await runWithStatus(async () => {
+      await exportStateToTextarea();
+    }, "State exported");
   });
 
   importButton.addEventListener("click", async () => {
-    await importStateFromTextarea();
+    await runWithStatus(async () => {
+      await importStateFromTextarea();
+    }, "State imported");
   });
 
   list.addEventListener("click", async (event) => {
@@ -75,7 +91,9 @@ async function initOptionsPage(): Promise<void> {
     const action = target.getAttribute("data-action");
     const shortcutId = target.getAttribute("data-shortcut-id");
     if (action === "delete-shortcut" && shortcutId) {
-      await deleteShortcut(shortcutId);
+      await runWithStatus(async () => {
+        await deleteShortcut(shortcutId);
+      }, "Shortcut deleted");
     }
   });
 
