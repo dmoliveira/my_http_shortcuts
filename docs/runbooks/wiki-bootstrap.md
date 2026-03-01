@@ -30,6 +30,8 @@ Post current diagnostics to the reminder issue:
 make wiki-remind
 ```
 
+`make wiki-remind` uses a 30-minute cooldown to avoid comment spam. Override with `WIKI_REMIND_COOLDOWN_MINUTES=<n>` when needed.
+
 ## One-time bootstrap steps
 
 1. Open: `https://github.com/dmoliveira/my_http_shortcuts/wiki`
