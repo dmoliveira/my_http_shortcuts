@@ -23,9 +23,14 @@
         box-sizing: border-box;
       }
 
+      html,
+      body {
+        width: 392px;
+        min-width: 392px;
+      }
+
       body {
         margin: 0;
-        width: min(392px, 100vw);
         font-family: "Avenir Next", "Futura", "Trebuchet MS", "Segoe UI", sans-serif;
         background: radial-gradient(circle at top left, #f7fcfe 0%, var(--page-bg) 52%, #e4eef1 100%);
         color: var(--text-main);
@@ -245,6 +250,12 @@
       }
 
       @media (max-width: 420px) {
+        html,
+        body {
+          width: 100%;
+          min-width: 100%;
+        }
+
         .wrap {
           padding: 10px;
         }
