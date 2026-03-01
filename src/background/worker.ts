@@ -1,5 +1,6 @@
 import { handleRuntimeMessage } from "./message-router";
 import { executeShortcut } from "./executor";
+import { selectContextShortcut } from "./context-shortcut";
 import { loadState } from "../utils/io/storage";
 
 /**
@@ -27,10 +28,7 @@ function registerListeners(): void {
     }
 
     const state = await loadState();
-    const configuredShortcut = state.settings.defaultContextShortcutId
-      ? state.shortcuts.find((shortcut) => shortcut.id === state.settings.defaultContextShortcutId)
-      : null;
-    const targetShortcut = configuredShortcut ?? state.shortcuts[0];
+    const targetShortcut = selectContextShortcut(state.shortcuts, state.settings.defaultContextShortcutId);
 
     if (!targetShortcut) {
       return;
