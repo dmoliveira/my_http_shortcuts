@@ -245,8 +245,8 @@ Legend: `todo` ⏳ `doing` 🔄 `done` ✅ `blocked` ⛔
 | ID | Task | Status | Done Criteria |
 |---|---|---|---|
 | E4-T1 | JSON import/export | done ✅ | Round-trip validated |
-| E4-T2 | Release process + tagging + notes | todo ⏳ | First public tag created |
-| E4-T3 | Publish package workflow docs | todo ⏳ | Runbook complete |
+| E4-T2 | Release process + tagging + notes | doing 🔄 | First public tag created |
+| E4-T3 | Publish package workflow docs | done ✅ | Runbook complete |
 
 ---
 
@@ -302,6 +302,6 @@ Parallelization rule:
 ## 📍 Current Status
 
 - overall: implementation 🔄
-- active epic: E3 Execution UX
+- active epic: E4 Portability & Release
 - active task: E4-T2 Release process + tagging + notes
 - blockers: validation still blocked by local dependency installation policy gate
