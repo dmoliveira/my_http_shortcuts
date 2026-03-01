@@ -4,6 +4,8 @@
 
 [![CI](https://github.com/dmoliveira/my_http_shortcuts/actions/workflows/ci.yml/badge.svg)](https://github.com/dmoliveira/my_http_shortcuts/actions/workflows/ci.yml)
 [![Docs Site](https://github.com/dmoliveira/my_http_shortcuts/actions/workflows/pages.yml/badge.svg)](https://github.com/dmoliveira/my_http_shortcuts/actions/workflows/pages.yml)
+[![Wiki Sync](https://github.com/dmoliveira/my_http_shortcuts/actions/workflows/wiki-sync.yml/badge.svg)](https://github.com/dmoliveira/my_http_shortcuts/actions/workflows/wiki-sync.yml)
+[![Docs Live](https://img.shields.io/badge/docs-live_site-0a7ea4)](https://dmoliveira.github.io/my_http_shortcuts/)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
 [![Release](https://img.shields.io/github/v/release/dmoliveira/my_http_shortcuts)](https://github.com/dmoliveira/my_http_shortcuts/releases)
 [![Last Commit](https://img.shields.io/github/last-commit/dmoliveira/my_http_shortcuts)](https://github.com/dmoliveira/my_http_shortcuts/commits/main)
