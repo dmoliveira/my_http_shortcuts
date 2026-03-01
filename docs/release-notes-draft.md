@@ -9,9 +9,9 @@
 - 5b9aaf5 Add errors-only filter for popup history list
 - 7d603fc Add one-click reset for options history filters
 - 6a61893 Add success-rate metric to history stats outputs
-- d43b336 Add avg and max duration metrics to history stats
 
 ## Changes
+- 4bb7ac4 docs(release): refresh draft after hook and popup updates
 - ecef7f2 docs(release): document dependency gate prerequisite
 - 969845a docs(release): refresh draft notes from latest commits
 - 2157aa5 Document popup max-entries triage workflow
@@ -22,10 +22,9 @@
 - fc172e7 Document success-rate diagnostics workflow
 - 05d4787 Document release-check smoke workflow
 - 95192e6 Harden release checks with semver and smoke target
-- 8175568 Document avg max duration diagnostics guidance
 
 ## Fixes
-- N/A
+- 146fa1f fix(runtime): validate payload shapes for known message types
 
 ## Removals
 - N/A
