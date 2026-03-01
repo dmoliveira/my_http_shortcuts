@@ -28,6 +28,7 @@ A lean Chrome extension to run configurable HTTP shortcuts from the browser, wit
 - 📋 Clipboard copy now reports success/failure clearly
 - 🧯 Popup actions use centralized error handling for clearer diagnostics
 - 🛡️ Background listener rejects invalid runtime message payloads early
+- ♻️ Default context shortcut setting self-heals when referenced shortcut is removed
 
 ## 🚀 Quickstart
 

@@ -12,6 +12,7 @@
 - when triggered from context menu, extension uses configured `defaultContextShortcutId`
 - if configured shortcut is missing, fallback is first available shortcut
 - if no shortcuts exist, no request is executed
+- invalid saved default id is auto-healed to `null` during migration/update
 
 ## Pipeline
 
