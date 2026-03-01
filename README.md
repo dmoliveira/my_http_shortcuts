@@ -22,6 +22,7 @@ Quick navigation: [Project Index](#-project-index) · [Highlights](#-highlights)
 - Extension smoke tests: `docs/runbooks/extension-smoke-test.md`
 - Release process: `docs/runbooks/release.md`
 - Support and donations: `docs/support-the-project.md`
+- Hero image generation guide: `docs/assets/hero-image-generation.md`
 
 ## ✨ Highlights
 
