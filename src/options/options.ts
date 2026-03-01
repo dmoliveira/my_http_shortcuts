@@ -1,6 +1,8 @@
 import { readShortcutFromForm, renderShortcutList } from "./shortcut-editor";
 import type { Shortcut } from "../types/api";
+import type { HistoryItem } from "../types/storage";
 import { sendRuntimeMessage } from "../utils/io/runtime-message";
+import { renderOptionsHistory } from "./history-view";
 
 /**
  * Loads all shortcuts and renders them in options UI.
@@ -9,6 +11,15 @@ async function refreshShortcutList(): Promise<void> {
   const shortcuts = await sendRuntimeMessage<Shortcut[]>({ type: "shortcuts:list" });
   const container = document.getElementById("shortcuts") as HTMLElement;
   renderShortcutList(container, shortcuts);
+}
+
+/**
+ * Loads all history entries and renders them in options panel.
+ */
+async function refreshHistoryList(): Promise<void> {
+  const history = await sendRuntimeMessage<HistoryItem[]>({ type: "history:list" });
+  const container = document.getElementById("options-history") as HTMLElement;
+  renderOptionsHistory(container, history);
 }
 
 /**
@@ -55,6 +66,15 @@ async function importStateFromTextarea(): Promise<void> {
   const textarea = document.getElementById("state-json") as HTMLTextAreaElement;
   await sendRuntimeMessage({ type: "state:import", payload: { json: textarea.value } });
   await refreshShortcutList();
+  await refreshHistoryList();
+}
+
+/**
+ * Clears execution history and refreshes history list.
+ */
+async function clearHistory(): Promise<void> {
+  await sendRuntimeMessage({ type: "history:clear" });
+  await refreshHistoryList();
 }
 
 /**
@@ -64,6 +84,7 @@ async function initOptionsPage(): Promise<void> {
   const saveButton = document.getElementById("save-btn") as HTMLButtonElement;
   const exportButton = document.getElementById("export-btn") as HTMLButtonElement;
   const importButton = document.getElementById("import-btn") as HTMLButtonElement;
+  const clearHistoryButton = document.getElementById("clear-history-options-btn") as HTMLButtonElement;
   const list = document.getElementById("shortcuts") as HTMLElement;
 
   saveButton.addEventListener("click", async () => {
@@ -86,6 +107,12 @@ async function initOptionsPage(): Promise<void> {
     }, "State imported");
   });
 
+  clearHistoryButton.addEventListener("click", async () => {
+    await runWithStatus(async () => {
+      await clearHistory();
+    }, "History cleared");
+  });
+
   list.addEventListener("click", async (event) => {
     const target = event.target as HTMLElement;
     const action = target.getAttribute("data-action");
@@ -98,6 +125,7 @@ async function initOptionsPage(): Promise<void> {
   });
 
   await refreshShortcutList();
+  await refreshHistoryList();
 }
 
 void initOptionsPage();
