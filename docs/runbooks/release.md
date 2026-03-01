@@ -25,6 +25,8 @@ git pull --rebase
 make release-check
 ```
 
+This must pass before creating release artifacts or tags.
+
 3. Build and package:
 
 ```bash
