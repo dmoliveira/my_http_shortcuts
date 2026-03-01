@@ -80,6 +80,7 @@ make build
 ## 🧪 Quality Commands
 
 ```bash
+make dependency-security-report
 make gate-status
 make validate-local
 make release-ready

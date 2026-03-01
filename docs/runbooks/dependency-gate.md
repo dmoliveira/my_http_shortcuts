@@ -28,6 +28,7 @@ All required packages are already declared in `package.json` `devDependencies`:
 ## Unblock steps
 
 1. Run or approve dependency security validation in your local environment/policy workflow.
+   - Optionally generate/update local report first with `make dependency-security-report`.
 2. Install dependencies:
 
 ```bash
@@ -49,6 +50,7 @@ make release-ready
 
 For current command evidence and exact error text, see `docs/runbooks/validation-blocker-log.md`.
 The log also includes latest manual dependency metadata review results.
+Machine-generated package metadata is available in `docs/dependency-security-report.md`.
 
 ## Expected success criteria
 
