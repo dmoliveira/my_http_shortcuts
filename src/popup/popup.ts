@@ -11,6 +11,7 @@ import {
 } from "./popup-view";
 import { runPopupAction } from "./actions";
 import { copyTextToClipboard } from "./clipboard";
+import { readPopupHistoryControls, resetPopupHistoryControls } from "./history-controls";
 import { sendRuntimeMessage } from "../utils/io/runtime-message";
 import type { HistoryItem, HistoryStats } from "../types/storage";
 
@@ -43,9 +44,10 @@ async function refreshHistory(): Promise<void> {
   const historyElement = document.getElementById("history") as HTMLElement;
   const filterElement = document.getElementById("popup-history-filter") as HTMLSelectElement;
   const maxElement = document.getElementById("popup-history-max") as HTMLSelectElement;
+  const controls = readPopupHistoryControls({ filter: filterElement, maxItems: maxElement });
   const history = await sendRuntimeMessage<HistoryItem[]>({ type: "history:list" });
-  const filtered = filterPopupHistory(history, filterElement.value);
-  renderHistory(historyElement, limitPopupHistory(filtered, Number(maxElement.value)));
+  const filtered = filterPopupHistory(history, controls.filter);
+  renderHistory(historyElement, limitPopupHistory(filtered, controls.maxItems));
 }
 
 /**
@@ -69,6 +71,7 @@ async function initPopup(): Promise<void> {
   const clearHistoryButton = document.getElementById("clear-history-btn") as HTMLButtonElement;
   const historyFilter = document.getElementById("popup-history-filter") as HTMLSelectElement;
   const historyMax = document.getElementById("popup-history-max") as HTMLSelectElement;
+  const historyReset = document.getElementById("popup-history-reset-btn") as HTMLButtonElement;
 
   const shortcuts = await sendRuntimeMessage<Array<{ id: string; name: string }>>({ type: "shortcuts:list" });
   renderShortcutOptions(selectElement, shortcuts);
@@ -126,6 +129,12 @@ async function initPopup(): Promise<void> {
 
   historyMax.addEventListener("change", async () => {
     await refreshHistory();
+  });
+
+  historyReset.addEventListener("click", async () => {
+    resetPopupHistoryControls({ filter: historyFilter, maxItems: historyMax });
+    await refreshHistory();
+    renderPopupStatus(statusElement, "Popup history view reset");
   });
 
   copyResultButton.addEventListener("click", async () => {

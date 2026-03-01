@@ -44,6 +44,7 @@ A lean Chrome extension to run configurable HTTP shortcuts from the browser, wit
 - 🧪 History filter numeric inputs are validated with safe defaults
 - 🚨 Popup history includes an errors-only quick filter
 - 🔢 Popup history supports max-entries limiter for focused triage
+- ♻️ Popup history controls include one-click reset
 
 ## 🚀 Quickstart
 

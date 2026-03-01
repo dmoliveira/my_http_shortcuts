@@ -15,17 +15,18 @@ Provide a fast path to diagnose shortcut execution failures.
 7. Check popup history stats line for total/ok/error drift.
 8. Use popup errors-only history filter for fast failure triage.
 9. Use popup max-entries limiter to inspect a tighter failure window.
-10. Check options history stats line for popup/context source split drift.
-11. Use avg/max duration stats to detect latency regressions.
-12. Use success-rate percentage to detect reliability regressions.
-13. Use options history source filter to isolate popup vs context-menu issues.
-14. Use options history result filter to isolate success-only or error-only runs.
-15. Use options history search filter to isolate one shortcut by name.
-16. Use options history sort mode to inspect latency outliers quickly.
-17. Use options max-items control to focus on the latest or smallest slice.
-18. Use min-duration filter to isolate slow executions above a threshold.
-19. Use reset-filters button to restore default debug view quickly.
-20. If numeric filters look broken, reset to defaults and re-apply values.
+10. Use popup reset-history-view button to restore default triage controls.
+11. Check options history stats line for popup/context source split drift.
+12. Use avg/max duration stats to detect latency regressions.
+13. Use success-rate percentage to detect reliability regressions.
+14. Use options history source filter to isolate popup vs context-menu issues.
+15. Use options history result filter to isolate success-only or error-only runs.
+16. Use options history search filter to isolate one shortcut by name.
+17. Use options history sort mode to inspect latency outliers quickly.
+18. Use options max-items control to focus on the latest or smallest slice.
+19. Use min-duration filter to isolate slow executions above a threshold.
+20. Use reset-filters button to restore default debug view quickly.
+21. If numeric filters look broken, reset to defaults and re-apply values.
 
 ## Common Failure Types
 
