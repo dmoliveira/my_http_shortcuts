@@ -89,6 +89,7 @@ make build
 make dependency-security-report
 make dependency-unblock-packet
 make gate-status
+make wiki-status
 make validate-local
 make release-ready
 ```

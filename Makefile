@@ -2,7 +2,7 @@ SHELL := /bin/bash
 PROJECT := my_http_shortcuts
 VERSION := $(shell node -p "require('./package.json').version")
 
-.PHONY: help install dependency-security-report dependency-unblock-packet gate-status toolchain-check validate-local release-ready lint test typecheck build package release-notes release-notes-file release-notes-smoke release-check release-check-smoke tag
+.PHONY: help install dependency-security-report dependency-unblock-packet gate-status wiki-status toolchain-check validate-local release-ready lint test typecheck build package release-notes release-notes-file release-notes-smoke release-check release-check-smoke tag
 
 help:
 	@printf "$(PROJECT) v$(VERSION)\n"
@@ -11,6 +11,7 @@ help:
 	@printf "  make dependency-security-report Generate dependency metadata report\n"
 	@printf "  make dependency-unblock-packet Capture blocker evidence bundle\n"
 	@printf "  make gate-status    Print dependency-gate readiness\n"
+	@printf "  make wiki-status    Check wiki git backend readiness\n"
 	@printf "  make toolchain-check Verify required local binaries\n"
 	@printf "  make validate-local Run toolchain + lint/typecheck/test/build\n"
 	@printf "  make release-ready  Run release validation sequence\n"
@@ -37,6 +38,9 @@ dependency-unblock-packet:
 
 gate-status:
 	node scripts/gate-status.mjs
+
+wiki-status:
+	node scripts/wiki-status.mjs
 
 toolchain-check:
 	node scripts/toolchain-check.mjs
