@@ -8,6 +8,9 @@ export function getDefaultState(): PersistedState {
   return {
     shortcuts: [],
     history: [],
+    settings: {
+      defaultContextShortcutId: null
+    },
     schemaVersion: APP_CONSTANTS.schemaVersion
   };
 }

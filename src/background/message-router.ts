@@ -26,6 +26,11 @@ export async function handleRuntimeMessage(message: RuntimeMessage): Promise<unk
     return { cleared: true };
   }
 
+  if (message.type === "settings:get") {
+    const state = await loadState();
+    return state.settings;
+  }
+
   if (message.type === "shortcuts:save") {
     const state = await loadState();
     const shortcut = createShortcut(message.payload);
@@ -41,6 +46,18 @@ export async function handleRuntimeMessage(message: RuntimeMessage): Promise<unk
     const shortcuts = state.shortcuts.filter((entry) => entry.id !== message.payload.shortcutId);
     await saveState({ ...state, shortcuts });
     return { deleted: true };
+  }
+
+  if (message.type === "settings:update") {
+    const state = await loadState();
+    await saveState({
+      ...state,
+      settings: {
+        ...state.settings,
+        defaultContextShortcutId: message.payload.defaultContextShortcutId
+      }
+    });
+    return { saved: true };
   }
 
   if (message.type === "shortcut:run") {

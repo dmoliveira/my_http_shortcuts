@@ -93,6 +93,20 @@ function normalizeHistory(value: unknown): PersistedState["history"] {
 }
 
 /**
+ * Normalizes unknown settings payload into current settings model.
+ */
+function normalizeSettings(value: unknown): PersistedState["settings"] {
+  if (!isRecord(value)) {
+    return { defaultContextShortcutId: null };
+  }
+
+  return {
+    defaultContextShortcutId:
+      typeof value.defaultContextShortcutId === "string" ? value.defaultContextShortcutId : null
+  };
+}
+
+/**
  * Migrates persisted payloads into the current storage schema.
  */
 export function migrateState(value: unknown): PersistedState {
@@ -102,10 +116,12 @@ export function migrateState(value: unknown): PersistedState {
 
   const shortcuts = normalizeShortcuts(value.shortcuts);
   const history = normalizeHistory(value.history);
+  const settings = normalizeSettings(value.settings);
 
   return {
     shortcuts,
     history,
+    settings,
     schemaVersion: APP_CONSTANTS.schemaVersion
   } as PersistedState;
 }

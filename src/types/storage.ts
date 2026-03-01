@@ -13,10 +13,18 @@ export interface HistoryItem {
 }
 
 /**
+ * Defines user-level extension settings.
+ */
+export interface AppSettings {
+  defaultContextShortcutId: string | null;
+}
+
+/**
  * Defines extension storage contract.
  */
 export interface PersistedState {
   shortcuts: Shortcut[];
   history: HistoryItem[];
+  settings: AppSettings;
   schemaVersion: number;
 }

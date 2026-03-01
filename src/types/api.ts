@@ -47,5 +47,7 @@ export type RuntimeMessage =
   | { type: "shortcut:run"; payload: { shortcutId: string; context: ExecutionContext } }
   | { type: "history:list" }
   | { type: "history:clear" }
+  | { type: "settings:get" }
+  | { type: "settings:update"; payload: { defaultContextShortcutId: string | null } }
   | { type: "state:export" }
   | { type: "state:import"; payload: { json: string } };

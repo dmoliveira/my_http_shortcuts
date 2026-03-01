@@ -7,6 +7,7 @@ describe("migrateState", () => {
     const result = migrateState(null);
     expect(result.shortcuts).toEqual([]);
     expect(result.history).toEqual([]);
+    expect(result.settings.defaultContextShortcutId).toBeNull();
     expect(result.schemaVersion).toBe(APP_CONSTANTS.schemaVersion);
   });
 
@@ -17,6 +18,7 @@ describe("migrateState", () => {
         { id: "2", name: "Bad", method: "GET", url: "ftp://example.com" }
       ],
       history: [{ id: "h", result: { ok: true, status: 200, headers: {}, body: "ok", durationMs: 10 } }],
+      settings: { defaultContextShortcutId: "1" },
       schemaVersion: 0
     });
 
@@ -25,6 +27,7 @@ describe("migrateState", () => {
     expect(result.shortcuts).toHaveLength(1);
     expect(result.shortcuts[0]?.id).toBe("1");
     expect(result.history[0]?.id).toBe("h");
+    expect(result.settings.defaultContextShortcutId).toBe("1");
     expect(result.schemaVersion).toBe(APP_CONSTANTS.schemaVersion);
   });
 });
