@@ -41,6 +41,7 @@ A lean Chrome extension to run configurable HTTP shortcuts from the browser, wit
 - 📏 History stats include average and max duration for latency tracking
 - 💯 History stats include success-rate percentage for quick reliability checks
 - ♻️ Options debug history supports one-click filter reset
+- 🧪 History filter numeric inputs are validated with safe defaults
 
 ## 🚀 Quickstart
 
