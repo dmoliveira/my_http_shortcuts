@@ -122,24 +122,40 @@ Then click **Reload** on the extension card in `chrome://extensions`.
 
 ## 🧪 Quality Commands
 
-```bash
-make dependency-security-report
-make dependency-unblock-packet
-make gate-status
-make wiki-status
-make wiki-status-json
-make wiki-doctor
-make wiki-remind
-make wiki-sync-run
-make wiki-watch
-make wiki-verify
-make wiki-complete
-make wiki-pulse
-make wiki-autopilot
-make validate-local
-make refresh-extension
-make release-ready
-```
+- Setup
+  - `make install`
+  - `make toolchain-check`
+- Development
+  - `make lint`
+  - `make typecheck`
+  - `make test`
+  - `make build`
+  - `make validate-local`
+  - `make refresh-extension`
+- Dependency gate
+  - `make gate-status`
+  - `make dependency-security-report`
+  - `make dependency-unblock-packet`
+- Wiki operations
+  - `make wiki-status`
+  - `make wiki-status-json`
+  - `make wiki-doctor`
+  - `make wiki-remind`
+  - `make wiki-sync-run`
+  - `make wiki-watch`
+  - `make wiki-verify`
+  - `make wiki-complete`
+  - `make wiki-pulse`
+  - `make wiki-autopilot`
+- Release
+  - `make release-check`
+  - `make release-check-smoke`
+  - `make release-notes`
+  - `make release-notes-file`
+  - `make release-notes-smoke`
+  - `make release-ready`
+  - `make package`
+  - `make tag`
 
 ## 🔐 Security & Privacy
 
