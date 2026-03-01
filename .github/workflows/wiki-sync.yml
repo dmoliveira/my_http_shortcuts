@@ -24,7 +24,18 @@ jobs:
         with:
           node-version: "22"
 
+      - name: Check wiki repository availability
+        id: wiki-check
+        run: |
+          if git ls-remote "https://x-access-token:${{ secrets.GITHUB_TOKEN }}@github.com/${{ github.repository }}.wiki.git" > /dev/null 2>&1; then
+            echo "available=true" >> "$GITHUB_OUTPUT"
+          else
+            echo "available=false" >> "$GITHUB_OUTPUT"
+            echo "::warning::Wiki git repository is not initialized yet. Create your first wiki page in GitHub UI, then rerun this workflow."
+          fi
+
       - name: Clone wiki repository
+        if: steps.wiki-check.outputs.available == 'true'
         run: |
           mkdir wiki
           git -C wiki init
@@ -36,10 +47,12 @@ jobs:
           git -C wiki pull --rebase origin master || true
 
       - name: Build wiki pages from docs
+        if: steps.wiki-check.outputs.available == 'true'
         run: |
           node scripts/build-wiki.mjs wiki
 
       - name: Commit and push wiki updates
+        if: steps.wiki-check.outputs.available == 'true'
         run: |
           cd wiki
           git add .
