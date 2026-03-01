@@ -72,5 +72,5 @@ export function renderHistory(listElement: HTMLElement, history: HistoryItem[]):
  * Renders compact history aggregate stats in popup.
  */
 export function renderHistoryStats(statsElement: HTMLElement, stats: HistoryStats): void {
-  statsElement.textContent = `Total: ${stats.total} | OK: ${stats.ok} | ERR: ${stats.error}`;
+  statsElement.textContent = `Total: ${stats.total} | OK: ${stats.ok} | ERR: ${stats.error} | avg: ${stats.avgDurationMs}ms | max: ${stats.maxDurationMs}ms`;
 }

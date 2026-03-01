@@ -4,7 +4,14 @@ import { summarizeHistory } from "../src/domain/history-stats";
 describe("summarizeHistory", () => {
   it("returns zeroed stats for empty history", () => {
     const stats = summarizeHistory([]);
-    expect(stats).toEqual({ total: 0, ok: 0, error: 0, bySource: {} });
+    expect(stats).toEqual({
+      total: 0,
+      ok: 0,
+      error: 0,
+      avgDurationMs: 0,
+      maxDurationMs: 0,
+      bySource: {}
+    });
   });
 
   it("aggregates counts and source buckets", () => {
@@ -32,6 +39,8 @@ describe("summarizeHistory", () => {
     expect(stats.total).toBe(2);
     expect(stats.ok).toBe(1);
     expect(stats.error).toBe(1);
+    expect(stats.avgDurationMs).toBe(15);
+    expect(stats.maxDurationMs).toBe(20);
     expect(stats.bySource.popup).toBe(1);
     expect(stats.bySource.context_menu).toBe(1);
   });

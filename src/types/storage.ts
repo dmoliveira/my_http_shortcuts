@@ -27,6 +27,8 @@ export interface HistoryStats {
   total: number;
   ok: number;
   error: number;
+  avgDurationMs: number;
+  maxDurationMs: number;
   bySource: Record<string, number>;
 }
 
