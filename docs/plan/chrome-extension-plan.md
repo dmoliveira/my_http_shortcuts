@@ -221,7 +221,7 @@ Legend: `todo` ⏳ `doing` 🔄 `done` ✅ `blocked` ⛔
 | ID | Task | Status | Done Criteria |
 |---|---|---|---|
 | E1-T1 | Shortcut schema + validation + migrations | doing 🔄 | Versioned schema tested |
-| E1-T2 | Options CRUD UI | todo ⏳ | A11y checks pass |
+| E1-T2 | Options CRUD UI | doing 🔄 | A11y checks pass |
 | E1-T3 | Popup run flow | todo ⏳ | Trigger works end-to-end |
 
 ### Epic E2 — Variables & Hooks
@@ -302,6 +302,6 @@ Parallelization rule:
 ## 📍 Current Status
 
 - overall: implementation 🔄
-- active epic: E4 Portability & Release
-- active task: E4-T1 JSON import/export
+- active epic: E1 Shortcut Core
+- active task: E1-T2 Options CRUD UI
 - blockers: validation still blocked by local dependency installation policy gate

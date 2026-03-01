@@ -3,7 +3,7 @@
   "name": "My HTTP Shortcuts",
   "description": "Run configurable HTTP shortcuts from your browser.",
   "version": "0.1.0",
-  "permissions": ["storage", "activeTab", "contextMenus"],
+  "permissions": ["storage", "activeTab", "contextMenus", "scripting"],
   "host_permissions": ["<all_urls>"],
   "background": {
     "service_worker": "background/worker.js",
