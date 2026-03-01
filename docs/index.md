@@ -9,6 +9,7 @@
 ## Release & Operations
 
 - `docs/runbooks/release.md` - release flow and checks
+- `docs/runbooks/wiki-bootstrap.md` - one-time wiki initialization steps for sync automation
 - `docs/runbooks/dependency-gate.md` - dependency policy unblock path
 - `docs/runbooks/validation-blocker-log.md` - blocker evidence log
 - `docs/release-notes-draft.md` - generated release notes draft
