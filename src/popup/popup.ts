@@ -1,5 +1,6 @@
 import {
   readResultText,
+  filterPopupHistory,
   renderHistory,
   renderHistoryStats,
   renderPopupStatus,
@@ -39,8 +40,9 @@ async function buildExecutionContext(): Promise<{ input: string; pageUrl: string
  */
 async function refreshHistory(): Promise<void> {
   const historyElement = document.getElementById("history") as HTMLElement;
+  const filterElement = document.getElementById("popup-history-filter") as HTMLSelectElement;
   const history = await sendRuntimeMessage<HistoryItem[]>({ type: "history:list" });
-  renderHistory(historyElement, history);
+  renderHistory(historyElement, filterPopupHistory(history, filterElement.value));
 }
 
 /**
@@ -62,6 +64,7 @@ async function initPopup(): Promise<void> {
   const runButton = document.getElementById("run-btn") as HTMLButtonElement;
   const copyResultButton = document.getElementById("copy-result-btn") as HTMLButtonElement;
   const clearHistoryButton = document.getElementById("clear-history-btn") as HTMLButtonElement;
+  const historyFilter = document.getElementById("popup-history-filter") as HTMLSelectElement;
 
   const shortcuts = await sendRuntimeMessage<Array<{ id: string; name: string }>>({ type: "shortcuts:list" });
   renderShortcutOptions(selectElement, shortcuts);
@@ -111,6 +114,10 @@ async function initPopup(): Promise<void> {
     if (ok) {
       renderPopupStatus(statusElement, "History cleared");
     }
+  });
+
+  historyFilter.addEventListener("change", async () => {
+    await refreshHistory();
   });
 
   copyResultButton.addEventListener("click", async () => {

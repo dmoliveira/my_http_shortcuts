@@ -69,6 +69,16 @@ export function renderHistory(listElement: HTMLElement, history: HistoryItem[]):
 }
 
 /**
+ * Filters popup history entries by selected mode.
+ */
+export function filterPopupHistory(history: HistoryItem[], mode: string): HistoryItem[] {
+  if (mode === "error") {
+    return history.filter((item) => !item.result.ok);
+  }
+  return history;
+}
+
+/**
  * Renders compact history aggregate stats in popup.
  */
 export function renderHistoryStats(statsElement: HTMLElement, stats: HistoryStats): void {
