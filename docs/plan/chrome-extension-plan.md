@@ -236,7 +236,7 @@ Legend: `todo` ⏳ `doing` 🔄 `done` ✅ `blocked` ⛔
 
 | ID | Task | Status | Done Criteria |
 |---|---|---|---|
-| E3-T1 | Request executor + timeout + retry policy seed | doing 🔄 | Deterministic error map |
+| E3-T1 | Request executor + timeout + retry policy seed | done ✅ | Deterministic error map |
 | E3-T2 | Response details panel | doing 🔄 | Handles large payload preview |
 | E3-T3 | History and debug trace view | done ✅ | Redaction validated |
 

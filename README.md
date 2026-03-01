@@ -20,6 +20,7 @@ A lean Chrome extension to run configurable HTTP shortcuts from the browser, wit
 - ✅ Fail-fast JSON/header validation in options workflows
 - 🧾 Options debug history list with correlation IDs
 - 📋 Structured popup response details (status, headers, body, duration)
+- 🔄 Timeout/network retry seed with deterministic error mapping
 
 ## 🚀 Quickstart
 
