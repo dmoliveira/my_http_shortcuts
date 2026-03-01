@@ -7,9 +7,10 @@
 - 0ea3981 feat(popup): add resettable history controls
 - cfac9e8 Add max-entries limiter to popup history view
 - 5b9aaf5 Add errors-only filter for popup history list
-- 7d603fc Add one-click reset for options history filters
 
 ## Changes
+- a05babb chore(make): add validate-local aggregate target
+- 02e3ad8 docs(release): refresh draft after toolchain preflight
 - d96caec chore(tooling): add local toolchain preflight check
 - cb2daa1 docs(release): refresh draft after plan and debug updates
 - 8bbc5bd docs(plan): sync E2 status and troubleshooting steps
@@ -21,7 +22,6 @@
 - 271e241 Document popup errors-only triage workflow
 - 9234c7b Document numeric filter fallback diagnostics
 - 44a75aa Harden numeric history filters with safe parsing
-- cf91a99 Document history filter reset workflow
 
 ## Fixes
 - 146fa1f fix(runtime): validate payload shapes for known message types
