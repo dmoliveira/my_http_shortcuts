@@ -32,11 +32,7 @@ This must pass before creating release artifacts or tags.
 2b. Validate local toolchain is available:
 
 ```bash
-make toolchain-check
-make lint
-make typecheck
-make test
-make build
+make validate-local
 ```
 
 If any command fails with missing binaries (`eslint`, `tsc`, `vitest`, `rimraf`), clear the local dependency-policy gate and reinstall dependencies before proceeding.
