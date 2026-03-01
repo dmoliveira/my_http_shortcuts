@@ -36,8 +36,11 @@ make package
 4. Generate release notes draft:
 
 ```bash
-make release-notes > release-notes.md
+make release-notes-file
+make release-notes-smoke
 ```
+
+Draft file is written to `docs/release-notes-draft.md`.
 
 5. Tag release:
 

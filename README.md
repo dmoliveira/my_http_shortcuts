@@ -76,6 +76,7 @@ make build
 
 - release process guide: `docs/runbooks/release.md`
 - draft notes command: `make release-notes`
+- draft notes file: `make release-notes-file` -> `docs/release-notes-draft.md`
 - metadata check command: `make release-check`
 
 ## 🤝 Contributing

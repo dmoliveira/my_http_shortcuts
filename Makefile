@@ -2,7 +2,7 @@ SHELL := /bin/bash
 PROJECT := my_http_shortcuts
 VERSION := $(shell node -p "require('./package.json').version")
 
-.PHONY: help install lint test typecheck build package release-notes release-check tag
+.PHONY: help install lint test typecheck build package release-notes release-notes-file release-notes-smoke release-check tag
 
 help:
 	@printf "$(PROJECT) v$(VERSION)\n"
@@ -14,6 +14,8 @@ help:
 	@printf "  make build          Build extension to dist/\n"
 	@printf "  make package        Create release.zip\n"
 	@printf "  make release-notes  Generate draft release notes\n"
+	@printf "  make release-notes-file  Write draft notes to docs/\n"
+	@printf "  make release-notes-smoke Verify release notes sections\n"
 	@printf "  make release-check  Validate release metadata\n"
 	@printf "  make tag            Create annotated git tag from version\n"
 
@@ -37,6 +39,12 @@ package:
 
 release-notes:
 	npm run release-notes
+
+release-notes-file:
+	node scripts/release-notes.mjs > docs/release-notes-draft.md
+
+release-notes-smoke:
+	npm run release-notes:smoke
 
 release-check:
 	npm run release-check
