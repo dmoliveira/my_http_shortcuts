@@ -12,6 +12,7 @@
 - `docs/runbooks/wiki-bootstrap.md` - one-time wiki initialization steps for sync automation
 - `make wiki-status` - quick pre-check to confirm wiki backend availability
 - `make wiki-watch` - poll for wiki bootstrap and auto-dispatch wiki sync when ready
+- `make wiki-verify` - verify expected generated wiki pages are present
 - `docs/runbooks/dependency-gate.md` - dependency policy unblock path
 - `docs/runbooks/validation-blocker-log.md` - blocker evidence log
 - `docs/release-notes-draft.md` - generated release notes draft
