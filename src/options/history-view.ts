@@ -38,6 +38,23 @@ export function filterHistoryByQuery(history: HistoryItem[], query: string): His
 }
 
 /**
+ * Sorts history entries according to selected mode.
+ */
+export function sortHistory(history: HistoryItem[], mode: string): HistoryItem[] {
+  const copy = [...history];
+  if (mode === "oldest") {
+    return copy.sort((a, b) => new Date(a.createdAt).getTime() - new Date(b.createdAt).getTime());
+  }
+  if (mode === "slowest") {
+    return copy.sort((a, b) => b.result.durationMs - a.result.durationMs);
+  }
+  if (mode === "fastest") {
+    return copy.sort((a, b) => a.result.durationMs - b.result.durationMs);
+  }
+  return copy.sort((a, b) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime());
+}
+
+/**
  * Formats one options history entry text line.
  */
 export function formatOptionsHistoryEntry(item: HistoryItem): string {

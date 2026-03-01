@@ -119,6 +119,13 @@
       </select>
       <label for="history-query-filter">Shortcut search</label>
       <input id="history-query-filter" type="text" placeholder="Search by shortcut name" />
+      <label for="history-sort-mode">Sort mode</label>
+      <select id="history-sort-mode" aria-label="History sort mode">
+        <option value="newest">Newest first</option>
+        <option value="oldest">Oldest first</option>
+        <option value="slowest">Slowest first</option>
+        <option value="fastest">Fastest first</option>
+      </select>
       <p id="options-history-stats" aria-live="polite"></p>
       <button id="clear-history-options-btn" type="button">Clear History</button>
       <ul id="options-history" aria-live="polite"></ul>

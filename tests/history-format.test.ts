@@ -4,7 +4,8 @@ import {
   filterHistoryByResult,
   filterHistoryBySource,
   formatOptionsHistoryEntry,
-  renderOptionsHistoryStats
+  renderOptionsHistoryStats,
+  sortHistory
 } from "../src/options/history-view";
 
 describe("formatOptionsHistoryEntry", () => {
@@ -119,5 +120,33 @@ describe("formatOptionsHistoryEntry", () => {
 
     expect(filtered).toHaveLength(1);
     expect(filtered[0]?.shortcutName).toBe("Summarize");
+  });
+
+  it("sorts history by duration mode", () => {
+    const sorted = sortHistory(
+      [
+        {
+          id: "1",
+          shortcutId: "s1",
+          shortcutName: "A",
+          source: "popup",
+          createdAt: "2026-03-01T00:00:00.000Z",
+          correlationId: "c1",
+          result: { ok: true, status: 200, headers: {}, body: "ok", durationMs: 10 }
+        },
+        {
+          id: "2",
+          shortcutId: "s2",
+          shortcutName: "B",
+          source: "popup",
+          createdAt: "2026-03-01T00:00:01.000Z",
+          correlationId: "c2",
+          result: { ok: true, status: 200, headers: {}, body: "ok", durationMs: 90 }
+        }
+      ],
+      "slowest"
+    );
+
+    expect(sorted[0]?.id).toBe("2");
   });
 });
