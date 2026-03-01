@@ -22,7 +22,7 @@
 4. resolve templates in URL/body
 5. execute request with timeout
 6. run post-script (optional)
-7. persist sanitized history
+7. persist sanitized history with execution source metadata (`popup` or `context_menu`)
 8. return `ExecutionResult`
 
 ## Failure Behavior
