@@ -19,6 +19,7 @@ Provide a fast path to diagnose shortcut execution failures.
 11. Use options history search filter to isolate one shortcut by name.
 12. Use options history sort mode to inspect latency outliers quickly.
 13. Use options max-items control to focus on the latest or smallest slice.
+14. Use min-duration filter to isolate slow executions above a threshold.
 
 ## Common Failure Types
 
