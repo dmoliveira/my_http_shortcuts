@@ -1,0 +1,19 @@
+site_name: My HTTP Shortcuts
+site_description: Chrome extension docs for HTTP shortcuts, runbooks, and release flow
+site_url: https://dmoliveira.github.io/my_http_shortcuts/
+repo_url: https://github.com/dmoliveira/my_http_shortcuts
+theme:
+  name: mkdocs
+nav:
+  - Home: docs/index.md
+  - Getting Started: docs/getting-started.md
+  - Runbooks:
+      - Extension Smoke Test: docs/runbooks/extension-smoke-test.md
+      - Debugging: docs/runbooks/debugging.md
+      - Release: docs/runbooks/release.md
+      - Dependency Gate: docs/runbooks/dependency-gate.md
+      - Validation Blocker Log: docs/runbooks/validation-blocker-log.md
+  - Planning & Specs:
+      - Chrome Extension Plan: docs/plan/chrome-extension-plan.md
+      - Execution Contract: docs/specs/execution-contract.md
+  - Support: docs/support-the-project.md
