@@ -9,6 +9,8 @@
 - 5b9aaf5 Add errors-only filter for popup history list
 
 ## Changes
+- 5934ee7 chore(release): add aggregated release-ready gate
+- e339e6f docs(release): refresh draft after validate-local target
 - a05babb chore(make): add validate-local aggregate target
 - 02e3ad8 docs(release): refresh draft after toolchain preflight
 - d96caec chore(tooling): add local toolchain preflight check
@@ -20,8 +22,6 @@
 - 969845a docs(release): refresh draft notes from latest commits
 - 2157aa5 Document popup max-entries triage workflow
 - 271e241 Document popup errors-only triage workflow
-- 9234c7b Document numeric filter fallback diagnostics
-- 44a75aa Harden numeric history filters with safe parsing
 
 ## Fixes
 - 146fa1f fix(runtime): validate payload shapes for known message types
