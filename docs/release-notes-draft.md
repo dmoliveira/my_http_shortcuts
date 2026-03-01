@@ -4,9 +4,10 @@
 - ed08985 feat(hooks): enforce typed pre/post script output contracts
 - e5aae3b feat(popup): prompt for unresolved template variables
 - e5850c9 feat(execution): support generic template variable placeholders
-- 0ea3981 feat(popup): add resettable history controls
 
 ## Changes
+- b770143 chore(tooling): add gate-status readiness reporter
+- ff23cf6 docs(release): refresh draft after plan status update
 - 6944a41 docs(plan): mark E2 prompts done and capture blocker evidence
 - b97c88a docs(release): refresh draft after dependency runbook
 - c5a1b0a docs(runbook): add dependency gate unblock workflow
@@ -21,7 +22,6 @@
 - 9bb1f7c docs(release): refresh draft after runtime guard hardening
 - 4bb7ac4 docs(release): refresh draft after hook and popup updates
 - ecef7f2 docs(release): document dependency gate prerequisite
-- 969845a docs(release): refresh draft notes from latest commits
 
 ## Fixes
 - 146fa1f fix(runtime): validate payload shapes for known message types
