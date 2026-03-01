@@ -17,4 +17,22 @@ describe("script hooks", () => {
     expect(pre.input).toBe("HELLO");
     expect(post).toBe("hello world");
   });
+
+  it("rejects non-object pre script output", () => {
+    expect(() => runPreScript("function transform(){ return 7; }", { input: "hello" })).toThrowError(
+      /Pre script must return an object map/
+    );
+  });
+
+  it("rejects non-string pre script values", () => {
+    expect(() =>
+      runPreScript("function transform(input){ return { ...input, retries: 3 }; }", { input: "hello" })
+    ).toThrowError(/Pre script variables must be string values/);
+  });
+
+  it("rejects non-string post script output", () => {
+    expect(() => runPostScript("function transform(){ return { ok: true }; }", "hello")).toThrowError(
+      /Post script must return a string response/
+    );
+  });
 });

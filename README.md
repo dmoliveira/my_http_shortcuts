@@ -14,6 +14,7 @@ A lean Chrome extension to run configurable HTTP shortcuts from the browser, wit
 - 🔁 Optional pre/post script hooks
 - 🧪 Test-first utility modules
 - 🛡️ Fail-fast validation and robust error mapping
+- 🧯 Script hooks enforce safe output contracts (pre: string map, post: string)
 - 🧭 Structured logs for debugging
 - 📦 JSON import/export with schema migration support
 - ✂️ Selected text context capture from active tab
