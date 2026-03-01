@@ -8,6 +8,7 @@ on:
 permissions:
   contents: read
   actions: write
+  issues: write
 
 jobs:
   check-and-dispatch:
@@ -22,6 +23,27 @@ jobs:
             echo "available=false" >> "$GITHUB_OUTPUT"
             echo "Wiki backend not initialized yet; skipping dispatch."
           fi
+
+      - name: Open bootstrap reminder issue
+        if: steps.check.outputs.available == 'false'
+        run: |
+          ISSUE_TITLE="Wiki bootstrap needed: create first wiki page"
+          EXISTING="$(gh issue list --repo "${{ github.repository }}" --state open --search "${ISSUE_TITLE} in:title" --json number --jq '.[0].number // empty')"
+          if [ -z "${EXISTING}" ]; then
+            gh issue create --repo "${{ github.repository }}" --title "${ISSUE_TITLE}" --body "The wiki git backend is still unavailable.\n\nOne-time action required:\n1. Open https://github.com/${{ github.repository }}/wiki\n2. Create and save first page (Home)\n3. Wiki monitor/wikisync automation will continue automatically."
+          fi
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Close bootstrap reminder issue when ready
+        if: steps.check.outputs.available == 'true'
+        run: |
+          ISSUE_TITLE="Wiki bootstrap needed: create first wiki page"
+          for num in $(gh issue list --repo "${{ github.repository }}" --state open --search "${ISSUE_TITLE} in:title" --json number --jq '.[].number'); do
+            gh issue close "$num" --repo "${{ github.repository }}" --comment "Wiki backend is now available. Closing bootstrap reminder."
+          done
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Dispatch wiki sync workflow
         if: steps.check.outputs.available == 'true'
