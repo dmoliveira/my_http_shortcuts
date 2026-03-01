@@ -27,4 +27,8 @@ CLI shortcut (after wiki is initialized):
 make wiki-sync-run
 ```
 
+Automatic fallback:
+
+- `wiki-monitor.yml` checks wiki availability every 30 minutes and dispatches `wiki-sync.yml` automatically once initialization is detected.
+
 After that, wiki sync automation should push generated pages successfully.
