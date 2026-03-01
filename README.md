@@ -34,6 +34,7 @@ A lean Chrome extension to run configurable HTTP shortcuts from the browser, wit
 - 📈 Options debug history also shows source-aware summary stats
 - 🔎 Options debug history supports source-based filtering
 - ✅ Options debug history supports success/error filtering
+- 🔤 Options debug history supports shortcut-name search filtering
 
 ## 🚀 Quickstart
 

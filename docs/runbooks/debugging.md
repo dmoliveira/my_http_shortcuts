@@ -16,6 +16,7 @@ Provide a fast path to diagnose shortcut execution failures.
 8. Check options history stats line for popup/context source split drift.
 9. Use options history source filter to isolate popup vs context-menu issues.
 10. Use options history result filter to isolate success-only or error-only runs.
+11. Use options history search filter to isolate one shortcut by name.
 
 ## Common Failure Types
 
