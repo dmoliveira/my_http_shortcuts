@@ -212,9 +212,9 @@ Legend: `todo` ⏳ `doing` 🔄 `done` ✅ `blocked` ⛔
 
 | ID | Task | Status | Done Criteria |
 |---|---|---|---|
-| E0-T1 | Scaffold MV3 + TypeScript extension | doing 🔄 | Extension runs unpacked |
-| E0-T2 | Add MIT license + public README with badges | todo ⏳ | README + LICENSE merged |
-| E0-T3 | Add Makefile + CI lint/test/typecheck/build | todo ⏳ | CI green on branch |
+| E0-T1 | Scaffold MV3 + TypeScript extension | done ✅ | Extension runs unpacked |
+| E0-T2 | Add MIT license + public README with badges | done ✅ | README + LICENSE merged |
+| E0-T3 | Add Makefile + CI lint/test/typecheck/build | doing 🔄 | CI green on branch |
 
 ### Epic E1 — Shortcut Core
 
@@ -301,7 +301,7 @@ Parallelization rule:
 
 ## 📍 Current Status
 
-- overall: planning 🔄
-- active epic: E0 Foundation
-- active task: E0-T1 Scaffold MV3 + TypeScript extension
-- blockers: none
+- overall: implementation 🔄
+- active epic: E1 Shortcut Core
+- active task: E1-T1 Shortcut schema + validation + migrations
+- blockers: dependency install command blocked by local policy gate (validation pending)
