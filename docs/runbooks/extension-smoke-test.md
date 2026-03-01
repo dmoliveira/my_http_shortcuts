@@ -18,6 +18,13 @@ make refresh-extension
 
 2. In Chrome, open `chrome://extensions`, enable Developer mode, and load unpacked `dist/`.
 
+3. Optional visual baseline capture with Playwright:
+
+```bash
+npx --yes playwright screenshot --device="Desktop Chrome" "file://$PWD/dist/popup/popup.html" /tmp/mhs-popup.png
+npx --yes playwright screenshot --device="Desktop Chrome" "file://$PWD/dist/options/options.html" /tmp/mhs-options.png
+```
+
 ## Core Functional Checks
 
 1. **Options: create shortcut**
