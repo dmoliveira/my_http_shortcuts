@@ -22,6 +22,7 @@ Provide a fast path to diagnose shortcut execution failures.
 14. Use options history sort mode to inspect latency outliers quickly.
 15. Use options max-items control to focus on the latest or smallest slice.
 16. Use min-duration filter to isolate slow executions above a threshold.
+17. Use reset-filters button to restore default debug view quickly.
 
 ## Common Failure Types
 
