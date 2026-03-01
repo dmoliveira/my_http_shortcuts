@@ -11,6 +11,8 @@
 - 6a61893 Add success-rate metric to history stats outputs
 
 ## Changes
+- 8bbc5bd docs(plan): sync E2 status and troubleshooting steps
+- 9bb1f7c docs(release): refresh draft after runtime guard hardening
 - 4bb7ac4 docs(release): refresh draft after hook and popup updates
 - ecef7f2 docs(release): document dependency gate prerequisite
 - 969845a docs(release): refresh draft notes from latest commits
@@ -20,8 +22,6 @@
 - 44a75aa Harden numeric history filters with safe parsing
 - cf91a99 Document history filter reset workflow
 - fc172e7 Document success-rate diagnostics workflow
-- 05d4787 Document release-check smoke workflow
-- 95192e6 Harden release checks with semver and smoke target
 
 ## Fixes
 - 146fa1f fix(runtime): validate payload shapes for known message types
