@@ -50,10 +50,14 @@ export async function executeShortcut(
       APP_CONSTANTS.defaultRetryDelayMs
     );
     const body = runPostScript(shortcut.postScript, await response.text());
+    const headers: Record<string, string> = {};
+    response.headers.forEach((value, key) => {
+      headers[key] = value;
+    });
     const result: ExecutionResult = {
       ok: response.ok,
       status: response.status,
-      headers: Object.fromEntries(response.headers.entries()),
+      headers,
       body,
       durationMs: Date.now() - startedAt
     };

@@ -5,41 +5,33 @@ import {
   resetPopupHistoryControls
 } from "../src/popup/history-controls";
 
+function makeSelect(value: string): HTMLSelectElement {
+  return { value, innerHTML: "", append: () => undefined } as unknown as HTMLSelectElement;
+}
+
 describe("popup history controls", () => {
   it("reads control values", () => {
-    const filter = document.createElement("select");
-    filter.innerHTML = '<option value="error">Errors</option>';
-    filter.value = "error";
+    const filter = makeSelect("error");
 
-    const maxItems = document.createElement("select");
-    maxItems.innerHTML = '<option value="5">5</option>';
-    maxItems.value = "5";
+    const maxItems = makeSelect("5");
 
     const values = readPopupHistoryControls({ filter, maxItems });
     expect(values).toEqual({ filter: "error", maxItems: 5 });
   });
 
   it("falls back to default max items when invalid", () => {
-    const filter = document.createElement("select");
-    filter.innerHTML = '<option value="all">All</option>';
-    filter.value = "all";
+    const filter = makeSelect("all");
 
-    const maxItems = document.createElement("select");
-    maxItems.innerHTML = '<option value="10">10</option>';
-    maxItems.value = "-1";
+    const maxItems = makeSelect("-1");
 
     const values = readPopupHistoryControls({ filter, maxItems });
     expect(values.maxItems).toBe(Number(DEFAULT_POPUP_HISTORY_CONTROLS.maxItems));
   });
 
   it("resets controls to defaults", () => {
-    const filter = document.createElement("select");
-    filter.innerHTML = '<option value="all">All</option>';
-    filter.value = "error";
+    const filter = makeSelect("error");
 
-    const maxItems = document.createElement("select");
-    maxItems.innerHTML = '<option value="10">10</option>';
-    maxItems.value = "20";
+    const maxItems = makeSelect("20");
 
     resetPopupHistoryControls({ filter, maxItems });
     expect(filter.value).toBe(DEFAULT_POPUP_HISTORY_CONTROLS.filter);

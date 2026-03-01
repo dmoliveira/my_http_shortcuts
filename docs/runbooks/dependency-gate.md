@@ -29,6 +29,7 @@ All required packages are already declared in `package.json` `devDependencies`:
 
 1. Run or approve dependency security validation in your local environment/policy workflow.
    - Optionally generate/update local report first with `make dependency-security-report`.
+   - Capture current command evidence bundle with `make dependency-unblock-packet`.
 2. Install dependencies:
 
 ```bash
@@ -51,6 +52,7 @@ make release-ready
 For current command evidence and exact error text, see `docs/runbooks/validation-blocker-log.md`.
 The log also includes latest manual dependency metadata review results.
 Machine-generated package metadata is available in `docs/dependency-security-report.md`.
+Machine-generated blocker bundle is available in `docs/dependency-unblock-packet.md`.
 
 ## Expected success criteria
 

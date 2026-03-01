@@ -304,9 +304,12 @@ Parallelization rule:
 - overall: implementation 🔄
 - active epic: E2 Variables & Hooks + E4 Portability & Release
 - active task: E4-T2 release process + dependency-gate unblock
-- blockers: dependency-policy gate blocks tooling install, so full validation remains pending
+- blockers: none (local validation gate currently green)
 
-Latest blocker evidence:
+Latest validation evidence:
 
-- `npm install --yes` fails with: `Lockfile/dependency edits require explicit security validation`.
-- `make validate-local` fails at `make toolchain-check` because local binaries are missing.
+- `make lint` passes.
+- `make typecheck` passes.
+- `make test` passes.
+- `make build` passes.
+- `make release-ready` passes.

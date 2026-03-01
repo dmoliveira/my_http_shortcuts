@@ -28,10 +28,11 @@ async function buildExecutionContext(): Promise<{ input: string; pageUrl: string
     return { input: "", pageUrl: tab?.url ?? "" };
   }
 
-  const [{ result: input }] = await chrome.scripting.executeScript({
+  const injectionResults = await chrome.scripting.executeScript({
     target: { tabId },
     func: () => window.getSelection?.()?.toString() ?? ""
   });
+  const input = injectionResults[0]?.result;
 
   return {
     input: typeof input === "string" ? input : "",

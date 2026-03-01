@@ -9,14 +9,14 @@ import {
 
 describe("popup view helpers", () => {
   it("renders status text", () => {
-    const status = document.createElement("p");
+    const status = { textContent: "" } as unknown as HTMLElement;
     renderPopupStatus(status, "Running");
     expect(status.textContent).toBe("Running");
   });
 
   it("toggles busy state for buttons", () => {
-    const a = document.createElement("button");
-    const b = document.createElement("button");
+    const a = { disabled: false } as unknown as HTMLButtonElement;
+    const b = { disabled: false } as unknown as HTMLButtonElement;
 
     setButtonsBusy([a, b], true);
     expect(a.disabled).toBe(true);
@@ -28,7 +28,7 @@ describe("popup view helpers", () => {
   });
 
   it("renders compact history stats line", () => {
-    const stats = document.createElement("p");
+    const stats = { textContent: "" } as unknown as HTMLElement;
     renderHistoryStats(stats, {
       total: 3,
       ok: 2,

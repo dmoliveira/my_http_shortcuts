@@ -81,6 +81,7 @@ make build
 
 ```bash
 make dependency-security-report
+make dependency-unblock-packet
 make gate-status
 make validate-local
 make release-ready

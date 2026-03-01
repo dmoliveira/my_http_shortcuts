@@ -1,29 +1,27 @@
 import { describe, expect, it } from "vitest";
 import { DEFAULT_HISTORY_FILTERS, readHistoryFilters, resetHistoryFilters } from "../src/options/history-filters";
 
+function makeSelect(value: string): HTMLSelectElement {
+  return { value, innerHTML: "", append: () => undefined } as unknown as HTMLSelectElement;
+}
+
+function makeInput(value: string): HTMLInputElement {
+  return { value } as unknown as HTMLInputElement;
+}
+
 describe("history filters", () => {
   it("reads current filter values", () => {
-    const source = document.createElement("select");
-    source.innerHTML = '<option value="popup">Popup</option>';
-    source.value = "popup";
+    const source = makeSelect("popup");
 
-    const result = document.createElement("select");
-    result.innerHTML = '<option value="error">Error</option>';
-    result.value = "error";
+    const result = makeSelect("error");
 
-    const query = document.createElement("input");
-    query.value = "abc";
+    const query = makeInput("abc");
 
-    const sort = document.createElement("select");
-    sort.innerHTML = '<option value="slowest">Slowest</option>';
-    sort.value = "slowest";
+    const sort = makeSelect("slowest");
 
-    const maxItems = document.createElement("select");
-    maxItems.innerHTML = '<option value="10">10</option>';
-    maxItems.value = "10";
+    const maxItems = makeSelect("10");
 
-    const minDurationMs = document.createElement("input");
-    minDurationMs.value = "25";
+    const minDurationMs = makeInput("25");
 
     const values = readHistoryFilters({ source, result, query, sort, maxItems, minDurationMs });
     expect(values).toEqual({
@@ -37,27 +35,17 @@ describe("history filters", () => {
   });
 
   it("falls back to defaults for invalid numeric values", () => {
-    const source = document.createElement("select");
-    source.innerHTML = '<option value="all">All</option>';
-    source.value = "all";
+    const source = makeSelect("all");
 
-    const result = document.createElement("select");
-    result.innerHTML = '<option value="all">All</option>';
-    result.value = "all";
+    const result = makeSelect("all");
 
-    const query = document.createElement("input");
-    query.value = "";
+    const query = makeInput("");
 
-    const sort = document.createElement("select");
-    sort.innerHTML = '<option value="newest">Newest</option>';
-    sort.value = "newest";
+    const sort = makeSelect("newest");
 
-    const maxItems = document.createElement("select");
-    maxItems.innerHTML = '<option value="20">20</option>';
-    maxItems.value = "-2";
+    const maxItems = makeSelect("-2");
 
-    const minDurationMs = document.createElement("input");
-    minDurationMs.value = "bad";
+    const minDurationMs = makeInput("bad");
 
     const values = readHistoryFilters({ source, result, query, sort, maxItems, minDurationMs });
     expect(values.maxItems).toBe(Number(DEFAULT_HISTORY_FILTERS.maxItems));
@@ -65,27 +53,17 @@ describe("history filters", () => {
   });
 
   it("resets controls to defaults", () => {
-    const source = document.createElement("select");
-    source.innerHTML = '<option value="all">All</option>';
-    source.value = "popup";
+    const source = makeSelect("popup");
 
-    const result = document.createElement("select");
-    result.innerHTML = '<option value="all">All</option>';
-    result.value = "error";
+    const result = makeSelect("error");
 
-    const query = document.createElement("input");
-    query.value = "x";
+    const query = makeInput("x");
 
-    const sort = document.createElement("select");
-    sort.innerHTML = '<option value="newest">Newest</option>';
-    sort.value = "slowest";
+    const sort = makeSelect("slowest");
 
-    const maxItems = document.createElement("select");
-    maxItems.innerHTML = '<option value="20">20</option>';
-    maxItems.value = "50";
+    const maxItems = makeSelect("50");
 
-    const minDurationMs = document.createElement("input");
-    minDurationMs.value = "100";
+    const minDurationMs = makeInput("100");
 
     resetHistoryFilters({ source, result, query, sort, maxItems, minDurationMs });
 

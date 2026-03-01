@@ -38,8 +38,7 @@ describe("popup formatting", () => {
   });
 
   it("reads rendered result text safely", () => {
-    const pre = document.createElement("pre");
-    pre.textContent = "hello";
+    const pre = { textContent: "hello" } as unknown as HTMLElement;
     expect(readResultText(pre)).toBe("hello");
   });
 });

@@ -26,7 +26,7 @@ describe("formatOptionsHistoryEntry", () => {
   });
 
   it("renders options history stats line", () => {
-    const element = document.createElement("p");
+    const element = { textContent: "" } as unknown as HTMLElement;
     renderOptionsHistoryStats(element, {
       total: 3,
       ok: 2,
