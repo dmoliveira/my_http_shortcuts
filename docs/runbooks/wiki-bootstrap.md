@@ -77,13 +77,19 @@ make wiki-pulse
 
 `make wiki-pulse` uses a 10-minute monitor cooldown to avoid repeated dispatches. Override with `WIKI_MONITOR_COOLDOWN_MINUTES=<n>` when needed.
 
-Autopilot command (attempt complete flow, then pulse fallback if still blocked):
+Autopilot command (runs status precheck first, then complete flow or immediate fallback):
 
 ```bash
 make wiki-autopilot
 ```
 
 Autopilot uses `WIKI_AUTOPILOT_WATCH_TIMEOUT_SECONDS=45` and `WIKI_AUTOPILOT_WATCH_POLL_SECONDS=3` by default; override as needed.
+
+Precheck behavior:
+
+- `make wiki-autopilot` first runs `make wiki-status-json`.
+- If status is `not_initialized`, autopilot skips the `wiki-watch` loop and runs `wiki-pulse` fallback immediately with clear blocker output.
+- If status is already initialized (or precheck JSON is unavailable), autopilot continues with `wiki-complete`.
 
 Automatic fallback:
 

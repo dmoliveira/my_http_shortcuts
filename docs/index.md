@@ -17,7 +17,7 @@
 - `make wiki-verify` - verify expected generated wiki pages are present
 - `make wiki-complete` - watch, dispatch wiki sync, and verify pages in one command
 - `make wiki-pulse` - run doctor/reminder/monitor cycle for pending bootstrap (with monitor cooldown)
-- `make wiki-autopilot` - attempt full completion and fall back to wiki pulse when blocked
+- `make wiki-autopilot` - run `wiki-status --json` precheck, skip watch when uninitialized, then pulse fallback
 - `docs/runbooks/dependency-gate.md` - dependency policy unblock path
 - `docs/runbooks/validation-blocker-log.md` - blocker evidence log
 - `docs/release-notes-draft.md` - generated release notes draft
