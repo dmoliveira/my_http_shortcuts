@@ -176,8 +176,9 @@ Then click **Reload** on the extension card in `chrome://extensions`.
 
 ## 💛 Support This Project
 
-- Donate directly via Stripe: https://buy.stripe.com/8x200i8bSgVe3Vl3g8bfO00
-- Support page: `docs/support-the-project.md`
+- Donate via Stripe: https://buy.stripe.com/8x200i8bSgVe3Vl3g8bfO00
+- Read full support options: `docs/support-the-project.md`
+- Non-monetary support: star the repo, report high-quality issues, and share UX/runbook feedback
 - Every contribution helps keep maintenance and feature delivery moving.
 
 ## 🤝 Contributing
